@@ -1,7 +1,7 @@
 # Compiler Settings
 CC = gcc
 CFLAGS = -g -Wall
-LFLAGS = -lSDL2 -lSDL2_image
+LFLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
 
 # Files
 INFILES=
