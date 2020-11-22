@@ -73,6 +73,11 @@ MediaObject m_text(MediaState *s, const char *str)
     return m;
 }
 
+void m_objfree(MediaObject *m)
+{
+    SDL_DestroyTexture(m->texture);
+}
+
 void m_close(MediaState *s)
 {
     SDL_DestroyRenderer(s->renderer);
