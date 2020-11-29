@@ -1,0 +1,12 @@
+Halfrect(A)
+    there is a rectangle A
+    if A.width > A.height
+        make another rectangle B with
+            width  = A.width / 2,
+            height = A.height,
+            posx   = A.posx + A.width / 2
+            posy   = A.posy
+    else
+        make another rectngle B with
+            width  = A.width
+            height = A.height / 2

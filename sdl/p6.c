@@ -14,6 +14,7 @@ int main(int argc, char **argv)
     uint64_t framecount = 0;
     char str[4096];
     int velocity[2] = {0, 0};
+    int friction = 1;
     int ground = 1;
     int jump = 0;
     m_init(&s, "Game", "font.otb");
@@ -50,10 +51,10 @@ int main(int argc, char **argv)
                     velocity[1] -= 2;
                     break;
                 case SDLK_LEFT:
-                    velocity[0] += 4;
+                    velocity[0] += 5;
                     break;
                 case SDLK_RIGHT:
-                    velocity[0] -= 4;
+                    velocity[0] -= 5;
                     break;
                 }
                 break;
@@ -68,10 +69,10 @@ int main(int argc, char **argv)
                         velocity[1] += 10;
                     break;
                 case SDLK_LEFT:
-                    velocity[0] -= 4;
+                    velocity[0] -= 5;
                     break;
                 case SDLK_RIGHT:
-                    velocity[0] += 4;
+                    velocity[0] += 5;
                     break;
                 }
                 break;
@@ -81,15 +82,15 @@ int main(int argc, char **argv)
         if (ground && jump) {
             velocity[1] -= 20;
             ground = 0;
+            friction = 0;
         }
-
         // Update
         if ((pos.y + pos.h + velocity[1]) >= 600) {
             velocity[1] = 0;
             pos.y = 600 - pos.h;
             ground = 1;
         } else {
-            velocity[1] += 3;
+            velocity[1] += 1;
         }
 
         pos.x += velocity[0];
