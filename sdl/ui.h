@@ -40,6 +40,10 @@ typedef struct UIState {
     UIWidget *widget_list; /// Remove Later
     int num_widgets;       /// Remove Later
     MediaRect dims;        /// Remove Later
+    int current_rows;
+    int current_cols;
+    int grid_active;
+    int grid_repeat;
     int keyboard_cursor; /// Current active keyboard cursor location
     int mouse_cursor;    /// Current active mouse cursor location
 } UIState;
@@ -63,8 +67,27 @@ struct UIWidget {
     void *priv_data;     /// Used in the case of widgets like sliders and textboxes.
 };
 
+
+/// Initialises the GUI library
 void ui_init(UIState *s, SDLWindowState *w);
+
+/// Supposed to be in the draw part of the game loop
+void ui_draw_widgets(UIState *s);
+
+/// Supposed to be in the update part of the game loop
 void ui_update_widgets(UIState *s);
+
+/// Tells the layout manager to create a grid layout of n rows and m columns
+/// for the next nxm widgets.
+int ui_grid(UIState *s, int rows, int cols);
+
+/// Tells the layout manager to create a grid layout of n rows and m columns.
+/// This layout will be repeated for each nxm widgets inserted.
+int ui_repeatgrid(UIState *s, int rows, int cols);
+
+/// Tells the layour manager that the next widget that will be inserted shall
+/// cover m rows and n columns
+int ui_gridspan(UIState *s, int rows, int cols);
 
 
 static inline int ui_isdown(UIWidget *s)

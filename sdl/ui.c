@@ -65,18 +65,30 @@ typedef struct UILabel {
 
 void label_init(UIState *s, UIWidget *u)
 {
-    M
+    UILabel *k = s->priv_data;
+    k->label = m_text(&s->w, u->label);
 }
 
 void label_draw(UIState *s, UIWidget *u)
 {
     UILabel *k = u->priv_data;
-    m_paint(s->w->renderer, k->label, NULL, u->dims);
+    MediaRect r = u->dims;
+    r.x += DEFAULT_PADDING;
+    r.y += DEFAULT_PADDING;
+    r.w -= DEFAULT_PADDING;
+    r.h -= DEFAULT_PADDING;
+    m_paint(s->w->renderer, k->label, NULL, &r);
 }
 
 void label_update(UIState *s, UIWidget *u)
 {
     // Nothing to do
+}
+
+void label_free(UIState *s, UIWidget *u)
+{
+    UILabel *k = u->priv_data;
+    m_objfree(&k->label);
 }
 
 UIWidgetClass uiw_label = {
@@ -100,7 +112,7 @@ typedef struct UIButton {
 
 void button_init(UIState *s, UIWidgetInstance *u)
 {
-    UIButton *k = u->priv_data;
+    // UIButton *k = u->priv_data;
     
 }
 
@@ -127,6 +139,11 @@ UIWidgetClass uiw_button = {
  * --------
  */
 
+void textbox_init(UIState *s, UIWidgetInstance *u)
+{
+    
+}
+
 void textbox_draw(UIState *s, UIWidgetInstance *u)
 {
     
@@ -147,7 +164,7 @@ UIWidgetClass uiw_textbox = {
 /******************************************************************************/
 
 UIWidgetClass ui_widget_list[] = {
-    [UI_BUTTON]  = uiw_button,
+   // [UI_BUTTON]  = uiw_button,
     [UI_LABEL]   = uiw_label,
-    [UI_TEXTBOX] = uiw_textbox
+   // [UI_TEXTBOX] = uiw_textbox
 };
