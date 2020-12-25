@@ -1,8 +1,20 @@
-Mathematics, Imperative Languages and Haskell
-=============================================
-_Anamitra Ghorui_
+---
+title: Mathematics, Imperative Languages and Haskell
+author: Anamitra Ghorui
+toc: true
+geometry:
+ - top=0.8in
+ - left=0.5in
+ - right=0.5in
+ - bottom=1in
+papersize: a5
+---
 
-## 1. Introduction
+\pagebreak
+
+TODO Rename "variable" to "identifier" and "definition" with "binding"
+
+# 1. Introduction
 
 _I will assume that you are proificient in at least one C or C-Like language, such as Python, Java, C++, Javascript etc._
 
@@ -20,9 +32,18 @@ will be greeted with a prompt like this:
 $ ghci
 GHCi, version 8.6.5: http://www.haskell.org/ghc/  :? for help
 Loaded GHCi configuration from /home/turpentine/.ghci
-> 
+Prelude> 
 
 ```
+
+`Prelude`, here, is a Haskell module. It is loaded by default into the
+interpreter and contains several core functions. Any new modules you
+load will appear prefixed against the prompt.
+
+For the purposes of this document, we will not show the prompt as
+"`Prelude>`", but as "`>`". See Section 8.3 on how to actually remove it
+from your interpreter.
+
 Here are a few basic commands. Try typing them in:
 
 ```
@@ -130,7 +151,7 @@ Also correct arguments and precedence.
 For now, we will ignore the detailed description of the
 error messages such as the above.
 
-## 2. Functions in Haskell (Part 1)
+# 2. Functions in Haskell (Part 1)
 
 In Haskell, _basic_ functions behave as if they were
 _mathematical expressions_. That is. Functions simply contain a logical
@@ -201,7 +222,7 @@ TODO:
 2. Function declaration methods
 3. Type system
 
-## 3. "Control Structures"
+# 3. "Control Structures"
 
 There is only one "control structure" in Haskell: the `if` statement.
 
@@ -239,12 +260,7 @@ notation:
 ```
 Example 3.3
 
-Haskell's interpreter allows you to break a line into more readable
-chunks by hitting Enter/Return after each segment.
-
-    > isItGreat x = if x == 5 then "great"
-    Prelude| else if x == 7 then "also great"
-    Prelude| else "that's okay too"
+    > isItGreat x = if x == 5 then "great" else if x == 7 then "also great" else "that's okay too"
     > putStrLn(isItGreat 7)
     also great
 
@@ -252,7 +268,7 @@ chunks by hitting Enter/Return after each segment.
 
 We will get to loops later.
 
-## 4. Lists (Part 1)
+# 4. Lists (Part 1)
 
 You can declare lists in Haskell like this:
 
@@ -328,7 +344,7 @@ Example 4.4
 
 
 
-## 5. Where are the loops?
+# 5. Where are the loops?
 
 There are no looping control structures in Haskell. You instead perform
 most computation using _recursive functions_.
@@ -398,7 +414,7 @@ If we were to write this in a C-Like Language, it would look like this:
 Such a function would otherwise cause a Stack Overflow with very large
 input in other languages. However, this does not happen in Haskell.
 
-## 6. Haskell is not C
+# 6. Haskell is not C
 
 By now it might be obvious to you that this is something radically
 different, way different than what you might have expected if you have
@@ -437,7 +453,7 @@ versions to the Haskell ones, and see:
 3. How and how many times that the mutation is percievable with respect
    to the current scope.
 
-## 7. Why Do This?
+# 7. Why Do This?
 
 While a proper introduction of haskell's features have not yet been
 given, here are some of the advantages of having no mutation of state
@@ -468,9 +484,9 @@ and no explicit execution order:
 4. **Reduce the general complexity of a program:**
     This is in part due to all of the above mentioned statements.
 
-## 8. Few More Interpreter Facilities
+# 8. Few More Interpreter Facilities
 
-### Running Code From Files
+## 8.1 Running Code From Files
 
 You can type all of the above examples into a file and run them in the
 interpreter. Try creating a file with the following code:
@@ -506,25 +522,60 @@ We will eventually discuss _Compiled Haskell_. However, it will come in
 a later section and for now this will be enough to execute the examples
 present in the following sections.
 
-### Multiline Statements in the Interpreter
+## 8.2 Multiline Statements
 
 The examples following this section will require you to enter in
 multiline statements. You can start a multiline statement by typing in
-`:{`, and ending with `:}`:
+`:{`, and ending with `:}` in the interpreter:
 
 ```
     > :{
-    Prelude| a x y = 
-    Prelude|     if x > y then 1
-    Prelude|     else 0
-    Prelude| :}
+    .. a x y = 
+    ..     if x > y then 1
+    ..     else 0
+    .. :}
     > a 2 3
     0
 ```
 
-## 9. Haskell Functions (Part 2) 
+The above expression can be also written without the `:{` and `:}`
+commands if executed from a file. In that case, it would appear like
+this:
+```
+a x y = 
+    if x > y then 1
+    else 0
+```
 
-### 9.1 Operators are also functions
+Whitespace matters in Haskell, and indentation denotes a program block.
+
+## 8.3 Convenience Settings for the Interpreter
+
+You can specify certain options in the interpreter. All of these options
+are prefixed with a colon (`:`), like the `:{` and `:}` mentioned
+before.
+
+Here are a few that will make it a bit easier to use the interpreter
+
+* `:set +m`: Set multiline mode. If Haskell detects that a statement
+  will require multiple lines to complete, Haskell wil automatically
+  enter the multiline mode. This does not work in all cases, as you
+  will see in the following sections.
+
+* `:set prompt "> "`: This will change your prompt from `Prelude> ` to
+  `> `.
+
+* <code>:set prompt-cont ".. "</code>: This will change the multiline
+  block prompt from `Prelude| ` to  <code>.. </code>
+
+You can make it so that all of these options are enabled in startup by
+typing these in to GHCI's startup script. Depending on your system,
+this file may be named `.ghci` or `ghci.conf`. Their locations cab
+be found [here][ghci-startup].
+
+# 9. Functions in Haskell (Part 2) 
+
+## 9.1 Operators are also functions
 
 All functions that have these following characters [[1]][haskell-lexical]
 allow you to supply 2 arguments to the function in _infix_ order:
@@ -590,7 +641,7 @@ Example 9.5
     5.0
 ```
 
-### 9.2 What about Operator Precedence?
+## 9.2 What about Operator Precedence?
 
 There are certain operator/function tokens that are given a
 [predefined precedence][haskell-opprec] by Haskell. These include
@@ -599,7 +650,7 @@ are no differences between operators and functions aside from operators
 being in infix order by default, custom operators have the same precedence
 as normal functions.
 
-### 9.3 Pattern Matching
+## 9.3 Pattern Matching
 
 Each function definition in Haskell is a "pattern". 
 Definition of a function with arguments makes you define a pattern. 
@@ -630,9 +681,9 @@ Matching a list of 2 elements and another variable:
     6
 ```
 
-### 9.4 More Ways to Define Functions
+## 9.4 More Ways to Define Functions
 
-#### 9.4.1 Definitions using Pattern Matching
+### 9.4.1 Definitions using Pattern Matching
 
 Aside from using the `if` block, we can also use pattern matching to
 define a function, and what should the function return at a particular
@@ -650,10 +701,10 @@ Mathematical definition of the factorial function:
 The factorial function in Haskell using pattern matching:
 
     > :{
-    Prelude| fac 0 = 1
-    Prelude| fac 1 = 1
-    Prelude| fac n = n * fac (n - 1)
-    Prelude| :}
+    .. fac 0 = 1
+    .. fac 1 = 1
+    .. fac n = n * fac (n - 1)
+    .. :}
     > fac 5
     120
 
@@ -669,10 +720,10 @@ int fac(int n) {
 }
 
 ```
-_(Note the use of `:{` and `:}` commands over here. These define a multiline
+_Note the use of `:{` and `:}` commands over here. These define a multiline
 block and is required for defining such a function written in multiple
 lines. Otherwise, the function definition is always overwritten each
-time we attempt to add a new pattern.) This problem is avoided when
+time we attempt to add a new pattern. This problem is avoided when
 executing from a file instead._
 
 Unlike in conventional imperative languages, it completely avoids using
@@ -687,9 +738,9 @@ Pattern with a 2 element list, and matching a list that has the second
 element as 1:
 
     > :{
-    Prelude| f [a, 1] = a + 999
-    Prelude| f [a, b] = a + b
-    Prelude| :}
+    .. f [a, 1] = a + 999
+    .. f [a, b] = a + b
+    .. :}
     > f [1000, 1]
     1999
     > f [1000, 2]
@@ -698,22 +749,433 @@ element as 1:
 Pattern with a 2 element list and a variable:
 
     > :{
-    Prelude| f [a, 1] 1 = a + 999 + 111
-    Prelude| f [a, b] c = a + b + c
-    Prelude| :}
+    .. f [a, 1] 1 = a + 999 + 111
+    .. f [a, b] c = a + b + c
+    .. :}
     > f [1000, 1] 1
     2110
     > f [1, 2] 3
     6
 ```
+### 9.4.2 `case` Syntax
 
-#### 9.4.2 
+The `case` syntax allows you to match a given expression against a
+set of patterns:
+
+```
+Example 9.4
+
+On a single line:
+
+    > x = 5
+    > case x of 5 -> 7; 7 -> 9; 9 -> 11
+    7
+
+In multiline mode:
+
+    > x = 5
+    > case x of
+    ..     5 -> 7
+    ..     7 -> 9
+    ..     9 -> 11
+    .. 
+    7
+```
+_Note how we no longer use `:{`, `:}` for a mutiline statement. this is
+due to the `:set +m` option mentioned in Section 8.3._
+
+You can use this syntax to perform pattern matching in a function:
+
+```
+Example 9.5:
+
+    > fac n = case n of
+    ..     0 -> 1;
+    ..     1 -> 1;
+    ..     otherwise -> n * fac (n - 1);
+    .. 
+    > fac 5
+    120
+```
+
+Note the use of the `otherwise` keyword over here. `otherwise` contains
+the default case that will match any case that has not been already
+specified in the case block.
+
+Case blocks are simply syntactic sugar and analogous to normal
+function pattern matching. Hence, we can rewrite the first definition in
+Example 9.3 as follows:
+
+```
+Example 9.6:
+
+    > f x = case x of
+    ..     [a, 1] -> a + 999
+    ..     [a, b] -> a + b
+    .. 
+```
+
+Notice how we have utilised `a`, `b` as placeholder variables here.
+
+### 9.4.3 Guard Syntax
+
+Guard syntax allows you to define a function by checking against a
+set of conditions rather than equating patterns. This is a shorter
+method to write `if-else` statements present in imperative languages.
+
+Within an interpreter you will have to use an explicit multiline block
+to define the function on multiple lines, unlike the previous one.
+Each conditional block is prefixed with an '`|`'
+
+```
+Example 9.7
+
+This function finds the max of two numbers:
+
+    > :{
+    .. f a b
+    ..     | a > b = a
+    ..     | otherwise = b
+    .. 
+    .. :}
+    > f 2 3
+    3
+```
+
+You can also write the function in one line, albeit being less readable:
+
+```
+Example 9.8:
+
+    > f a b | a > b = a | otherwise = b
+    > f 3 2
+    3
+```
+
+The `otherwise` keyword here was used in the same manner as in the
+previous case block method.
+
+A more complex example is as follows:
+
+```
+Example 9.9
+
+This is a 3 way comparator. It returns greater than, less than or equal
+to depending on the two numbers. This is the "spaceship" operator you
+may find in many languages like PHP and C++:
+    
+    > :{
+    .. a <=> b
+    ..     | a > b = GT
+    ..     | a == b = EQ
+    ..     | a < b  = LT
+    .. 
+    .. :}
+    > 2 <=> 2
+    EQ
+    > 2 <=> 3
+    LT
+    > 4 <=> 3
+    GT
+
+```
+
+`GT`, `EQ`, `LT` are predefined symbols. We will look into how to define
+our own such symbols later.
+
+### 9.4.4 `let .. in ..` Syntax
+
+`let` syntax allows you to define a set of local variables in a block,
+and use those variables in the final expression of the function.
+
+```
+Example 9.10:
+
+Inline method:
+
+    > hypotenuse x y = let sqrx = x^2; sqry = y^2; in sqrt (sqrx + sqry)
+    > hypotenuse 3 4
+    5.0
+
+Non-Inline method:
+
+    > :{
+    .. hypotenuse x y = let
+    ..     sqrx = x ^ 2
+    ..     sqry = y ^ 2
+    ..     in sqrt (sqrx + sqry)
+    .. :}
+    > hypotenuse 3 4
+    5.0
+```
+
+### 9.4.5 `where` Syntax
+
+`where` is similar to `let`, but in this case we supply local variables
+after they are defined.
+
+
+```
+Example 9.11
+
+Inline method:
+
+> a = x + y where x = 4; y = 3;
+.. 
+> a
+7
+
+Non-Inline method:
+
+> :{
+.. a = x + y
+..     where x = 4
+..           y = 3
+.. :}
+> a
+7
+
+```
+
+It can be used alongwith guards and other statements as well:
+
+```
+Example 9.12:
+
+This is the 3 way comparator but we replace the numbers with their
+negative counterparts:
+
+> :{
+.. a <=> b
+..     | p > q = GT
+..     | p < q = LT
+..     | p == q = EQ
+..     where p = -a
+..           q = -b
+.. :}
+> 2 <=> 3
+GT
+> 3 <=> 2
+LT
+
+```
+
+## 9.5 Currying
+
+In Haskell, a function with multiple arguments can be turned into
+another function by supplying a partial number of arguments to it.
+This is called [Currying][wiki-currying]. If the original function had
+`n` arguments, and we have supplied `k` arguments starting from the
+left of the argument list, then the new function will have `n - k`
+arguments.
+
+For example, we have a function with 2 arguments over here and we
+supply one of them. In this case below, the parameter `x` of the
+function has been bound and a new function is made, with a single
+parameter `y`. This is then bound to a new identifier named `g`:
+
+```
+Example 9.13:
+
+    > f x y = x + y
+    > g = f 2
+    > g 3
+    5
+```
+Here is a far larger example:
+
+```
+Example 9.14:
+
+    > f u v w x y z = u + v + w + x + y + z
+    > g = f 1
+    > h = g 2
+    > i = h 3
+    > j = i 4
+    > k = l 5
+    > k = j 5
+    > l = k 6
+    > l
+    21
+    
+    > m = f 1 2 3 4 5
+    > m 6
+    21
+```
+
+This is useful for, let's say, creating a function to divide all the
+elements in a list without having to create an explicit function to
+do so. We will look into how to do this later.
+
+## 9.6 Function Composition
+
+Function composition in Haskell is exactly the same as mathematical
+function composion. If there are 2 functions, `f(x)` and `g(x)`, then
+the composed function `k(x) = f(x) . g(x)` is equivalent to  `f(g(x))`.
+
+The syntax uses the `.` operator and is used as follows:
+
+```
+    > f x = x - 3
+    > g x = 3 - x
+    > k = f . g
+    > k 0
+    0
+    > k = g . f
+    > k 0
+    6
+```
+
+This is useful for chaining the functionalities of multiple functions
+together.
+
+# 10. Haskell's Type System
+
+Haskell is a [statically-typed][wiki-static] language. Types are
+determined right when a variable is compiled and retains that type for
+the rest of its runtime. This ensures that all type errors that will
+ever occur are detected at compile time.
+
+GHCI is actually an _incremental bytecode compiler_ as opposed to an
+actual interpreter. Thus whenever you declare a function, type checking
+is done as soon as you pass the definition to the interpreter, and
+any errors present are returned to you.
+
+This is in contrast to what happens in a dynamically typed language
+such as Python. Functions forwarded to the interpreter are only checked
+for syntax errors, and then _type checking is deferred until the
+function is actually called_.
+
+The following example illustrates this difference:
+
+```
+Example 10.1:
+
+Python Code:
+    
+    >>> def half_add_str(x):
+    ...     return x / 2 + "a";
+    ... 
+    >>> half_add_str(3)
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+      File "<stdin>", line 2, in half_add_str
+    TypeError: unsupported operand type(s) for +: 'float' and 'str'
+
+
+Haskell Code:
+
+    > halfAddStr x = x / 2 + "a"
+
+    <interactive>:8:16: error:
+        • No instance for (Fractional [Char]) arising from a use of ‘/’
+        • In the first argument of ‘(+)’, namely ‘x / 2’
+          In the expression: x / 2 + "a"
+          In an equation for ‘halfAddStr’: halfAddStr x = x / 2 + "a"
+
+    <interactive>:8:16: error:
+        • No instance for (Num [Char]) arising from a use of ‘+’
+        • In the expression: x / 2 + "a"
+          In an equation for ‘halfAddStr’: halfAddStr x = x / 2 + "a"
+
+```
+
+Note how the Haskell interpreter immediately notices the type error and
+in the Python interpreter the type checking only happens when we call
+the function.
+
+
+Up till now, we have not once explicitly define the type of a given
+identifier and were depending upon Haskells inferred types to assign a
+type to the identifier. Now we will learn how to define the type of an
+identifier and how does the type syntax work in Haskell.
+
+## 10.1 Explicit Declation of the Type of an Identifier
+
+All explicit type assignments are done using the `::` operator.
+Definition of the identifier must also be done on the same block as
+the type definition.
+
+```
+Example 10.2:
+
+Defintion on the same line:
+
+    > val :: Int; val = 5
+    > val
+    5
+
+Definition in a block:
+
+    > :{
+    .. val :: Int
+    .. val = 5
+    .. :}
+    > val
+    5
+```
+
+"`Int`", here, is the integer type. For a full list of standard types,
+see [here][haskell-types].
+
+The example below illustrates how types are being enforced when we
+attempt to assign a floating point number to an integer:
+
+```
+Example 10.3:
+    > :{
+    .. val :: Int
+    .. val = 5.123
+    .. :}
+
+    <interactive>:18:7: error:
+        • No instance for (Fractional Int) arising from the literal ‘5.123’
+        • In the expression: 5.123
+          In an equation for ‘val’: val = 5.123
+```
+
+In the interpreter, you can check the type of an identifier by using the
+`:t` command.
+
+```
+    > :t val
+    val :: Int
+```
+
+## 10.2 Defining Function Types
+
+```
+    > :t f
+    f :: Num a => a -> a -> a -> a -> a -> a -> a
+    > :t g
+    g :: Num a => a -> a -> a -> a -> a -> a
+    > :t h
+    h :: Num a => a -> a -> a -> a -> a
+    > :t i
+    i :: Num a => a -> a -> a -> a
+    > :t j
+    j :: Num a => a -> a -> a
+    > :t k
+    k :: Num a => a -> a
+    > :t l
+    l :: Num a => a
+
+```
+
+# 11. Lists (Part 2)
+
+## 11.1 "Cons" and Concatenation
+
+
 
 
 ------------------------------------------------------------------------
 
 [ghc]: https://www.haskell.org/ghc/
 [wiki-function]: https://en.wikipedia.org/wiki/Function_(mathematics)
+[wiki-currying]: https://en.wikipedia.org/wiki/Currying
+[ghci-startup]: https://downloads.haskell.org/ghc/latest/docs/html/users_guide/ghci.html#the-ghci-files
 [haskell-lexical]: https://www.haskell.org/onlinereport/lexemes.html
 [haskell-opprec]: https://www.haskell.org/onlinereport/decls.html#fixity
+[haskell-types]: https://www.haskell.org/onlinereport/haskell2010/haskellch6.html
 [wiki-greedy]: https://en.wikipedia.org/wiki/Greedy_algorithm
