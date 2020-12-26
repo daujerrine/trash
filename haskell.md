@@ -7,16 +7,32 @@ geometry:
  - left=0.5in
  - right=0.5in
  - bottom=1in
-papersize: a5
+ - paperwidth=180mm
+ - paperheight=240mm
+fontsize: 12pt
 ---
 
+```
+
+```
+
+[![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)
+This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
+
+__Contact:__
+
+ - Email: `anamitraghorui gmail`
+ - Github: [github.com/daujerrine](https://github.com/daujerrine)
+ - Website: [visphort.net](https://visphort.net/)
+ 
 \pagebreak
 
 TODO Rename "variable" to "identifier" and "definition" with "binding"
 
-# 1. Introduction
+# 1 Introduction
 
-_I will assume that you are proificient in at least one C or C-Like language, such as Python, Java, C++, Javascript etc._
+_I will assume that you are proificient in at least one C or C-Like 
+language, such as Python, Java, C++, Javascript etc._
 
 Haskell is a programming language.
 
@@ -151,7 +167,7 @@ Also correct arguments and precedence.
 For now, we will ignore the detailed description of the
 error messages such as the above.
 
-# 2. Functions in Haskell (Part 1)
+# 2 Functions in Haskell (Part 1)
 
 In Haskell, _basic_ functions behave as if they were
 _mathematical expressions_. That is. Functions simply contain a logical
@@ -222,7 +238,7 @@ TODO:
 2. Function declaration methods
 3. Type system
 
-# 3. "Control Structures"
+# 3 "Control Structures"
 
 There is only one "control structure" in Haskell: the `if` statement.
 
@@ -260,7 +276,8 @@ notation:
 ```
 Example 3.3
 
-    > isItGreat x = if x == 5 then "great" else if x == 7 then "also great" else "that's okay too"
+    > isItGreat x = if x == 5 then "great" else if x == 7 then "also gre
+    at" else "that's okay too"
     > putStrLn(isItGreat 7)
     also great
 
@@ -268,7 +285,7 @@ Example 3.3
 
 We will get to loops later.
 
-# 4. Lists (Part 1)
+# 4 Lists (Part 1)
 
 You can declare lists in Haskell like this:
 
@@ -344,7 +361,7 @@ Example 4.4
 
 
 
-# 5. Where are the loops?
+# 5 Where are the loops?
 
 There are no looping control structures in Haskell. You instead perform
 most computation using _recursive functions_.
@@ -414,7 +431,7 @@ If we were to write this in a C-Like Language, it would look like this:
 Such a function would otherwise cause a Stack Overflow with very large
 input in other languages. However, this does not happen in Haskell.
 
-# 6. Haskell is not C
+# 6 Haskell is not C
 
 By now it might be obvious to you that this is something radically
 different, way different than what you might have expected if you have
@@ -453,7 +470,7 @@ versions to the Haskell ones, and see:
 3. How and how many times that the mutation is percievable with respect
    to the current scope.
 
-# 7. Why Do This?
+# 7 Why Do This?
 
 While a proper introduction of haskell's features have not yet been
 given, here are some of the advantages of having no mutation of state
@@ -484,7 +501,7 @@ and no explicit execution order:
 4. **Reduce the general complexity of a program:**
     This is in part due to all of the above mentioned statements.
 
-# 8. Few More Interpreter Facilities
+# 8 Few More Interpreter Facilities
 
 ## 8.1 Running Code From Files
 
@@ -573,7 +590,7 @@ typing these in to GHCI's startup script. Depending on your system,
 this file may be named `.ghci` or `ghci.conf`. Their locations cab
 be found [here][ghci-startup].
 
-# 9. Functions in Haskell (Part 2) 
+# 9 Functions in Haskell (Part 2) 
 
 ## 9.1 Operators are also functions
 
@@ -583,6 +600,8 @@ allow you to supply 2 arguments to the function in _infix_ order:
 ```
  ! # $ % & * + . / < = > ? @ \ ^ | - ~
 ```
+
+Here's an example:
 
 ```
 Example 9.1
@@ -1029,7 +1048,7 @@ The syntax uses the `.` operator and is used as follows:
 This is useful for chaining the functionalities of multiple functions
 together.
 
-# 10. Haskell's Type System
+# 10 Haskell's Type System
 
 Haskell is a [statically-typed][wiki-static] language. Types are
 determined right when a variable is compiled and retains that type for
@@ -1144,38 +1163,259 @@ In the interpreter, you can check the type of an identifier by using the
 
 ## 10.2 Defining Function Types
 
+Identifier types are represented with syntax that resembles linked lists.
+These links are represented by arrows (`->`). Each element that is not
+the tail of the list represents an argument to a function, and the
+tail of the list represnents the final value the identifier will take
+on after all arguments are supplied, or in other words, the list is
+traversed.
+
+
+Let us have a look at a function that takes 2 integers, and finally 
+returns (or more accurately, transforms into) an integer variable:
+
 ```
-    > :t f
-    f :: Num a => a -> a -> a -> a -> a -> a -> a
-    > :t g
-    g :: Num a => a -> a -> a -> a -> a -> a
-    > :t h
-    h :: Num a => a -> a -> a -> a -> a
-    > :t i
-    i :: Num a => a -> a -> a -> a
-    > :t j
-    j :: Num a => a -> a -> a
-    > :t k
-    k :: Num a => a -> a
-    > :t l
-    l :: Num a => a
+Example 10.4:
+
+Defining the function:
+
+    > :{
+    .. addTwo :: Int -> Int -> Int
+    .. addTwo a b = a + b
+    .. :}
+
+Seeing the type using the ':t' command:
+
+    > :t addTwo
+    addTwo :: Int -> Int -> Int
+    
+Using currying to get an intermediate function:
+
+    > intermediateFunction = addTwo 3
+
+Seeing the type. Note how we have "gone" to the next element of the
+"linked list":
+
+    > :t intermediateFunction
+    intermediateFunction :: Int -> Int
+
+Evaluating the intermeduate function:
+
+    > finalValue = intermediateFunction 4
+    
+Seeing the final type. We have now "traversed" another element and have
+reached the tail of the list. We now see the type of this final
+identifier, which is "Int".
+
+    > :t finalValue
+    finalValue :: Int
+    > finalValue
+    7
+```
+
+We can also define list types by enclosing the type that the list will
+bear within square brackets (`[]`):
+
+```
+Example 10.5:
+
+    > makeDoubleList :: Int -> [Int]; makeDoubleList k = [k, k * 2] 
+    > makeDoubleList 2
+    [2,4]
+```
+
+## 10.3 Type Variables
+
+We can use placeholder variables to describe a pattern which can be
+asigned as a type. A common example of this would be the type definitions
+of `head` and `tail` described previously:
+
+```
+    > :t head
+    head :: [a] -> a
+    > :t tail
+    tail :: [a] -> [a]
+
+"a" is the type variable here. It can be anything.
+```
+
+As you may infer, we know that since the function `head` will return
+what is present at the front of the list:
+1. It will take a list with some element type `a` (hence the _list_ 
+   type `[a]`), and then,
+2. it will return a variable that has the type of the list element,
+   which is `a`.
+   
+Similarly for `tail`, it takes in an array and returns an array of the
+same type. As expected.
+
+Here is an example where we define such a function:
+
+```
+Example 10.6:
+
+    > doubleList :: a -> [a]; doubleList a = [a, a]
+    > doubleList 3
+    [3,3]
+
+```
+These therefore allow us to generically refer to types.
+
+## 10.4 Typeclasses
+
+Let us try to devise a function that doubles a number by specifying an
+explicit type:
+
+```
+Example 10.7:
+
+This function will take an integer and "turn into" an integer, as
+inferrable from the type declaration:
+
+    > doubleNumber :: Int -> Int; doubleNumber a = a * 2
+    > doubleNumber 2
+    4
+```
+
+Let us now attempt to put a floating point argument into `doubleNumber`
+now:
+
+```
+Example 10.8:
+
+    > doubleNumber 2.2
+
+    <interactive>:31:14: error:
+        • No instance for (Fractional Int) arising from the literal ‘2.2’
+        • In the first argument of ‘doubleNumber’, namely ‘2.2’
+          In the expression: doubleNumber 2.2
+          In an equation for ‘it’: it = doubleNumber 2.2
 
 ```
 
-# 11. Lists (Part 2)
+As you can see, the function throws an error since we provide a floating
+point argument. What if we want our function to be usable with
+any numerical type available?
+
+Let's see how conventional languages solve this problem:
+
+1. **Procedural languages (mainly C)**:
+   - Procedural languages, such as C may provide a _preprocessor system_
+     where the preprocessor shall simply copy paste a macro with the
+     required functionality before compilation takes place. These can
+     also be used to make rudimentary templating systems.
+   
+   - Otherwise, if the system permits pointers, pointers to void may
+     be allowed which would allow access to any sort of data
+     irrespective of its type. A function can thus take a pointer to the
+     data and another parameter for the size of the data, and operate
+     on it as it wishes. However such a method does not detail how the
+     data has been actually stored, so operations on the data block
+     containing a floating point variable as an integer will not work
+     since they are stored differently. The function may then take a
+     parameter for deducing the type of the data block.
+   
+   - Otherwise, we need to explicitly define separate functions for each
+     type. No other way around it.
+
+2. **Statically typed object-oriented languages**: 
+   - Languages such as Java and C++ can utilise _function polymorphism_
+     to be able to operate multiple types together. However we have to
+     explicitly define a new polymorphic function for each new type that
+     is not necessarily a subclass or we require more functionality for
+     a given subclass.
+
+   - Java and C++ provide actual _templating systems_, where you can use
+     placeholder types and variables. The internal system generates
+     multiple instances of the same function with different types
+     whenever they are called with such different types.
+
+3. **Dynamically typed object-oriented languages**:
+
+   Languages such as Python do not perform any type checking at all
+   up until an operation is actually evaluated. Thus no errors are
+   raised during definition of the operation.
+   If bindings to an operator actually exist for all the operands with
+   the given type, the operation succeeds, and if not an error is
+   thrown.
+   
+   This may become a problem once we attempt to debug code for type
+   errors and mismatches.
+
+
+Haskell solves this problem by introducing **Typeclasses**.
+
+Typeclasses are, as the name suggests: classes of types. These are
+similar to _Interfaces_ that you will find in C++ or Java.
+
+A typeclass may include one or more _type instances_, and one or more
+generic member variables that the instances implement. For example, the
+`Num` typeclass includes the following types. These have been probed
+using GHCI's `:i` command:
+
+```
+    > :i Num
+    class Num a where
+      (+) :: a -> a -> a
+      (-) :: a -> a -> a
+      (*) :: a -> a -> a
+      negate :: a -> a
+      abs :: a -> a
+      signum :: a -> a
+      fromInteger :: Integer -> a
+      {-# MINIMAL (+), (*), abs, signum, fromInteger, (negate | (-)) #-}
+      	-- Defined in ‘GHC.Num’
+    instance Num Word -- Defined in ‘GHC.Num’
+    instance Num Integer -- Defined in ‘GHC.Num’
+    instance Num Int -- Defined in ‘GHC.Num’
+    instance Num Float -- Defined in ‘GHC.Float’
+    instance Num Double -- Defined in ‘GHC.Float’
+```
+
+The typeclass contains functions/operators like `(+)`, `(-)`, `abs` etc.
+which each instance type has implemented.
+
+Any instance type of this typeclass `Num` can be used with any other
+instance type in the typeclass, provided that they interact only with
+functions that will maintain the type definition.
+
+We will now rewrite Example 10.7 to allow interoperability with all the
+instance types:
+
+```
+Example 10.9:
+
+    > doubleNumber :: Num a => a -> a; doubleNumber a = a * 2 
+    > doubleNumber 4
+    8
+    > doubleNumber 4.0909
+    8.1818
+```
+
+Notice the new `=>` symbol here. We first define all the typeclass
+instance variables we will be using (We separate each declaration with
+commas, although not shown here), put in the `=>` symbol and then go on
+to define the function.
+
+We will cover the functionality of type classes in a later chapter.
+
+# 11 Lists (Part 2)
+
+We will now go through a detailed description of lists and how they are
+actually working.
 
 ## 11.1 "Cons" and Concatenation
-
 
 
 
 ------------------------------------------------------------------------
 
 [ghc]: https://www.haskell.org/ghc/
+[ghci-startup]: https://downloads.haskell.org/ghc/latest/docs/html/users_guide/ghci.html#the-ghci-files 
 [wiki-function]: https://en.wikipedia.org/wiki/Function_(mathematics)
+[wiki-greedy]: https://en.wikipedia.org/wiki/Greedy_algorithm
 [wiki-currying]: https://en.wikipedia.org/wiki/Currying
-[ghci-startup]: https://downloads.haskell.org/ghc/latest/docs/html/users_guide/ghci.html#the-ghci-files
+[wiki-static]: https://en.wikipedia.org/wiki/Type_system#STATIC
 [haskell-lexical]: https://www.haskell.org/onlinereport/lexemes.html
 [haskell-opprec]: https://www.haskell.org/onlinereport/decls.html#fixity
 [haskell-types]: https://www.haskell.org/onlinereport/haskell2010/haskellch6.html
-[wiki-greedy]: https://en.wikipedia.org/wiki/Greedy_algorithm
