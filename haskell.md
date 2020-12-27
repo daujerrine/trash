@@ -1,5 +1,5 @@
 ---
-title: Mathematics, Imperative Languages and Haskell
+title: Haskell for the Imperative Programmer
 author: Anamitra Ghorui
 toc: true
 geometry:
@@ -7,9 +7,12 @@ geometry:
  - left=0.5in
  - right=0.5in
  - bottom=1in
- - paperwidth=180mm
+ - paperwidth=200mm
  - paperheight=240mm
 fontsize: 12pt
+output:
+  pdf_document:
+    latex_engine: xelatex
 ---
 
 ```
@@ -349,7 +352,8 @@ expressions using the "$" operator:
 ```
 
 The "$" operator says that everything to its right is inside a new layer
-of parantheses.
+of parantheses. This is also called the function application operator
+and a detailed description of it is given in section 9.
 
 This one returns the length, as expected:
 ```
@@ -446,9 +450,9 @@ short, _time matters most of the time_.
 
 Functional Programming languages, however, come under
 _Declarative Programming Languages_. In declarative languages, we
-ask for a solution, but _not_ how to achieve that solution. SQL and Make Files
-are examples of Declarative Programming languages which are _not_
-Functional Programming Languages.
+ask for a solution, but _not_ how to achieve that solution. SQL and
+Make Files are examples of Declarative Programming languages which are
+_not_ Functional Programming Languages.
 
 In Functional Programming languages, we compose our programs using
 functions, however, there is little to no explicit definition of the
@@ -457,6 +461,9 @@ of variables with respect to time as much as possible, that is,
 changing or _mutating_ the state. Hence,
 
 _We attempt to minimise how much time matters._
+
+Haskell comes under the class of [_Pure_ functional programming
+languages][wiki-purefunc].
 
 Recursion is used as a tool to define an _implicit order_ in the
 solutions to our problems. **Haskell is built around efficient execution
@@ -1026,6 +1033,27 @@ This is useful for, let's say, creating a function to divide all the
 elements in a list without having to create an explicit function to
 do so. We will look into how to do this later.
 
+### 9.5.1 Currying infix operators
+
+We can curry operators in an additional way to the prefix method by
+enclosing them in brackets and providing an operand on either
+side of the operator.
+
+```
+Example 9.15:
+
+    > divideFour = (/4)
+    > fourDivide = (4/)
+    > divideFour 10
+    2.5
+    > fourDivide 10
+    0.4
+
+```
+_Note: You may try currying the "-" operator, but keep in mind that
+unary "-" is also a separate operator and you will have to adjust
+for that while currying for the right hand side_
+
 ## 9.6 Function Composition
 
 Function composition in Haskell is exactly the same as mathematical
@@ -1035,6 +1063,8 @@ the composed function `k(x) = f(x) . g(x)` is equivalent to  `f(g(x))`.
 The syntax uses the `.` operator and is used as follows:
 
 ```
+Example 9.16:
+
     > f x = x - 3
     > g x = 3 - x
     > k = f . g
@@ -1048,6 +1078,54 @@ The syntax uses the `.` operator and is used as follows:
 This is useful for chaining the functionalities of multiple functions
 together.
 
+## 9.7 Anonymous or Lambda Functions
+
+[Anonymous functions][wiki-anonfunc] are functions without an explicit
+identifier. These are also found in languages like Python, Javascript
+and recent iterations of C++. These are primarily a functional
+programming construct.
+
+Anonymous functions start with a backslash (`\`). It is followed by
+arguments and finally an arrow (`->`), after which the function
+defintion is written.
+
+Here is an example usage of the syntax:
+
+```
+Example 9.16:
+
+    > a = \x y z -> x + y + z
+    > a 1 2 3
+    6
+```
+
+Anonymous functions come in quite handy while designing programs,
+especially in iteration. We will see its usage in later chapters.
+
+The type definition of the lambda function is inferred from context.
+
+## 9.8 Evaluating Functions Inside Functions
+
+We can use functions inside functions since we can pass functions
+around as simple variables. Here is a function that takes a function
+as an argument, evaluates it expecting a number and adds one to it:
+
+```
+Example 9.17:
+
+    > evalAddOne func num = (func num) + 1
+    > evalAddOne (2*) 4
+    9
+```
+
+The function decomposes as follows:
+
+```
+    1. evalAddOne (2*) 4
+    2. ((2*) 4) + 1
+    3. 8 + 1
+    4. 9
+```
 # 10 Haskell's Type System
 
 Haskell is a [statically-typed][wiki-static] language. Types are
@@ -1399,13 +1477,483 @@ to define the function.
 
 We will cover the functionality of type classes in a later chapter.
 
+## 10.5 Functions with Functions as Arguments Revisited
+
+Let us have a look at the type of `evalAddOne`, from Example 9.17:
+
+```
+    > :t evalAddOne
+    evalAddOne :: Num a => (t -> a) -> t -> a
+```
+
+Let's go through the function's arguments one by one.
+
+1. `(t -> a)`:
+
+   The function _takes in_ a function expecting an argument and will 
+   finally return a number of some sort.
+   We can deduce from the type definition of `evalAddOne` that this
+   argument can be of any type that the function accepts (as indicated
+   by the type variable `t`) but must return a number.
+   
+   This function will therefore have the type definition: `Num a => (t -> a)`
+   Where the type variable `t` is dependent on the desired function.
+   
+   In the test run we have done, we used the curried function `(*2)`.
+   It has the following type defintition:
+   
+   ```
+   > :t (*2)
+   (*2) :: Num a => a -> a
+
+   ```
+   
+   It therefore matches up with the conditions set by `evalAddOne`.
+   
+   Thus, functions as arguments will appear like this in a type
+   defintion.
+   
+2. `t`:
+
+   The function then takes in an argument that will be received by the
+   argument function, and thus should match up with the type requirement
+   of the argument function, as deductible from the type variable `t`.
+   
+3. `a`:
+
+   The function finally returns a number after all arguments have been
+   consumed.
+
 # 11 Lists (Part 2)
 
-We will now go through a detailed description of lists and how they are
-actually working.
+We will now go through a detailed description of lists and how they
+actually work.
 
-## 11.1 "Cons" and Concatenation
+## 11.1 "Lists" in Haskell are not Arrays
 
+Lists are internally represented as linked lists. This therefore
+has a number of implications on various operations on Lists, such that
+random access is an O(n) operation, appending is O(1), getting the
+last element is O(n) and so on. All operations will have the same
+complexity as operating on a linked list.
+
+These data structures come from the tradition of the Lisp family of
+Languages, where the basic unit of structured data are _ordered pairs_.
+These ordered pairs can hold, as the name suggests, two pieces of data
+(of course, actual contiguous arrays and other structures exist, but
+this is the most standard method of structural organisation in Lisp).
+
+The `cons` function in Lisp and its dialects creates such a pair. Here
+is an example in scheme, a Lisp dialect which illustrates this: 
+
+```
+    > (cons 1 2)
+    (1 . 2)
+
+Here we bind the pair to a variable named "a":
+
+    > (define a (cons 1 2))
+    > a
+    (1 . 2)
+```
+
+Just as a _linked list_, we chain these ordered pairs to store multiple
+pieces of data:
+
+```
+    > (define a (cons 1 (cons 2 (cons 3 (cons 4 (cons 5 6))))))
+    > a
+    (1 2 3 4 5 . 6)
+```
+
+A visual representation of this structure would be as follows, which
+resembles a linked list. Each `.` refering to the container element:
+
+```
+      .
+     / \
+    /   \
+   1     .
+        / \
+       /   \
+      2     .
+           / \
+          /   \
+         3     .
+              / \
+             /   \
+            4     .
+                 / \
+                /   \
+               5     6
+```
+
+There are functions that are analogous to Haskell's `head` and `tail`
+called `car` ("current address register"), and `cdr` ("current decrement
+register"):
+
+```
+    > (car a)
+    1
+    > (cdr a)
+    (2 3 4 5 . 6)
+```
+
+## 11.2 Cons in Haskell
+
+Haskell also has a `cons` equivalent, an infix operator: `:`. Although
+uptil now we have been using the other list notation for creating
+these pair chains.
+
+In the example below, we use the cons operator to extend the list:
+
+```
+Example 11.1:
+
+    > k = [1, 2]
+    > m = 3:k
+    > m
+    [3,1,2]
+```
+
+We can also use this operator on an empty list. This allows us to
+construct a whole list from it.
+
+```
+Example 11.2:
+
+    > k = 1:2:3:4:5:[]
+    > k
+    [1,2,3,4,5]
+```
+
+The list notation is therefore simply syntactic sugar.
+
+## Using Cons for Pattern Matching
+
+We can use the `:` operator to preemptively divide a list into its head
+and its tail by representing the current list as a _cons_ between
+the head and the tail of the list, and thus making it visible as two
+separate variables within the function.
+
+Here we will rewrite Example 5.1 in terms of this notation:
+
+```
+Example 11.3
+
+    > :{
+    .. sumNumbers [] = 0 -- Sum of an empty list of numbers is 0
+    .. sumNumbers (x:xs) = x + sumNumbers xs -- x is the head, xs is the tail
+    .. :}
+    > sumNumbers [2,4,6,8,10]
+    30
+
+```
+
+There can be more than one elements in the cons pattern:
+
+```
+Example 11.4
+
+    > sumFive (a:b:c:d:e:[]) = a + b + c + d + e
+    > sumFive [1,2,3,4,5]
+    15
+
+```
+
+## 11.3 List Ranges
+
+You can use the `..` operator within the list notation to define a 
+list with a certain range of numbers.
+
+```
+Example 11.5:
+
+We specify the starting and the ending numbers of the list.
+
+    > [1..10]
+    [1,2,3,4,5,6,7,8,9,10]
+    > k = [1..10]
+    > k
+    [1,2,3,4,5,6,7,8,9,10]
+```
+
+As you can see, the list elements are included in increments of 1. Even
+for floating point numbers, this is the case:
+
+```
+Example 11.6:
+
+    > k = [1.15..10.20]
+    > k
+    [1.15,2.15,3.15,4.15,5.15,6.15,7.15,8.15,9.15,10.15]
+```
+
+Note how `10.20` is not in the list. You could say that this expression
+is equivalent to this for loop in a C-like language:
+
+```
+for (int i = 1.15; i <= 10.20; i += 1) {
+    array.push(i)
+} 
+```
+
+We can specify the second element of the list to specify a custom
+increment value:
+
+```
+Example 11.7:
+
+    > [2,4 .. 20]
+    [2,4,6,8,10,12,14,16,18,20]
+```
+
+We can also specify infinite lists. These may be useful in certain
+algorithms such as in the implementation of Eratosthenes' Sieve and
+other places.
+
+```
+Example 11.8:
+
+    > k = [1..]
+    > k
+    [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,
+    26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,
+    48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,
+    70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,
+    92,93,94,95,96,97,98,99,100,101,102...
+    
+    (list does not stop printing unless interrupted by forcibly closing
+    the program or sending an interrupt with a key combination like 
+    CTRL + C)
+```
+
+It is obvious to anyone that a computer will not be able to store an
+infinite list of numbers due to physical limitations of the computing
+device. Thus these numbers in ranges are generated only as it is
+required. This is true for non-infinite ranges as well.
+
+## 11.4 List Comprehensions
+
+List comprehensions are analogus to mathematical _set comprehensions_.
+
+```
+Example 11.9:
+
+The set of all odd numbers between 0 and 100 may be represented in
+Mathematical notation as follows:
+
+ oddSet = { x | x ∈ ℕ, 1 ≤ x ≤ 100, x is odd }
+
+Haskell has a very similar notation:
+
+    > oddSet = [ x | x <- [1..100], x `mod` 2 /= 0 ]
+    > oddSet
+    [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,
+    49,51,53,55,57,59,61,63,65,67,69,71,73,75,77,79,81,83,85,87,89,91,
+    93,95,97,99]
+```
+
+"`<-`", here is the "Element of" operator. "`/=`" is the
+"not equal to" operator.
+
+Instead of `x`, we can write any function expression that uses `x` as
+a parameter. We can also use multiple variables in comprehansions:
+
+```
+Example 11.10:
+
+    > multiplicationTable = [(show(x)) ++ " x " ++ 
+                             (show(y)) ++ " = " ++ (show(x*y))
+                             | x <- [2..10], y <- [2..10] ]
+    > multiplicationTable
+    ["2 x 2 = 4","2 x 3 = 6","2 x 4 = 8","2 x 5 = 10","2 x 6 = 12",
+    "2 x 7 = 14","2 x 8 = 16","2 x 9 = 18","2 x 10 = 20","3 x 2 = 6",
+    "3 x 3 = 9","3 x 4 = 12","3 x 5 (...)
+```
+_Note that in order to split the list comprehension across multiple
+lines, the square bracket must be ended at the same or greater level of
+indentation as the rest of the block,_
+
+Here is a larger example. This program implements the popular "fizz-buzz"
+problem:
+
+```
+Example 11.11:
+
+    > fizzBuzz = [
+    ..     if (x `mod` 3) == 0 && (x `mod` 5) == 0 then "FizzBuzz"
+    ..     else if (x `mod` 3) == 0 then "Fizz"
+    ..     else "Buzz"
+    ..     | x <- [1..100],
+    ..       ((x `mod` 3) == 0) || ((x `mod` 5) == 0) ]
+    > fizzBuzz
+    ["Fizz","Buzz","Fizz","Fizz","Buzz","Fizz","FizzBuzz","Fizz","Buzz",
+    "Fizz","Fizz","Buzz","Fizz","FizzBuzz","Fizz","Buzz","Fizz","Fizz",
+    "Buzz","Fizz","FizzBuzz","Fizz","Buzz","Fizz","Fizz","Buzz","Fizz",
+    "FizzBuzz","Fizz","Buzz","Fizz","Fizz","Buzz","Fizz","FizzBuzz",
+    "Fizz","Buzz","Fizz","Fizz","Buzz","Fizz","FizzBuzz","Fizz","Buzz",
+    "Fizz","Fizz","Buzz"]
+```
+
+We will learn a method to print all of these strings later.
+
+# 12 Tuples
+
+Tuples are arrays of elements that are immutable, and cannot be changed
+in size. These can be useful to store objects such as database rows, 
+coordinates, vectors etc.
+
+```
+    > t = (1, 2)
+    > t
+    (1,2)
+    > :t t
+    t :: (Num a, Num b) => (a, b)
+```
+
+As you can see, tuple types are represented using rounded brackets.
+
+Here is an example of a list which stores tuples of fruit names and
+their prices:
+
+```
+Example 12.1
+
+    > fruitList :: [([Char], Float)]; fruitList = [("apple", 12.3), 
+    ("banana", 4.2)]
+    > fruitList
+    [("apple",12.3),("banana",4.2)]
+ 
+Now, attempting to insert an illegal element:
+
+    > newList = (132, 123) : fruitList
+
+    <interactive>:75:12: error:
+        • No instance for (Num [Char]) arising from the literal ‘132’
+        • In the expression: 132
+          In the first argument of ‘(:)’, namely ‘(132, 123)’
+          In the expression: (132, 123) : fruitList
+```
+
+# 13 Iteration in Haskell
+
+We have several utility functions that act on lists. There are a lot
+of familliar functions that you will notice here if you have used
+languages such as Python.
+
+## 13.1 The `map` function
+
+The `map` function applies a function to all the elements on a list.
+
+In this example we increment all numbers present in a list:
+
+```
+Example 13.1:
+
+    > map (1+) [1,2,3,4,5]
+    [2,3,4,5,6]
+
+```
+
+The map function can also be used to create new curried functions
+which then can be later applied:
+
+```
+Example 13.2:
+
+    > addCurryList = map (+) [1..20]
+    > (head addCurryList) 10
+    11
+
+```
+ 
+## 13.2 The `filter` function
+
+The filter function, as the name may suggest, filter things from a
+list. It takes a function that returns a truth value and operates it
+on each element of a list. If the function returns true for an element,
+then that element is accepted into the new list that `filter` will
+return.
+
+```
+Example 13.3:
+
+This statement will get odd numbers between 1 and 20:
+
+    > filter (\x -> (x `mod` 2) == 0) [1..20]
+    [2,4,6,8,10,12,14,16,18,20]
+
+```
+
+Note how we were able to avoid assigning a new identifier to a function 
+with the same functionality by using a lambda function instead.
+
+## 13.3 The Function Application Operator (`$`)
+
+This operator takes in a function argument on the left hand side and
+an argument for the function argument on the right hand side, then
+evaluates the argument function and returns the result of the
+evaluation.
+
+Let us have a look at the type of this function:
+
+```
+    > :t ($)
+    ($) :: (a -> b) -> a -> b
+```
+
+You may see that this is more or less equivalent to the type definition
+of the function `evalAddOne` presented in Example 9.17 (and discussed
+further in section 10.5), only that no type classes are used here, thus
+making the function entirely generic.
+
+Let us see an example usage of this:
+
+```
+Example 13.4:
+
+    > sqrt $ 16
+    4.0
+    > ($) sqrt 16
+    4.0
+```
+This function comes in very handy when we attempt to use `map` on all
+the functions created in the list in example 13.2. It prevents us
+entirely from defining an explicit lambda function to evaluate it.
+
+```
+Example 13.5:
+
+Evaluating list without the $ operator:
+
+    > map (\func -> func 100) addCurryList
+    [101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,
+    117,118,119,120]
+
+Now evaluating the list with the $ operator:
+
+    > map ($ 100) addCurryList
+    [101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,
+    117,118,119,120]
+```
+
+We can also use it to evaluate a function on a list of operands by
+putting the function on the left hand side:
+
+```
+Example 13.6:
+    > map (sqrt $) [1..20]
+    [1.0,1.4142135623730951,1.7320508075688772,2.0,2.23606797749979,
+    2.449489742783178,2.6457513110645907,2.8284271247461903,3.0,
+    3.1622776601683795,3.3166247903554,3.4641016151377544,
+    3.605551275463989,3.7416573867739413,3.872983346207417,4.0,
+    4.123105625617661,4.242640687119285,4.358898943540674,
+    4.47213595499958]
+
+```
+
+## 13.4 The 
 
 
 ------------------------------------------------------------------------
@@ -1416,6 +1964,8 @@ actually working.
 [wiki-greedy]: https://en.wikipedia.org/wiki/Greedy_algorithm
 [wiki-currying]: https://en.wikipedia.org/wiki/Currying
 [wiki-static]: https://en.wikipedia.org/wiki/Type_system#STATIC
+[wiki-anonfunc]: https://en.wikipedia.org/wiki/Anonymous_function
+[wiki-purefunc]: https://en.wikipedia.org/wiki/Purely_functional_programming
 [haskell-lexical]: https://www.haskell.org/onlinereport/lexemes.html
 [haskell-opprec]: https://www.haskell.org/onlinereport/decls.html#fixity
 [haskell-types]: https://www.haskell.org/onlinereport/haskell2010/haskellch6.html
