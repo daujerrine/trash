@@ -168,7 +168,8 @@ Example 1.6
 Also correct arguments and precedence.
 
 For now, we will ignore the detailed description of the
-error messages such as the above.
+error messages such as the above. The error messages should become
+intuitive to you once you are familiar with all the features in Haskell.
 
 # 2 Functions in Haskell (Part 1)
 
@@ -2204,12 +2205,145 @@ Example 13.14:
 
 ```
 
-# 14 Data, Types, Typeclasses and Records
+# 14 Data, Records, Types, and Typeclasses
 
 ## 14.1 Data
 
-"`data`" is a method of making a new set of symbols that act as values
-for variables. These are quite similar to 
+"`data`" definitions are a method of making a new set of symbols that
+act as values for variables. These are quite similar to enumerations.
+
+In this example we define a data type enumerating the several stages of
+human life and make a variable with that data type:
+
+```
+Example 15.1:
+
+    > :{
+    ..     data HumanStage = Baby | Toddler | Kid
+    ..         | Teenager | YoungAdult | MiddleAgedAdult | Old | Senile 
+    .. :}
+    > a = Senile
+    > :t a
+    a :: HumanStage
+
+```
+### 14.1.1 Printing New Data Types
+
+On attempting to simply pass the variable to the interpreter, which as
+we have seen before simply evaluates the expression and attempts to
+print it we get the following error:
+
+```
+    > a
+
+    <interactive>:11:1: error:
+        • No instance for (Show HumanStage) arising from a use of ‘print’
+        • In a stmt of an interactive GHCi command: print it
+
+```
+
+This is because of how GHCI attempts to print the datatype after the
+successful evaluation. It invokes the `print` function which in turn
+invokes `show` to convert it into a string.
+
+In order to tell Haskell to use a verbatim string representation of the
+data type symbols, we have to make it derive from the `Show` typeclass:
+
+
+```
+Example 15.2:
+
+    > :{
+    .. data HumanStage =
+    ..     Baby | Toddler | Kid | Teenager | YoungAdult |   
+    ..     MiddleAgedAdult | Old | Senile
+    ..     deriving (Show)
+    .. :}
+    > print Baby
+    Baby
+    > a = Teenager
+    > print a
+    Teenager
+    > putStrLn $ (show Teenager) ++ " " ++ (show Baby)
+    Teenager Baby
+```
+
+### 14.1.2 Tuple-Like Data
+
+We can add parameters to each of our symbols in our data types to make
+them hold data.
+
+```
+Example 15.3:
+
+    > :{
+    .. data Coordinates = 
+    ..     TwoDim Float Float |
+    ..     ThreeDim Float Float Float
+    .. :}
+    > (TwoDim 4 5)
+    TwoDim 4.0 5.0
+    > (ThreeDim 4 5 6)
+    ThreeDim 4.0 5.0 6.0 
+    > a = (TwoDim 6 7)
+    > a
+    (TwoDim 6.0 7.0)
+```
+
+`TwoDim` and `ThreeDim` here are called Data Constructors.
+
+We can pattern match such tuples in functions like this:
+
+```
+    > twoDimSquare (TwoDim a b) = (TwoDim (a * 2) (b * 2))
+    > twoDimSquare (TwoDim 4 5)
+    TwoDim 8.0 10.0
+```
+
+In fact, these data constructors are functions and can be used as such.
+The bottom value of the function will be the data "tuple".
+
+### 14.1.3 Type Variables in Data Constructors
+
+We can add arguments beside our data type identifier to add in type
+variables, hence allow us to generalise the data type:
+
+```
+    > data WeightedValue a = IntWeightedValue a Int | FloatWeightedValue a Float deriving (Show)
+    > q :: WeightedValue [Char]; q = (IntWeightedValue "Apple" 5)
+    > q
+    IntWeightedValue "Apple" 5
+```
+
+### 14.1.4 Recursive Data Constructors
+
+You can define recursive types, much like the way one would use self
+referrential struct pointers in C/C++. This allows you to define data
+structures like trees:
+
+```
+    > :{
+    .. data TreeNode = Node Integer TreeNode TreeNode | BottomNode deriving (Show)
+    .. treeleft (Node v l r) = l
+    .. treeright (Node v l r) = r
+    .. treeval (Node v l r) = v
+    .. :}
+    > a :: TreeNode; a = (Node 1 (BottomNode) (Node 3 (Node 4 (BottomNode) (BottomNode)) (BottomNode)))
+    > a
+    Node 1 BottomNode (Node 3 (Node 4 BottomNode BottomNode) BottomNode)
+    > treeright a
+    Node 3 (Node 4 BottomNode BottomNode) BottomNode
+    > treeleft $ treeright $ a
+    Node 4 BottomNode BottomNode
+    > treeval $ treeleft $ treeright $ a
+    4
+```
+
+### 14.1.4 Records
+
+Records are like the previously mentioned Tuple-Like Data Types, except
+each member of the tuple has an explicit identifier. Quite a lot like
+a struct in C or class member access in object oriented languages.
 
 
 
