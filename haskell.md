@@ -1,5 +1,5 @@
 ---
-title: Haskell for the Imperative Programmer
+title: (DRAFT) Haskell for the Imperative Programmer
 author: Anamitra Ghorui
 toc: true
 geometry:
@@ -300,7 +300,7 @@ Example 4.1
     [1,2,3,4]
 ```
 
-List Indexing works like this:
+List Indexing works like this. List indices start from 0.:
 
 ```
 Example 4.2
@@ -311,8 +311,12 @@ Example 4.2
 
 There are a few inbuilt functions that will come in handy later:
 
+## 4.1 `head` and `tail`
+
 ```
 Example 4.3
+
+(Continuing from the previous example:)
 
 The following function returns the First element, or head of the array:
 
@@ -351,19 +355,37 @@ expressions using the "$" operator:
     []
 ```
 
-The "$" operator says that everything to its right is inside a new layer
-of parantheses. This is also called the function application operator
-and a detailed description of it is given in section 9.
+The "`$`" operator says that everything to its right is inside a new layer
+of parantheses. More accurately, it says that everything to its right
+is a parameter to the function on the left.
+This is also called the function application operator and a detailed
+description of it is given in section 9.
+
+## 4.2 `length`
 
 This one returns the length, as expected:
+
 ```
-Example 4.4
+Example 4.4:
+
+(Continuing from the previous example:)
 
     > length a
     4
 ```
 
+## 4.3 `take`
 
+You can slice a desired number of elements from the start of a list
+using `take`:
+
+```
+Example 4.5:
+    
+    > take 2 [1, 2, 3, 4, 5]
+    [1,2]
+
+```
 
 # 5 Where are the loops?
 
@@ -534,6 +556,9 @@ be greeted with the following:
     Ok, one module loaded.
     >
 ```
+
+Your file now has been loaded as a module, with its identifiers now in 
+the interpreter's namespace.
 
 Now try using the function:
 
@@ -1421,7 +1446,8 @@ Let's see how conventional languages solve this problem:
    errors and mismatches.
 
 
-Haskell solves this problem by introducing **Typeclasses**.
+Haskell solves this problem by introducing polymorphism based on
+**Typeclasses**.
 
 Typeclasses are, as the name suggests: classes of types. These are
 similar to _Interfaces_ that you will find in C++ or Java.
@@ -1836,20 +1862,65 @@ Now, attempting to insert an illegal element:
           In the expression: (132, 123) : fruitList
 ```
 
+## 12.1 `fst` and `snd`
+
+Haskell by default includes functions for accessing the first and
+second elements of a 2 element tuple:
+
+```
+    > k = (4, 5)
+    > fst k
+    4
+    > snd k
+    5
+```
+
+If we want more custom functions for accessing data from n-tuples, we
+can define them as follows. Since tuples contain fixed size, immutable,
+heterogenous data, there is no way to "traverse" them.
+
+```
+    > tuple3Fst (a, b, c) = a
+    > tuple3Snd (a, b, c) = b
+    > tuple3Thrd (a, b, c) = c
+    > tuple3Thrd (3, 4, 1)
+    1
+```
+
 # 13 Iteration in Haskell
 
 We have several utility functions that act on lists. There are a lot
 of familliar functions that you will notice here if you have used
 languages such as Python.
 
-## 13.1 The `map` function
+## 13.1 The `iterate` Function
+
+`iterate` is similar to an infinite list comprehension, but one can
+use any desired iteration function to generate successive numbers in the
+list.
+
+```
+    Example 13.1:
+
+    > q = (iterate (1+) 1)
+    > q
+    [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,...
+    
+    > q = (iterate (2*) 1)
+    > 
+    > q
+    [1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,
+    65536,131072,...
+```
+
+## 13.2 The `map` function
 
 The `map` function applies a function to all the elements on a list.
 
 In this example we increment all numbers present in a list:
 
 ```
-Example 13.1:
+Example 13.2:
 
     > map (1+) [1,2,3,4,5]
     [2,3,4,5,6]
@@ -1860,7 +1931,7 @@ The map function can also be used to create new curried functions
 which then can be later applied:
 
 ```
-Example 13.2:
+Example 13.3:
 
     > addCurryList = map (+) [1..20]
     > (head addCurryList) 10
@@ -1868,16 +1939,16 @@ Example 13.2:
 
 ```
  
-## 13.2 The `filter` function
+## 13.3 The `filter` Function
 
-The filter function, as the name may suggest, filter things from a
+The filter function, as the name may suggest, filters things from a
 list. It takes a function that returns a truth value and operates it
 on each element of a list. If the function returns true for an element,
 then that element is accepted into the new list that `filter` will
 return.
 
 ```
-Example 13.3:
+Example 13.4:
 
 This statement will get odd numbers between 1 and 20:
 
@@ -1889,7 +1960,7 @@ This statement will get odd numbers between 1 and 20:
 Note how we were able to avoid assigning a new identifier to a function 
 with the same functionality by using a lambda function instead.
 
-## 13.3 The Function Application Operator (`$`)
+## 13.4 The Function Application Operator (`$`)
 
 This operator takes in a function argument on the left hand side and
 an argument for the function argument on the right hand side, then
@@ -1911,7 +1982,7 @@ making the function entirely generic.
 Let us see an example usage of this:
 
 ```
-Example 13.4:
+Example 13.5:
 
     > sqrt $ 16
     4.0
@@ -1923,7 +1994,7 @@ the functions created in the list in example 13.2. It prevents us
 entirely from defining an explicit lambda function to evaluate it.
 
 ```
-Example 13.5:
+Example 13.6:
 
 Evaluating list without the $ operator:
 
@@ -1942,7 +2013,7 @@ We can also use it to evaluate a function on a list of operands by
 putting the function on the left hand side:
 
 ```
-Example 13.6:
+Example 13.7:
     > map (sqrt $) [1..20]
     [1.0,1.4142135623730951,1.7320508075688772,2.0,2.23606797749979,
     2.449489742783178,2.6457513110645907,2.8284271247461903,3.0,
@@ -1953,7 +2024,193 @@ Example 13.6:
 
 ```
 
-## 13.4 The 
+## 13.5 The `zip` Function
+
+This function takes two lists, and combines each pair of their elements
+them into tuples in successive order:
+
+```
+Example 13.8:
+
+    > zip [1, 2, 3] [4, 5, 6]
+    [(1,4),(2,5),(3,6)]
+    
+    > zip [1, 2] [1, 2, 3, 4]
+    [(1,1),(2,2)]
+```
+
+## 13.6 The `zipWith` Function
+
+This function takes two lists, and a function that will operate on each
+successive pair of elements, and generate a new list from all the
+values returned from this function:
+
+```
+Example 13.9:
+
+    > zipWith (/) [1, 2, 3] [4, 5, 6]
+    [0.25,0.4,0.5]
+
+```
+
+## 13.7 The `fold` and `scan` Functions
+
+The `fold` functions are what you use to update the state or keep
+"persistent variables" while performing iteration. Essentially, this
+is your `for` loop in Haskell.
+
+### 13.7.1 `foldl`: Fold from Left to Right
+
+`foldl` has the following arguments:
+
+```
+    foldl func accumulator list
+
+```
+
+The argument `func` has the following arguments:
+
+```
+    func accumulator currentVariable
+
+```
+
+* `accumulator` is the persistent variable. It has the initial value
+  `initialValue`.
+* `currentVariable` is the current list element we are on.
+* It will return the new value of the accumulator
+
+`foldl` recursively operates in the following manner:
+
+```
+foldl func accumulator [] = accumulator
+foldl func accumulator list = foldl func (func accumulator (head list))
+                              (tail list)
+```
+
+* If the list is empty, the accumulator value will be the initial value.
+  This is the base case.
+
+* Else, the new accumulator value will be the return value of func. We
+  will supply it with the initial accumulator value, and the current
+  index value of the list.
+
+Thus, we are operating the list in a "folding" manner.
+
+Let us have a look at an example. This expression generates a number
+with the elements as the digits in the list:
+
+```
+Example 13.10:
+
+    > foldl (\x y -> x*10 + y) 5 [4, 3, 2, 1]
+    54321
+```
+
+The traceback of this function will be as follows;
+
+```
+1. foldl func 5     [4, 3, 2, 1]
+2. foldl func 54    [3, 2, 1]
+3. foldl func 543   [2, 1]
+4. foldl func 5432  [1]
+5, foldl func 54321 []
+6. 54321
+```
+
+### 13.7.2 `foldr`, Fold from Right to Left
+
+`foldr` is implemented like so:
+
+```
+    > :{
+    ..     foldr func i [] = i
+    ..     foldr func i (x:xs) = func x (foldr func i xs)
+    .. :}
+```
+
+This time, as you might be able to notice, the current variable and 
+accumulator variables are swapped.
+
+```
+    func currentVariable accumulator
+```
+
+The rationale for such an arrangement comes from the fact that we are
+"folding" the list leftwards, and the "folds" "accumulate" on the right
+or the left side of the list. Thus allowing for a mnemonic
+representation of the accumulation.
+
+```
+Example 13.11:
+
+    > foldr (-) 5 [1, 2, 3, 4]
+    3
+```
+
+If we were to expand this whole operation into a single expression. It
+would look like this:
+
+```
+(5 - (4 - (3 - (2 - 1))))
+
+```
+
+### 13.7.3 `scanl` and `scanr`
+
+These two functions are same as the `fold` functions, but instead of
+simply returning the final accumulator value at the end, the whole list
+of each successive accumulator values are returned.
+
+```
+Example 13.12:
+
+    > scanl (\x y -> x*10 + y) 5 [4, 3, 2, 1]
+    [5,54,543,5432,54321]
+    >  scanr (-) 5 [1, 2, 3, 4]
+    [3,-2,4,-1,5]
+```
+
+### 13.7.4 Note: Pattern Matching in these Functions
+
+One can simply set the initial accumulator value and then update it
+through the updation function. This allows us to update multiple values
+in each iteration step.
+
+Here is an example of how we would write a function that would calculate
+the average of a series of numbers:
+
+```
+Example 13.13:
+
+    > :{
+    .. average l = (fst k) / (snd k)
+    ..     where k = foldl (\(s, c) y -> (s + y, c + 1)) (0, 0) l
+    .. :}
+    > average [1, 2, 3, 4, 5]
+    3.0
+```
+### 13.7.5 `foldl1`, `foldr1`, `scanl1` and `scanr1`
+
+These functions suffixed with 1 do not require the initial accumulator
+variable as an argument. The accumulator variable is therefore of the
+type of the initial variable of the list:
+
+```
+Example 13.14:
+
+    > foldl1 (\x y -> x + y) [1, 2, 3, 4, 5]
+    15
+
+```
+
+# 14 Data, Types, Typeclasses and Records
+
+## 14.1 Data
+
+"`data`" is a method of making a new set of symbols that act as values
+for variables. These are quite similar to 
+
 
 
 ------------------------------------------------------------------------
@@ -1966,6 +2223,7 @@ Example 13.6:
 [wiki-static]: https://en.wikipedia.org/wiki/Type_system#STATIC
 [wiki-anonfunc]: https://en.wikipedia.org/wiki/Anonymous_function
 [wiki-purefunc]: https://en.wikipedia.org/wiki/Purely_functional_programming
+[kowainik-naming]: https://kowainik.github.io/posts/naming-conventions
 [haskell-lexical]: https://www.haskell.org/onlinereport/lexemes.html
 [haskell-opprec]: https://www.haskell.org/onlinereport/decls.html#fixity
 [haskell-types]: https://www.haskell.org/onlinereport/haskell2010/haskellch6.html
