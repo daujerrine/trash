@@ -11,8 +11,8 @@ geometry:
  - paperheight=240mm
 fontsize: 12pt
 output:
-  pdf_document:
-    latex_engine: xelatex
+ - pdf_document:
+    - latex_engine: xelatex
 ---
 
 ```
@@ -1764,13 +1764,15 @@ required. This is true for non-infinite ranges as well.
 
 List comprehensions are analogus to mathematical _set comprehensions_.
 
+For example, the set of all odd numbers between 0 and 100 may be
+represented in Mathematical notation as follows:
+
+_**oddSet** = { x | x ∈ ℕ, 1 ≤ x ≤ 100, x is odd }_
+
+This comprehension may be expressed in Haskell in a very similar manner:
+
 ```
 Example 11.9:
-
-The set of all odd numbers between 0 and 100 may be represented in
-Mathematical notation as follows:
-
- oddSet = { x | x ∈ ℕ, 1 ≤ x ≤ 100, x is odd }
 
 Haskell has a very similar notation:
 
@@ -2216,7 +2218,7 @@ In this example we define a data type enumerating the several stages of
 human life and make a variable with that data type:
 
 ```
-Example 15.1:
+Example 14.1:
 
     > :{
     ..     data HumanStage = Baby | Toddler | Kid
@@ -2251,7 +2253,7 @@ data type symbols, we have to make it derive from the `Show` typeclass:
 
 
 ```
-Example 15.2:
+Example 14.2:
 
     > :{
     .. data HumanStage =
@@ -2274,7 +2276,7 @@ We can add parameters to each of our symbols in our data types to make
 them hold data.
 
 ```
-Example 15.3:
+Example 14.3:
 
     > :{
     .. data Coordinates = 
@@ -2309,6 +2311,8 @@ We can add arguments beside our data type identifier to add in type
 variables, hence allow us to generalise the data type:
 
 ```
+Example 14.4
+
     > data WeightedValue a = IntWeightedValue a Int | FloatWeightedValue a Float deriving (Show)
     > q :: WeightedValue [Char]; q = (IntWeightedValue "Apple" 5)
     > q
@@ -2322,13 +2326,23 @@ referrential struct pointers in C/C++. This allows you to define data
 structures like trees:
 
 ```
+Example 14.5:
+
     > :{
-    .. data TreeNode = Node Integer TreeNode TreeNode | BottomNode deriving (Show)
+    .. data TreeNode = 
+    ..       Node Integer TreeNode TreeNode 
+    ..     | BottomNode deriving (Show)
     .. treeleft (Node v l r) = l
     .. treeright (Node v l r) = r
     .. treeval (Node v l r) = v
     .. :}
-    > a :: TreeNode; a = (Node 1 (BottomNode) (Node 3 (Node 4 (BottomNode) (BottomNode)) (BottomNode)))
+    > a = (Node 1 
+    ..         (BottomNode) 
+    ..         (Node 3 
+    ..             (Node 4 
+    ..                 (BottomNode) 
+    ..                 (BottomNode)) 
+    ..             (BottomNode)))
     > a
     Node 1 BottomNode (Node 3 (Node 4 BottomNode BottomNode) BottomNode)
     > treeright a
@@ -2339,11 +2353,51 @@ structures like trees:
     4
 ```
 
-### 14.1.4 Records
+### 14.1.5 Records
 
 Records are like the previously mentioned Tuple-Like Data Types, except
 each member of the tuple has an explicit identifier. Quite a lot like
 a struct in C or class member access in object oriented languages.
+
+Here we reimplement our previous tree definition using records:
+
+```
+Example 14.6:
+
+data Tree a = 
+      Node {
+          value :: a,
+          left  :: Tree a,
+          right :: Tree a
+      }
+    | BottomNode;
+
+```
+
+We can define a variable record as follows:
+
+```
+    > a :: Tree Int; a = Node {value = 5, left = BottomNode, right = BottomNode}
+```
+
+We can pattern-match records in functions as follows:
+
+```
+    > treeleft (Node {value = v, left = l, right = r}) = l
+    > treeleft a
+    BottomNode
+```
+
+It is not necessary that we match all the variables all the time for a
+function. Matching only those which we require in the function is
+enough:
+
+```
+    > treeleft (Node {left = l}) = l
+    > treeleft a
+    BottomNode
+```
+
 
 
 
