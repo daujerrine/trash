@@ -27,6 +27,15 @@ typedef enum UIWidgetState {
 typedef struct UIWidgetClass UIWidgetClass;
 typedef struct UIWidget UIWidget;
 
+typedef struct UIGeometryState {
+    MediaRect containter_dim;
+    MediaRect current_dim;
+    int cursor_x;
+    int cursor_y;
+    int current_rows;
+    int current_cols;
+}
+
 typedef struct UIContainerWidget {
     UIWidget *widget_list;
     int num_widgets;
@@ -35,15 +44,12 @@ typedef struct UIContainerWidget {
 } UIContainerWidget;
 
 typedef struct UIState {
+    UIGeometryState g;
     SDLWindowState *w;
     // The following 3 elements are supposed to be a widget container.
     UIWidget *widget_list; /// Remove Later
     int num_widgets;       /// Remove Later
     MediaRect dims;        /// Remove Later
-    int current_rows;
-    int current_cols;
-    int grid_active;
-    int grid_repeat;
     int keyboard_cursor; /// Current active keyboard cursor location
     int mouse_cursor;    /// Current active mouse cursor location
 } UIState;

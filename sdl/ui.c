@@ -53,6 +53,13 @@ void ui_update_widgets(UIState *s)
     }
 }
 
+void ui_draw_widgets(UIState *s)
+{
+    for (int i = 0; i < s->num_widgets; i++) {
+        ui_widget_list[type].draw(s, s->widget_list[i]); 
+    }
+}
+
 /*
  * -----
  * Label
@@ -110,18 +117,18 @@ typedef struct UIButton {
     SDL_Texture button_label;
 } UIButton;
 
-void button_init(UIState *s, UIWidgetInstance *u)
+void button_init(UIState *s, UIWidget *u)
 {
     // UIButton *k = u->priv_data;
     
 }
 
-void button_draw(UIState *s, UIWidgetInstance *u)
+void button_draw(UIState *s, UIWidget *u)
 {
     
 }
 
-void button_update(UIState *s, UIWidgetInstance *u)
+void button_update(UIState *s, UIWidget *u)
 {
     
 }
@@ -139,17 +146,17 @@ UIWidgetClass uiw_button = {
  * --------
  */
 
-void textbox_init(UIState *s, UIWidgetInstance *u)
+void textbox_init(UIState *s, UIWidget *u)
 {
     
 }
 
-void textbox_draw(UIState *s, UIWidgetInstance *u)
+void textbox_draw(UIState *s, UIWidget *u)
 {
     
 }
 
-void textbox_update(UIState *s, UIWidgetInstance *u)
+void textbox_update(UIState *s, UIWidget *u)
 {
     
 }
