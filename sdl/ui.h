@@ -3,6 +3,12 @@
 
 #include "media.h"
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+
+#define NAME_MAX_SIZE 32
+
 /*
  * And this, kids, is why most windowing toolkits are in object oriented
  * languages.
@@ -24,17 +30,23 @@ typedef enum UIWidgetState {
     UI_WIDGET_INVISIBLE
 } UIWidgetState;
 
+typedef enum UIWidgetType {
+    UI_BUTTON,
+    UI_LABEL,
+    UI_TEXTBOX
+} UIWidgetType;
+
 typedef struct UIWidgetClass UIWidgetClass;
 typedef struct UIWidget UIWidget;
 
 typedef struct UIGeometryState {
-    MediaRect containter_dim;
+    MediaRect container_dim;
     MediaRect current_dim;
     int cursor_x;
     int cursor_y;
     int current_rows;
     int current_cols;
-}
+} UIGeometryState;
 
 typedef struct UIContainerWidget {
     UIWidget *widget_list;
@@ -45,21 +57,23 @@ typedef struct UIContainerWidget {
 
 typedef struct UIState {
     UIGeometryState g;
-    SDLWindowState *w;
+    MediaState *w;
     // The following 3 elements are supposed to be a widget container.
     UIWidget *widget_list; /// Remove Later
     int num_widgets;       /// Remove Later
     MediaRect dims;        /// Remove Later
-    int keyboard_cursor; /// Current active keyboard cursor location
-    int mouse_cursor;    /// Current active mouse cursor location
+    int keyboard_cursor;   /// Current active keyboard cursor location
+    int mouse_cursor;      /// Current active mouse cursor location
 } UIState;
 
 struct UIWidgetClass {
+    char name[NAME_MAX_SIZE];
     int priv_data_size;
     // May eventually need to include a UIContainerWidget arg here
     void (*init)(UIState *s, UIWidget *u, const char *label); /// Initialises the widget
     void (*draw)(UIState *s, UIWidget *u); /// Draws the widget
     void (*update)(UIState *s, UIWidget *u); /// Updates the widget
+    void (*free)(UIWidget *u);
 };
 
 #define UI_LABEL_MAX_SIZE 256
@@ -67,7 +81,7 @@ struct UIWidgetClass {
 struct UIWidget {
     char label[UI_LABEL_MAX_SIZE]; /// Label of the given widget
     MediaRect dims;      /// Dimensions of the widget
-    UIWidgetClass *type; /// Type of the widget. Used to render it.
+    UIWidgetType type;  /// Type of the widget. Used to render it.
     int options;         /// OR'ed values drom UIOptions
     UIWidgetState state; /// Current state of widget.
     void *priv_data;     /// Used in the case of widgets like sliders and textboxes.
@@ -75,7 +89,7 @@ struct UIWidget {
 
 
 /// Initialises the GUI library
-void ui_init(UIState *s, SDLWindowState *w);
+void ui_init(UIState *s, MediaState *w);
 
 /// Supposed to be in the draw part of the game loop
 void ui_draw_widgets(UIState *s);
@@ -111,11 +125,5 @@ static inline void ui_disable(UIWidget *s)
     s->state = UI_WIDGET_DISABLED;
 }
 
-typedef enum UIWidgetType {
-    UI_BUTTON,
-    UI_LABEL,
-    UI_TEXTBOX
-} UIWidgetType;
-
-extern UIWidgetClass ui_widget_list[];
+extern const UIWidgetClass ui_widget_list[];
 #endif
