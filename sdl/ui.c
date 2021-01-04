@@ -15,9 +15,11 @@
  * =============================================================================
  */
 
-void ui_init(UIState *s, MediaState *w)
+void ui_init(UIState *s, MediaState *w, MediaRect dims)
 {
     s->w = w;
+    s->dims = dims;
+    s->g.container_dim = dims;
 
     /// TODO bound checking required for static init?
     /// TODO implement vectors instead
@@ -55,6 +57,7 @@ void ui_update_widgets(UIState *s)
 
 void ui_draw_widgets(UIState *s)
 {
+    m_rect(s->w, &s->g.container_dim);
     for (int i = 0; i < s->num_widgets; i++) {
         ui_widget_list[s->widget_list[i].type].draw(s, &s->widget_list[i]); 
     }
@@ -87,10 +90,10 @@ void ui_refresh_layout(UIState *s)
         s->widget_list[i].dims.x = g->current_dim.x + DEFAULT_PADDING;
         s->widget_list[i].dims.y = g->current_dim.y + DEFAULT_PADDING;
         s->widget_list[i].dims.w = g->current_dim.w - 2 * DEFAULT_PADDING;
-        s->widget_list[i].dims.h = 100 - 2 * DEFAULT_PADDING;
+        s->widget_list[i].dims.h = 20 - 2 * DEFAULT_PADDING;
 
         g->current_dim.x += 0;
-        g->current_dim.y += 100;
+        g->current_dim.y += 20;
     }
 }
 
@@ -116,10 +119,17 @@ void label_init(UIState *s, UIWidget *u, const char *label)
     k->label = m_text(s->w, label);
 }
 
+void label_refresh(UIState *s, UIWidget *u)
+{
+
+}
+
 void label_draw(UIState *s, UIWidget *u)
 {
     UILabel *k = u->priv_data;
-    m_paint(s->w, &k->label, &u->dims);
+    k->label.clip_rect.x = u->dims.x + u->dims.w / 2 - k->label.clip_rect.w / 2;
+    k->label.clip_rect.y = u->dims.y;
+    m_paint(s->w, &k->label, &k->label.clip_rect);
 }
 
 void label_update(UIState *s, UIWidget *u)

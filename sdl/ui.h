@@ -73,6 +73,7 @@ struct UIWidgetClass {
     void (*init)(UIState *s, UIWidget *u, const char *label); /// Initialises the widget
     void (*draw)(UIState *s, UIWidget *u); /// Draws the widget
     void (*update)(UIState *s, UIWidget *u); /// Updates the widget
+    void (*refresh)(UIState *s, UIWidget *u); /// Called when container is refreshed
     void (*free)(UIWidget *u);
 };
 
@@ -89,7 +90,13 @@ struct UIWidget {
 
 
 /// Initialises the GUI library
-void ui_init(UIState *s, MediaState *w);
+void ui_init(UIState *s, MediaState *w, MediaRect dims);
+
+/// Add a widget
+UIWidget *ui_add_widget(UIState *s, UIWidgetType type, const char *label, int options);
+
+/// Refresh layout geometry
+void ui_refresh_layout(UIState *s);
 
 /// Supposed to be in the draw part of the game loop
 void ui_draw_widgets(UIState *s);
