@@ -2,6 +2,7 @@
 title: (DRAFT) Haskell for the Imperative Programmer
 author: Anamitra Ghorui
 toc: true
+toc-title: Contents
 geometry:
  - top=0.8in
  - left=0.5in
@@ -9,6 +10,7 @@ geometry:
  - bottom=1in
  - paperwidth=200mm
  - paperheight=240mm
+colorlinks: true
 fontsize: 12pt
 output:
  - pdf_document:
@@ -32,7 +34,7 @@ __Contact:__
 
 TODO Rename "variable" to "identifier" and "definition" with "binding"
 
-# 1 Introduction
+# Introduction
 
 _I will assume that you are proificient in at least one C or C-Like 
 language, such as Python, Java, C++, Javascript etc._
@@ -65,9 +67,9 @@ from your interpreter.
 
 Here are a few basic commands. Try typing them in:
 
-```
-Example 1.1
+Example +.#
 
+```
 Comments:
 
     > -- You can put comments like this.
@@ -105,18 +107,19 @@ Concatenation:
 Unless if it is to establish precedence order, parantheses for arguments
 are not necessary:
 
-```
-Example 1.2
 
+Example +.#
+
+```
     > putStrLn "Hello"
     Hello
     > show 5
     "5"
 ```
 
-```
-Example 1.3
+Example +.#
 
+```
     > putStrLn "Hello " ++ show 5
 
     <interactive>:3:1: error:
@@ -133,9 +136,9 @@ The error message says that there are invalid arguments to the operator
 (putStrLn "Hello ") ++ (show 5).
 ```
 
-```
-Example 1.4
-    
+Example +.#
+
+``` 
     > putStrLn "Hello " ++ (show 5)
 
     <interactive>:4:1: error:
@@ -147,20 +150,18 @@ Example 1.4
 
 Still invalid arguments to the operator `++` with the same precedence.
 
+Example +.#
 
 ```
-Example 1.5
-
     > putStrLn ("Hello " ++ (show 5))
     Hello 5
 
 ```
 Correct arguments and precedence.
 
+Example +.#
 
 ```
-Example 1.6
-
     > putStrLn ("Hello " ++ show 5)
     Hello 5
 
@@ -171,15 +172,16 @@ For now, we will ignore the detailed description of the
 error messages such as the above. The error messages should become
 intuitive to you once you are familiar with all the features in Haskell.
 
-# 2 Functions in Haskell (Part 1)
+# Functions in Haskell (Part 1)
 
 In Haskell, _basic_ functions behave as if they were
 _mathematical expressions_. That is. Functions simply contain a logical
 formula. The result of the formula after we substitute any variables
 present and evaluate the formula is what is returned. 
 
+Example +.#
+
 ```
-Example 2.1
 
 Mathematical/Natural Language Expression:
     
@@ -242,13 +244,13 @@ TODO:
 2. Function declaration methods
 3. Type system
 
-# 3 "Control Structures"
+# "Control Structures"
 
 There is only one "control structure" in Haskell: the `if` statement.
 
-```
-Example 3.1
+Example +.#
 
+```
     > x = 5
     > if x == 5 then "great" else "that's okay too"
     "great"
@@ -261,9 +263,9 @@ You may notice that the if statement is returning a string.
 
 You can use these in functions as well:
 
-```
-Example 3.2
+Example +.#
 
+```
     > isItGreat x = if x == 5 then "great" else "that's okay too" 
     > isItGreat 8
     "that's okay too"
@@ -277,9 +279,9 @@ Example 3.2
 You can make a nested if-else statement like this by using the `else if`
 notation:
 
-```
-Example 3.3
+Example +.#
 
+```
     > isItGreat x = if x == 5 then "great" else if x == 7 then "also gre
     at" else "that's okay too"
     > putStrLn(isItGreat 7)
@@ -289,13 +291,13 @@ Example 3.3
 
 We will get to loops later.
 
-# 4 Lists (Part 1)
+# Lists (Part 1)
 
 You can declare lists in Haskell like this:
 
-```
-Example 4.1
+Example +.#
 
+```
     > a = [1, 2, 3, 4]
     > a
     [1,2,3,4]
@@ -303,20 +305,20 @@ Example 4.1
 
 List Indexing works like this. List indices start from 0.:
 
-```
-Example 4.2
+Example +.#
 
+```
     > a !! 1
     > 2
 ```
 
 There are a few inbuilt functions that will come in handy later:
 
-## 4.1 `head` and `tail`
+## `head` and `tail`
+
+Example +.#
 
 ```
-Example 4.3
-
 (Continuing from the previous example:)
 
 The following function returns the First element, or head of the array:
@@ -362,40 +364,40 @@ is a parameter to the function on the left.
 This is also called the function application operator and a detailed
 description of it is given in section 9.
 
-## 4.2 `length`
+## `length`
 
 This one returns the length, as expected:
 
-```
-Example 4.4:
+Example +.#
 
+```
 (Continuing from the previous example:)
 
     > length a
     4
 ```
 
-## 4.3 `take`
+## `take`
 
 You can slice a desired number of elements from the start of a list
 using `take`:
 
-```
-Example 4.5:
-    
+Example +.#
+
+``` 
     > take 2 [1, 2, 3, 4, 5]
     [1,2]
 
 ```
 
-# 5 Where are the loops?
+# Where are the loops?
 
 There are no looping control structures in Haskell. You instead perform
 most computation using _recursive functions_.
 
-```
-Example 5.1
+Example +.#
 
+```
 Summing numbers in a C-Like Language. We simply add numbers to keep
 track of the array index here:
     
@@ -458,7 +460,7 @@ If we were to write this in a C-Like Language, it would look like this:
 Such a function would otherwise cause a Stack Overflow with very large
 input in other languages. However, this does not happen in Haskell.
 
-# 6 Haskell is not C
+# Haskell is not C
 
 By now it might be obvious to you that this is something radically
 different, way different than what you might have expected if you have
@@ -500,7 +502,7 @@ versions to the Haskell ones, and see:
 3. How and how many times that the mutation is percievable with respect
    to the current scope.
 
-# 7 Why Do This?
+# Why Do This?
 
 While a proper introduction of haskell's features have not yet been
 given, here are some of the advantages of having no mutation of state
@@ -531,9 +533,9 @@ and no explicit execution order:
 4. **Reduce the general complexity of a program:**
     This is in part due to all of the above mentioned statements.
 
-# 8 Few More Interpreter Facilities
+# Few More Interpreter Facilities
 
-## 8.1 Running Code From Files
+## Running Code From Files
 
 You can type all of the above examples into a file and run them in the
 interpreter. Try creating a file with the following code:
@@ -572,7 +574,7 @@ We will eventually discuss _Compiled Haskell_. However, it will come in
 a later section and for now this will be enough to execute the examples
 present in the following sections.
 
-## 8.2 Multiline Statements
+## Multiline Statements
 
 The examples following this section will require you to enter in
 multiline statements. You can start a multiline statement by typing in
@@ -599,7 +601,7 @@ a x y =
 
 Whitespace matters in Haskell, and indentation denotes a program block.
 
-## 8.3 Convenience Settings for the Interpreter
+## Convenience Settings for the Interpreter
 
 You can specify certain options in the interpreter. All of these options
 are prefixed with a colon (`:`), like the `:{` and `:}` mentioned
@@ -623,9 +625,9 @@ typing these in to GHCI's startup script. Depending on your system,
 this file may be named `.ghci` or `ghci.conf`. Their locations cab
 be found [here][ghci-startup].
 
-# 9 Functions in Haskell (Part 2) 
+# Functions in Haskell (Part 2) 
 
-## 9.1 Operators are also functions
+## Operators are also functions
 
 All functions that have these following characters [[1]][haskell-lexical]
 allow you to supply 2 arguments to the function in _infix_ order:
@@ -636,9 +638,9 @@ allow you to supply 2 arguments to the function in _infix_ order:
 
 Here's an example:
 
-```
-Example 9.1
+Example +.#
 
+```
 Let's make an operator that finds the hypotenuse of a right angled
 triangle:
 
@@ -652,18 +654,18 @@ triangle:
 We can use an operator in prefix operator by simply adding parantheses
 to the token:
 
-```
-Example 9.2
+Example +.#
 
+```
     > (%%) 3 4
     5.0
 ```
 
 You can also define operators in this prefix manner:
 
-```
-Example 9.3
+Example +.#
 
+```
     > (%%) a b = sqrt (a ^ 2 + b ^ 2)
     > 3 %% 4
     5.0
@@ -674,9 +676,9 @@ TODO acknowledge this is simply pattern matching
 
 You can add as many characters as you want to the operator:
 
-```
-Example 9.4
+Example +.#
 
+```
     > (%%%%%%%%%%%%%%) a b = sqrt (a ^ 2 + b ^ 2)
     > 3 %%%%%%%%%%%%%% 4
     5.0
@@ -685,15 +687,15 @@ Example 9.4
 Conversely, we can turn any other function into a prefix operator by
 enclosing its token in tildes (`` ` ``):
 
-```
-Example 9.5
+Example +.#
 
+```
     > hypotenuse a b = sqrt (a ^ 2 + b ^ 2)
     > 3 `hypotenuse` 4
     5.0
 ```
 
-## 9.2 What about Operator Precedence?
+## What about Operator Precedence?
 
 There are certain operator/function tokens that are given a
 [predefined precedence][haskell-opprec] by Haskell. These include
@@ -702,7 +704,7 @@ are no differences between operators and functions aside from operators
 being in infix order by default, custom operators have the same precedence
 as normal functions.
 
-## 9.3 Pattern Matching
+## Pattern Matching
 
 Each function definition in Haskell is a "pattern". 
 Definition of a function with arguments makes you define a pattern. 
@@ -719,9 +721,9 @@ even use constants in patterns. We will discuss this in the next section.
 
 TODO Phrase this better maybe.
 
-```
-Example 9.1:
+Example +.#
 
+```
 Matching a list of 2 elements:
     > f [a, b] = a + b
     > f [2, 3]
@@ -733,18 +735,18 @@ Matching a list of 2 elements and another variable:
     6
 ```
 
-## 9.4 More Ways to Define Functions
+## More Ways to Define Functions
 
-### 9.4.1 Definitions using Pattern Matching
+### Definitions using Pattern Matching
 
 Aside from using the `if` block, we can also use pattern matching to
 define a function, and what should the function return at a particular
 value. This allows for a more natural-language or mathematical language
 manner of defining a function: 
 
-```
-Example 9.2:
+Example +.#
 
+```
 Mathematical definition of the factorial function:
     Factorial(0) = 1
     Factorial(1) = 1
@@ -783,9 +785,9 @@ an `if-else` block.
 
 A more complex example is as follows:
 
-```
-Example 9.3:
+Example +.#
 
+```
 Pattern with a 2 element list, and matching a list that has the second
 element as 1:
 
@@ -809,14 +811,14 @@ Pattern with a 2 element list and a variable:
     > f [1, 2] 3
     6
 ```
-### 9.4.2 `case` Syntax
+### `case` Syntax
 
 The `case` syntax allows you to match a given expression against a
 set of patterns:
 
-```
-Example 9.4
+Example +.#
 
+```
 On a single line:
 
     > x = 5
@@ -838,9 +840,9 @@ due to the `:set +m` option mentioned in Section 8.3._
 
 You can use this syntax to perform pattern matching in a function:
 
-```
-Example 9.5:
+Example +.#
 
+```
     > fac n = case n of
     ..     0 -> 1;
     ..     1 -> 1;
@@ -858,9 +860,9 @@ Case blocks are simply syntactic sugar and analogous to normal
 function pattern matching. Hence, we can rewrite the first definition in
 Example 9.3 as follows:
 
-```
-Example 9.6:
+Example +.#
 
+```
     > f x = case x of
     ..     [a, 1] -> a + 999
     ..     [a, b] -> a + b
@@ -869,7 +871,7 @@ Example 9.6:
 
 Notice how we have utilised `a`, `b` as placeholder variables here.
 
-### 9.4.3 Guard Syntax
+### Guard Syntax
 
 Guard syntax allows you to define a function by checking against a
 set of conditions rather than equating patterns. This is a shorter
@@ -879,9 +881,9 @@ Within an interpreter you will have to use an explicit multiline block
 to define the function on multiple lines, unlike the previous one.
 Each conditional block is prefixed with an '`|`'
 
-```
-Example 9.7
+Example +.#
 
+```
 This function finds the max of two numbers:
 
     > :{
@@ -896,9 +898,9 @@ This function finds the max of two numbers:
 
 You can also write the function in one line, albeit being less readable:
 
-```
-Example 9.8:
+Example +.#
 
+```
     > f a b | a > b = a | otherwise = b
     > f 3 2
     3
@@ -909,9 +911,9 @@ previous case block method.
 
 A more complex example is as follows:
 
-```
-Example 9.9
+Example +.#
 
+```
 This is a 3 way comparator. It returns greater than, less than or equal
 to depending on the two numbers. This is the "spaceship" operator you
 may find in many languages like PHP and C++:
@@ -935,14 +937,14 @@ may find in many languages like PHP and C++:
 `GT`, `EQ`, `LT` are predefined symbols. We will look into how to define
 our own such symbols later.
 
-### 9.4.4 `let .. in ..` Syntax
+### `let .. in ..` Syntax
 
 `let` syntax allows you to define a set of local variables in a block,
 and use those variables in the final expression of the function.
 
-```
-Example 9.10:
+Example +.#
 
+```
 Inline method:
 
     > hypotenuse x y = let sqrx = x^2; sqry = y^2; in sqrt (sqrx + sqry)
@@ -961,15 +963,14 @@ Non-Inline method:
     5.0
 ```
 
-### 9.4.5 `where` Syntax
+### `where` Syntax
 
 `where` is similar to `let`, but in this case we supply local variables
 after they are defined.
 
+Example +.#
 
 ```
-Example 9.11
-
 Inline method:
 
 > a = x + y where x = 4; y = 3;
@@ -991,9 +992,9 @@ Non-Inline method:
 
 It can be used alongwith guards and other statements as well:
 
-```
-Example 9.12:
+Example +.#
 
+```
 This is the 3 way comparator but we replace the numbers with their
 negative counterparts:
 
@@ -1012,7 +1013,7 @@ LT
 
 ```
 
-## 9.5 Currying
+## Currying
 
 In Haskell, a function with multiple arguments can be turned into
 another function by supplying a partial number of arguments to it.
@@ -1026,9 +1027,9 @@ supply one of them. In this case below, the parameter `x` of the
 function has been bound and a new function is made, with a single
 parameter `y`. This is then bound to a new identifier named `g`:
 
-```
-Example 9.13:
+Example +.#
 
+```
     > f x y = x + y
     > g = f 2
     > g 3
@@ -1036,9 +1037,9 @@ Example 9.13:
 ```
 Here is a far larger example:
 
-```
-Example 9.14:
+Example +.#
 
+```
     > f u v w x y z = u + v + w + x + y + z
     > g = f 1
     > h = g 2
@@ -1059,15 +1060,15 @@ This is useful for, let's say, creating a function to divide all the
 elements in a list without having to create an explicit function to
 do so. We will look into how to do this later.
 
-### 9.5.1 Currying infix operators
+### Currying infix operators
 
 We can curry operators in an additional way to the prefix method by
 enclosing them in brackets and providing an operand on either
 side of the operator.
 
-```
-Example 9.15:
+Example +.#
 
+```
     > divideFour = (/4)
     > fourDivide = (4/)
     > divideFour 10
@@ -1080,7 +1081,7 @@ _Note: You may try currying the "-" operator, but keep in mind that
 unary "-" is also a separate operator and you will have to adjust
 for that while currying for the right hand side_
 
-## 9.6 Function Composition
+## Function Composition
 
 Function composition in Haskell is exactly the same as mathematical
 function composion. If there are 2 functions, `f(x)` and `g(x)`, then
@@ -1088,9 +1089,9 @@ the composed function `k(x) = f(x) . g(x)` is equivalent to  `f(g(x))`.
 
 The syntax uses the `.` operator and is used as follows:
 
-```
-Example 9.16:
+Example +.#
 
+```
     > f x = x - 3
     > g x = 3 - x
     > k = f . g
@@ -1104,7 +1105,7 @@ Example 9.16:
 This is useful for chaining the functionalities of multiple functions
 together.
 
-## 9.7 Anonymous or Lambda Functions
+## Anonymous or Lambda Functions
 
 [Anonymous functions][wiki-anonfunc] are functions without an explicit
 identifier. These are also found in languages like Python, Javascript
@@ -1117,9 +1118,9 @@ defintion is written.
 
 Here is an example usage of the syntax:
 
-```
-Example 9.16:
+Example +.#
 
+```
     > a = \x y z -> x + y + z
     > a 1 2 3
     6
@@ -1130,15 +1131,15 @@ especially in iteration. We will see its usage in later chapters.
 
 The type definition of the lambda function is inferred from context.
 
-## 9.8 Evaluating Functions Inside Functions
+## Evaluating Functions Inside Functions
 
 We can use functions inside functions since we can pass functions
 around as simple variables. Here is a function that takes a function
 as an argument, evaluates it expecting a number and adds one to it:
 
-```
-Example 9.17:
+Example +.#
 
+```
     > evalAddOne func num = (func num) + 1
     > evalAddOne (2*) 4
     9
@@ -1152,7 +1153,7 @@ The function decomposes as follows:
     3. 8 + 1
     4. 9
 ```
-# 10 Haskell's Type System
+# Haskell's Type System
 
 Haskell is a [statically-typed][wiki-static] language. Types are
 determined right when a variable is compiled and retains that type for
@@ -1171,9 +1172,9 @@ function is actually called_.
 
 The following example illustrates this difference:
 
-```
-Example 10.1:
+Example +.#
 
+```
 Python Code:
     
     >>> def half_add_str(x):
@@ -1213,15 +1214,15 @@ identifier and were depending upon Haskells inferred types to assign a
 type to the identifier. Now we will learn how to define the type of an
 identifier and how does the type syntax work in Haskell.
 
-## 10.1 Explicit Declation of the Type of an Identifier
+## Explicit Declation of the Type of an Identifier
 
 All explicit type assignments are done using the `::` operator.
 Definition of the identifier must also be done on the same block as
 the type definition.
 
-```
-Example 10.2:
+Example +.#
 
+```
 Defintion on the same line:
 
     > val :: Int; val = 5
@@ -1244,8 +1245,9 @@ see [here][haskell-types].
 The example below illustrates how types are being enforced when we
 attempt to assign a floating point number to an integer:
 
+Example +.#
+
 ```
-Example 10.3:
     > :{
     .. val :: Int
     .. val = 5.123
@@ -1278,9 +1280,9 @@ traversed.
 Let us have a look at a function that takes 2 integers, and finally 
 returns (or more accurately, transforms into) an integer variable:
 
-```
-Example 10.4:
+Example +.#
 
+```
 Defining the function:
 
     > :{
@@ -1320,15 +1322,15 @@ identifier, which is "Int".
 We can also define list types by enclosing the type that the list will
 bear within square brackets (`[]`):
 
-```
-Example 10.5:
+Example +.#
 
+```
     > makeDoubleList :: Int -> [Int]; makeDoubleList k = [k, k * 2] 
     > makeDoubleList 2
     [2,4]
 ```
 
-## 10.3 Type Variables
+## Type Variables
 
 We can use placeholder variables to describe a pattern which can be
 asigned as a type. A common example of this would be the type definitions
@@ -1355,9 +1357,9 @@ same type. As expected.
 
 Here is an example where we define such a function:
 
-```
-Example 10.6:
+Example +.#
 
+```
     > doubleList :: a -> [a]; doubleList a = [a, a]
     > doubleList 3
     [3,3]
@@ -1365,14 +1367,14 @@ Example 10.6:
 ```
 These therefore allow us to generically refer to types.
 
-## 10.4 Typeclasses
+## Typeclasses
 
 Let us try to devise a function that doubles a number by specifying an
 explicit type:
 
-```
-Example 10.7:
+Example +.#
 
+```
 This function will take an integer and "turn into" an integer, as
 inferrable from the type declaration:
 
@@ -1384,9 +1386,9 @@ inferrable from the type declaration:
 Let us now attempt to put a floating point argument into `doubleNumber`
 now:
 
-```
-Example 10.8:
+Example +.#
 
+```
     > doubleNumber 2.2
 
     <interactive>:31:14: error:
@@ -1487,9 +1489,9 @@ functions that will maintain the type definition.
 We will now rewrite Example 10.7 to allow interoperability with all the
 instance types:
 
-```
-Example 10.9:
+Example +.#
 
+```
     > doubleNumber :: Num a => a -> a; doubleNumber a = a * 2 
     > doubleNumber 4
     8
@@ -1504,7 +1506,7 @@ to define the function.
 
 We will cover the functionality of type classes in a later chapter.
 
-## 10.5 Functions with Functions as Arguments Revisited
+## Functions with Functions as Arguments Revisited
 
 Let us have a look at the type of `evalAddOne`, from Example 9.17:
 
@@ -1551,12 +1553,12 @@ Let's go through the function's arguments one by one.
    The function finally returns a number after all arguments have been
    consumed.
 
-# 11 Lists (Part 2)
+# Lists (Part 2)
 
 We will now go through a detailed description of lists and how they
 actually work.
 
-## 11.1 "Lists" in Haskell are not Arrays
+## "Lists" in Haskell are not Arrays
 
 Lists are internally represented as linked lists. This therefore
 has a number of implications on various operations on Lists, such that
@@ -1626,7 +1628,7 @@ register"):
     (2 3 4 5 . 6)
 ```
 
-## 11.2 Cons in Haskell
+## Cons in Haskell
 
 Haskell also has a `cons` equivalent, an infix operator: `:`. Although
 uptil now we have been using the other list notation for creating
@@ -1634,9 +1636,9 @@ these pair chains.
 
 In the example below, we use the cons operator to extend the list:
 
-```
-Example 11.1:
+Example +.#
 
+```
     > k = [1, 2]
     > m = 3:k
     > m
@@ -1646,9 +1648,9 @@ Example 11.1:
 We can also use this operator on an empty list. This allows us to
 construct a whole list from it.
 
-```
-Example 11.2:
+Example +.#
 
+```
     > k = 1:2:3:4:5:[]
     > k
     [1,2,3,4,5]
@@ -1665,9 +1667,9 @@ separate variables within the function.
 
 Here we will rewrite Example 5.1 in terms of this notation:
 
-```
-Example 11.3
+Example +.#
 
+```
     > :{
     .. sumNumbers [] = 0 -- Sum of an empty list of numbers is 0
     .. sumNumbers (x:xs) = x + sumNumbers xs -- x is the head, xs is the tail
@@ -1679,23 +1681,23 @@ Example 11.3
 
 There can be more than one elements in the cons pattern:
 
-```
-Example 11.4
+Example +.#
 
+```
     > sumFive (a:b:c:d:e:[]) = a + b + c + d + e
     > sumFive [1,2,3,4,5]
     15
 
 ```
 
-## 11.3 List Ranges
+## List Ranges
 
 You can use the `..` operator within the list notation to define a 
 list with a certain range of numbers.
 
-```
-Example 11.5:
+Example +.#
 
+```
 We specify the starting and the ending numbers of the list.
 
     > [1..10]
@@ -1708,9 +1710,9 @@ We specify the starting and the ending numbers of the list.
 As you can see, the list elements are included in increments of 1. Even
 for floating point numbers, this is the case:
 
-```
-Example 11.6:
+Example +.#
 
+```
     > k = [1.15..10.20]
     > k
     [1.15,2.15,3.15,4.15,5.15,6.15,7.15,8.15,9.15,10.15]
@@ -1728,9 +1730,9 @@ for (int i = 1.15; i <= 10.20; i += 1) {
 We can specify the second element of the list to specify a custom
 increment value:
 
-```
-Example 11.7:
+Example +.#
 
+```
     > [2,4 .. 20]
     [2,4,6,8,10,12,14,16,18,20]
 ```
@@ -1739,9 +1741,9 @@ We can also specify infinite lists. These may be useful in certain
 algorithms such as in the implementation of Eratosthenes' Sieve and
 other places.
 
-```
-Example 11.8:
+Example +.#
 
+```
     > k = [1..]
     > k
     [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,
@@ -1760,7 +1762,7 @@ infinite list of numbers due to physical limitations of the computing
 device. Thus these numbers in ranges are generated only as it is
 required. This is true for non-infinite ranges as well.
 
-## 11.4 List Comprehensions
+## List Comprehensions
 
 List comprehensions are analogus to mathematical _set comprehensions_.
 
@@ -1771,9 +1773,9 @@ _**oddSet** = { x | x ∈ ℕ, 1 ≤ x ≤ 100, x is odd }_
 
 This comprehension may be expressed in Haskell in a very similar manner:
 
-```
-Example 11.9:
+Example +.#
 
+```
 Haskell has a very similar notation:
 
     > oddSet = [ x | x <- [1..100], x `mod` 2 /= 0 ]
@@ -1789,9 +1791,9 @@ Haskell has a very similar notation:
 Instead of `x`, we can write any function expression that uses `x` as
 a parameter. We can also use multiple variables in comprehansions:
 
-```
-Example 11.10:
+Example +.#
 
+```
     > multiplicationTable = [(show(x)) ++ " x " ++ 
                              (show(y)) ++ " = " ++ (show(x*y))
                              | x <- [2..10], y <- [2..10] ]
@@ -1807,9 +1809,9 @@ indentation as the rest of the block,_
 Here is a larger example. This program implements the popular "fizz-buzz"
 problem:
 
-```
-Example 11.11:
+Example +.#
 
+```
     > fizzBuzz = [
     ..     if (x `mod` 3) == 0 && (x `mod` 5) == 0 then "FizzBuzz"
     ..     else if (x `mod` 3) == 0 then "Fizz"
@@ -1827,7 +1829,7 @@ Example 11.11:
 
 We will learn a method to print all of these strings later.
 
-# 12 Tuples
+# Tuples
 
 Tuples are arrays of elements that are immutable, and cannot be changed
 in size. These can be useful to store objects such as database rows, 
@@ -1846,9 +1848,9 @@ As you can see, tuple types are represented using rounded brackets.
 Here is an example of a list which stores tuples of fruit names and
 their prices:
 
-```
-Example 12.1
+Example +.#
 
+```
     > fruitList :: [([Char], Float)]; fruitList = [("apple", 12.3), 
     ("banana", 4.2)]
     > fruitList
@@ -1865,7 +1867,7 @@ Now, attempting to insert an illegal element:
           In the expression: (132, 123) : fruitList
 ```
 
-## 12.1 `fst` and `snd`
+## `fst` and `snd`
 
 Haskell by default includes functions for accessing the first and
 second elements of a 2 element tuple:
@@ -1890,21 +1892,21 @@ heterogenous data, there is no way to "traverse" them.
     1
 ```
 
-# 13 Iteration in Haskell
+# Iteration in Haskell
 
 We have several utility functions that act on lists. There are a lot
 of familliar functions that you will notice here if you have used
 languages such as Python.
 
-## 13.1 The `iterate` Function
+## The `iterate` Function
 
 `iterate` is similar to an infinite list comprehension, but one can
 use any desired iteration function to generate successive numbers in the
 list.
 
-```
-    Example 13.1:
+Example +.#
 
+```
     > q = (iterate (1+) 1)
     > q
     [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,...
@@ -1916,15 +1918,15 @@ list.
     65536,131072,...
 ```
 
-## 13.2 The `map` function
+## The `map` function
 
 The `map` function applies a function to all the elements on a list.
 
 In this example we increment all numbers present in a list:
 
-```
-Example 13.2:
+Example +.#
 
+```
     > map (1+) [1,2,3,4,5]
     [2,3,4,5,6]
 
@@ -1933,16 +1935,16 @@ Example 13.2:
 The map function can also be used to create new curried functions
 which then can be later applied:
 
-```
-Example 13.3:
+Example +.#
 
+```
     > addCurryList = map (+) [1..20]
     > (head addCurryList) 10
     11
 
 ```
  
-## 13.3 The `filter` Function
+## The `filter` Function
 
 The filter function, as the name may suggest, filters things from a
 list. It takes a function that returns a truth value and operates it
@@ -1950,9 +1952,9 @@ on each element of a list. If the function returns true for an element,
 then that element is accepted into the new list that `filter` will
 return.
 
-```
-Example 13.4:
+Example +.#
 
+```
 This statement will get odd numbers between 1 and 20:
 
     > filter (\x -> (x `mod` 2) == 0) [1..20]
@@ -1963,7 +1965,7 @@ This statement will get odd numbers between 1 and 20:
 Note how we were able to avoid assigning a new identifier to a function 
 with the same functionality by using a lambda function instead.
 
-## 13.4 The Function Application Operator (`$`)
+## The Function Application Operator (`$`)
 
 This operator takes in a function argument on the left hand side and
 an argument for the function argument on the right hand side, then
@@ -1984,9 +1986,9 @@ making the function entirely generic.
 
 Let us see an example usage of this:
 
-```
-Example 13.5:
+Example +.#
 
+```
     > sqrt $ 16
     4.0
     > ($) sqrt 16
@@ -1996,9 +1998,9 @@ This function comes in very handy when we attempt to use `map` on all
 the functions created in the list in example 13.2. It prevents us
 entirely from defining an explicit lambda function to evaluate it.
 
-```
-Example 13.6:
+Example +.#
 
+```
 Evaluating list without the $ operator:
 
     > map (\func -> func 100) addCurryList
@@ -2015,8 +2017,9 @@ Now evaluating the list with the $ operator:
 We can also use it to evaluate a function on a list of operands by
 putting the function on the left hand side:
 
+Example +.#
+
 ```
-Example 13.7:
     > map (sqrt $) [1..20]
     [1.0,1.4142135623730951,1.7320508075688772,2.0,2.23606797749979,
     2.449489742783178,2.6457513110645907,2.8284271247461903,3.0,
@@ -2027,14 +2030,14 @@ Example 13.7:
 
 ```
 
-## 13.5 The `zip` Function
+## The `zip` Function
 
 This function takes two lists, and combines each pair of their elements
 them into tuples in successive order:
 
-```
-Example 13.8:
+Example +.#
 
+```
     > zip [1, 2, 3] [4, 5, 6]
     [(1,4),(2,5),(3,6)]
     
@@ -2042,27 +2045,27 @@ Example 13.8:
     [(1,1),(2,2)]
 ```
 
-## 13.6 The `zipWith` Function
+## The `zipWith` Function
 
 This function takes two lists, and a function that will operate on each
 successive pair of elements, and generate a new list from all the
 values returned from this function:
 
-```
-Example 13.9:
+Example +.#
 
+```
     > zipWith (/) [1, 2, 3] [4, 5, 6]
     [0.25,0.4,0.5]
 
 ```
 
-## 13.7 The `fold` and `scan` Functions
+## The `fold` and `scan` Functions
 
 The `fold` functions are what you use to update the state or keep
 "persistent variables" while performing iteration. Essentially, this
 is your `for` loop in Haskell.
 
-### 13.7.1 `foldl`: Fold from Left to Right
+### `foldl`: Fold from Left to Right
 
 `foldl` has the following arguments:
 
@@ -2103,9 +2106,9 @@ Thus, we are operating the list in a "folding" manner.
 Let us have a look at an example. This expression generates a number
 with the elements as the digits in the list:
 
-```
-Example 13.10:
+Example +.#
 
+```
     > foldl (\x y -> x*10 + y) 5 [4, 3, 2, 1]
     54321
 ```
@@ -2121,7 +2124,7 @@ The traceback of this function will be as follows;
 6. 54321
 ```
 
-### 13.7.2 `foldr`, Fold from Right to Left
+### `foldr`, Fold from Right to Left
 
 `foldr` is implemented like so:
 
@@ -2144,9 +2147,9 @@ The rationale for such an arrangement comes from the fact that we are
 or the left side of the list. Thus allowing for a mnemonic
 representation of the accumulation.
 
-```
-Example 13.11:
+Example +.#
 
+```
     > foldr (-) 5 [1, 2, 3, 4]
     3
 ```
@@ -2159,22 +2162,22 @@ would look like this:
 
 ```
 
-### 13.7.3 `scanl` and `scanr`
+### `scanl` and `scanr`
 
 These two functions are same as the `fold` functions, but instead of
 simply returning the final accumulator value at the end, the whole list
 of each successive accumulator values are returned.
 
-```
-Example 13.12:
+Example +.#
 
+```
     > scanl (\x y -> x*10 + y) 5 [4, 3, 2, 1]
     [5,54,543,5432,54321]
     >  scanr (-) 5 [1, 2, 3, 4]
     [3,-2,4,-1,5]
 ```
 
-### 13.7.4 Note: Pattern Matching in these Functions
+### Note: Pattern Matching in these Functions
 
 One can simply set the initial accumulator value and then update it
 through the updation function. This allows us to update multiple values
@@ -2183,9 +2186,9 @@ in each iteration step.
 Here is an example of how we would write a function that would calculate
 the average of a series of numbers:
 
-```
-Example 13.13:
+Example +.#
 
+```
     > :{
     .. average l = (fst k) / (snd k)
     ..     where k = foldl (\(s, c) y -> (s + y, c + 1)) (0, 0) l
@@ -2193,23 +2196,23 @@ Example 13.13:
     > average [1, 2, 3, 4, 5]
     3.0
 ```
-### 13.7.5 `foldl1`, `foldr1`, `scanl1` and `scanr1`
+### `foldl1`, `foldr1`, `scanl1` and `scanr1`
 
 These functions suffixed with 1 do not require the initial accumulator
 variable as an argument. The accumulator variable is therefore of the
 type of the initial variable of the list:
 
-```
-Example 13.14:
+Example +.#
 
+```
     > foldl1 (\x y -> x + y) [1, 2, 3, 4, 5]
     15
 
 ```
 
-# 14 Data, Records, Types, and Typeclasses
+# Data, Records, Types, and Typeclasses
 
-## 14.1 Data
+## Data
 
 "`data`" definitions are a method of making a new set of symbols that
 act as values for variables. These are quite similar to enumerations.
@@ -2217,9 +2220,9 @@ act as values for variables. These are quite similar to enumerations.
 In this example we define a data type enumerating the several stages of
 human life and make a variable with that data type:
 
-```
-Example 14.1:
+Example +.#
 
+```
     > :{
     ..     data HumanStage = Baby | Toddler | Kid
     ..         | Teenager | YoungAdult | MiddleAgedAdult | Old | Senile 
@@ -2229,7 +2232,7 @@ Example 14.1:
     a :: HumanStage
 
 ```
-### 14.1.1 Printing New Data Types
+### Printing New Data Types
 
 On attempting to simply pass the variable to the interpreter, which as
 we have seen before simply evaluates the expression and attempts to
@@ -2251,10 +2254,9 @@ invokes `show` to convert it into a string.
 In order to tell Haskell to use a verbatim string representation of the
 data type symbols, we have to make it derive from the `Show` typeclass:
 
+Example +.#
 
 ```
-Example 14.2:
-
     > :{
     .. data HumanStage =
     ..     Baby | Toddler | Kid | Teenager | YoungAdult |   
@@ -2270,14 +2272,14 @@ Example 14.2:
     Teenager Baby
 ```
 
-### 14.1.2 Tuple-Like Data
+### Tuple-Like Data
 
 We can add parameters to each of our symbols in our data types to make
 them hold data.
 
-```
-Example 14.3:
+Example +.#
 
+```
     > :{
     .. data Coordinates = 
     ..     TwoDim Float Float |
@@ -2305,29 +2307,29 @@ We can pattern match such tuples in functions like this:
 In fact, these data constructors are functions and can be used as such.
 The bottom value of the function will be the data "tuple".
 
-### 14.1.3 Type Variables in Data Constructors
+### Type Variables in Data Constructors
 
 We can add arguments beside our data type identifier to add in type
 variables, hence allow us to generalise the data type:
 
-```
-Example 14.4
+Example +.#
 
+```
     > data WeightedValue a = IntWeightedValue a Int | FloatWeightedValue a Float deriving (Show)
     > q :: WeightedValue [Char]; q = (IntWeightedValue "Apple" 5)
     > q
     IntWeightedValue "Apple" 5
 ```
 
-### 14.1.4 Recursive Data Constructors
+### Recursive Data Constructors
 
 You can define recursive types, much like the way one would use self
 referrential struct pointers in C/C++. This allows you to define data
 structures like trees:
 
-```
-Example 14.5:
+Example +.#
 
+```
     > :{
     .. data TreeNode = 
     ..       Node Integer TreeNode TreeNode 
@@ -2353,7 +2355,7 @@ Example 14.5:
     4
 ```
 
-### 14.1.5 Records
+### Records
 
 Records are like the previously mentioned Tuple-Like Data Types, except
 each member of the tuple has an explicit identifier. Quite a lot like
@@ -2361,9 +2363,9 @@ a struct in C or class member access in object oriented languages.
 
 Here we reimplement our previous tree definition using records:
 
-```
-Example 14.6:
+Example +.#
 
+```
 data Tree a = 
       Node {
           value :: a,

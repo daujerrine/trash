@@ -1,0 +1,1 @@
+pandoc haskell.md --listings -H header.tex --pdf-engine=xelatex -V mainfont="DejaVu Serif" -o haskell.pdf
