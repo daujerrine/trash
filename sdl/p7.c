@@ -23,10 +23,12 @@ int main(int argc, char **argv)
     m_timer_init(&t, 1000);
     m_init(&s, "Game", "font.otb");
     ui_init(&ui, &s, (MediaRect) {.x = 30, .y = 30, .w = 500, .h = 300});
-    ui_add_widget(&ui, UI_LABEL, "Hello", 0);
-    ui_add_widget(&ui, UI_LABEL, "Hi", 0);
-    ui_add_widget(&ui, UI_LABEL, "buh", 0);
-    ui_add_widget(&ui, UI_LABEL, "bye", 0);
+    ui_add_widget(&ui, UI_LABEL, "Start Server", 0);
+    ui_add_widget(&ui, UI_BUTTON, "<<Toggle>>", 0);
+    ui_add_widget(&ui, UI_LABEL, "Stop Server", 0);
+    ui_add_widget(&ui, UI_BUTTON, "<<Toggle>>", 0);
+    ui_add_widget(&ui, UI_LABEL, "Add Server Message", 0);
+    ui_add_widget(&ui, UI_BUTTON, "<<Toggle>>", 0);
     ui_refresh_layout(&ui);
     
     while (s.active) {
@@ -42,6 +44,8 @@ int main(int argc, char **argv)
                 break;
             }
         }
+
+        ui_update_widgets(&ui);
 
         m_timer_update(&s, &t);
 
