@@ -8,6 +8,19 @@
 #define GAME_DEFAULT_SCREEN_HEIGHT 600
 #define GAME_DEFAULT_FPS (1000/60)
 
+
+typedef enum Gravity {
+    TOPLEFT,
+    TOP,
+    TOPRIGHT,
+    RIGHT,
+    BOTTOMRIGHT,
+    BOTTOM,
+    BOTTOMLEFT,
+    LEFT
+} Gravity;
+
+
 int main(int argc, char **argv)
 {
     MediaState s = {0};
@@ -22,9 +35,11 @@ int main(int argc, char **argv)
     
     m_timer_init(&t, 1000);
     m_init(&s, "Game", "font.otb");
-    ui_init(&ui, &s, (MediaRect) {.x = 30, .y = 30, .w = 500, .h = 300});
+
+    ui_init(&ui, &s, ui_sticky_rect(800, 600, 400, 200, BOTTOMRIGHT, 20, 20));
     ui_add_widget(&ui, UI_LABEL, "Start Server", 0);
     ui_add_widget(&ui, UI_BUTTON, "<<Toggle>>", 0);
+    ui_grid(&ui, 2, 2);
     ui_add_widget(&ui, UI_LABEL, "Stop Server", 0);
     ui_add_widget(&ui, UI_BUTTON, "<<Toggle>>", 0);
     ui_add_widget(&ui, UI_LABEL, "Add Server Message", 0);

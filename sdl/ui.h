@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include <stdint.h>
 
 #define NAME_MAX_SIZE 32
 
@@ -39,13 +40,26 @@ typedef enum UIWidgetType {
 typedef struct UIWidgetClass UIWidgetClass;
 typedef struct UIWidget UIWidget;
 
+typedef struct UIGridEntry {
+    uint8_t widget_offset;
+    uint8_t rows;
+    uint8_t cols;
+    int8_t repeat_till;
+} UIGridEntry;
+
 typedef struct UIGeometryState {
     MediaRect container_dim;
     MediaRect current_dim;
+    UIGridEntry *grid_list;
+    int grid_list_size;
+    int grid_list_offset;
     int cursor_x;
     int cursor_y;
     int current_rows;
     int current_cols;
+    uint8_t gridspan_next;
+    uint8_t gridspan_x;
+    uint8_t gridspan_y;
 } UIGeometryState;
 
 typedef struct UIContainerWidget {
@@ -60,6 +74,7 @@ typedef struct UIState {
     MediaState *w;
     // The following 3 elements are supposed to be a widget container.
     UIWidget *widget_list; /// Remove Later
+    int widget_list_size;
     int num_widgets;       /// Remove Later
     MediaRect dims;        /// Remove Later
     int keyboard_cursor;   /// Current active keyboard cursor location
@@ -73,7 +88,8 @@ struct UIWidgetClass {
     void (*init)(UIState *s, UIWidget *u, const char *label); /// Initialises the widget
     void (*draw)(UIState *s, UIWidget *u); /// Draws the widget
     void (*update)(UIState *s, UIWidget *u); /// Updates the widget
-    void (*refresh)(UIState *s, UIWidget *u); /// Called when container is refreshed
+    void (*refresh)(UIState *s, UIWidget *u); /// Called when container is resized, repositioned.
+                                              /// This allows the widget positions to be recalculated
     void (*free)(UIWidget *u);
 };
 
@@ -106,16 +122,49 @@ void ui_update_widgets(UIState *s);
 
 /// Tells the layout manager to create a grid layout of n rows and m columns
 /// for the next nxm widgets.
-int ui_grid(UIState *s, int rows, int cols);
+int ui_grid(UIState *s, uint8_t rows, uint8_t cols);
 
 /// Tells the layout manager to create a grid layout of n rows and m columns.
 /// This layout will be repeated for each nxm widgets inserted.
-int ui_repeatgrid(UIState *s, int rows, int cols);
+int ui_repeatgrid(UIState *s, uint8_t rows, uint8_t cols, int8_t repeat_till);
 
-/// Tells the layour manager that the next widget that will be inserted shall
+/// Tells the layout manager that the next widget that will be inserted shall
 /// cover m rows and n columns
-int ui_gridspan(UIState *s, int rows, int cols);
+int ui_gridspan(UIState *s, uint8_t rows, uint8_t cols);
 
+
+static inline MediaRect ui_sticky_rect(int sw, int sh, int w, int h,
+                                       Gravity g, int hpad, int vpad)
+{
+    switch (g) {
+    case TOPLEFT:
+        return (MediaRect) { hpad, vpad, w, h };
+
+    case TOP:
+        return (MediaRect) { sw / 2 - w / 2, vpad, w, h };
+
+    case TOPRIGHT:
+        return (MediaRect) { sw - w - hpad, vpad, w, h};
+
+    case RIGHT:
+        return (MediaRect) { sw - w - hpad, sh / 2 - h / 2, w, h };
+
+    case BOTTOMRIGHT:
+        return (MediaRect) { sw - w - hpad, sw - w - vpad, w, h };
+
+    case BOTTOM:
+        return (MediaRect) { sw / 2 - w / 2, sh - h - hpad, w, h };
+
+    case BOTTOMLEFT:
+        return (MediaRect) { hpad, sh - h - hpad, w, h };
+
+    case LEFT:
+        return (MediaRect) { hpad, sh / 2 - h / 2, w, h };
+
+    default:
+        return (MediaRect) {0, 0, 0, 0};
+    }
+}
 
 static inline int ui_isdown(UIWidget *s)
 {
