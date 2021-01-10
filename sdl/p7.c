@@ -8,19 +8,6 @@
 #define GAME_DEFAULT_SCREEN_HEIGHT 600
 #define GAME_DEFAULT_FPS (1000/60)
 
-
-typedef enum Gravity {
-    TOPLEFT,
-    TOP,
-    TOPRIGHT,
-    RIGHT,
-    BOTTOMRIGHT,
-    BOTTOM,
-    BOTTOMLEFT,
-    LEFT
-} Gravity;
-
-
 int main(int argc, char **argv)
 {
     MediaState s = {0};
@@ -37,13 +24,21 @@ int main(int argc, char **argv)
     m_init(&s, "Game", "font.otb");
 
     ui_init(&ui, &s, ui_sticky_rect(800, 600, 400, 200, BOTTOMRIGHT, 20, 20));
-    ui_add_widget(&ui, UI_LABEL, "Start Server", 0);
-    ui_add_widget(&ui, UI_BUTTON, "<<Toggle>>", 0);
+    ui_add_widget(&ui, UI_LABEL, "a", 0);
+    ui_add_widget(&ui, UI_BUTTON, "b", 0);
     ui_grid(&ui, 2, 2);
-    ui_add_widget(&ui, UI_LABEL, "Stop Server", 0);
-    ui_add_widget(&ui, UI_BUTTON, "<<Toggle>>", 0);
-    ui_add_widget(&ui, UI_LABEL, "Add Server Message", 0);
-    ui_add_widget(&ui, UI_BUTTON, "<<Toggle>>", 0);
+    ui_add_widget(&ui, UI_LABEL, "c", 0);
+    ui_add_widget(&ui, UI_BUTTON, "d", 0);
+    ui_add_widget(&ui, UI_LABEL, "e", 0);
+    ui_add_widget(&ui, UI_BUTTON, "f", 0);
+    ui_add_widget(&ui, UI_LABEL, "g", 0);
+    ui_add_widget(&ui, UI_BUTTON, "h", 0);
+    ui_grid(&ui, 1, 10);
+    ui_add_widget(&ui, UI_BUTTON, "+", 0);
+    ui_add_widget(&ui, UI_BUTTON, "-", 0);
+    ui_add_widget(&ui, UI_BUTTON, "*", 0);
+    ui_add_widget(&ui, UI_BUTTON, "/", 0);
+    ui_add_widget(&ui, UI_BUTTON, "%", 0);
     ui_refresh_layout(&ui);
     
     while (s.active) {
