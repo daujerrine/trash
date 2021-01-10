@@ -75,7 +75,7 @@ static inline int xu_check_mul_overflow_i32(int32_t a, int32_t b, int32_t *t)
 
 void *xu_alloc(void *ptr, size_t nmemb, size_t membsize);
 
-// Doubles size of allocation.
+// Doubles size of allocation
 
 void *xu_double_realloc(void *ptr, size_t *nmemb, size_t membsize);
 
