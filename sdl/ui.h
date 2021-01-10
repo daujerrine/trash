@@ -21,6 +21,19 @@ typedef enum UIOptions {
     UI_OPTION_NOSTRETCH = 0x2,
 } UIOptions;
 
+/// Widget Gravity
+typedef enum Gravity {
+    TOPLEFT,
+    TOP,
+    TOPRIGHT,
+    RIGHT,
+    BOTTOMRIGHT,
+    BOTTOM,
+    BOTTOMLEFT,
+    LEFT
+} Gravity;
+
+
 /// State of a widget
 typedef enum UIWidgetState {
     UI_WIDGET_NORMAL,
@@ -48,18 +61,18 @@ typedef struct UIGridEntry {
 } UIGridEntry;
 
 typedef struct UIGeometryState {
-    MediaRect container_dim;
-    MediaRect current_dim;
-    UIGridEntry *grid_list;
-    int grid_list_size;
-    int grid_list_offset;
+    MediaRect container_dim; /// Current Dimensions of the container
+    MediaRect current_dim;   /// Current dimensions of the widget placement "Cursor"
+    UIGridEntry *grid_list;  /// The List of grids that are processed
+    int grid_list_size;      /// Grid List Size 
+    int grid_list_top;       /// Grid List Top
+    int grid_list_index;
     int cursor_x;
     int cursor_y;
     int current_rows;
     int current_cols;
-    uint8_t gridspan_next;
-    uint8_t gridspan_x;
-    uint8_t gridspan_y;
+    int grid_col_offset;
+    int widget_index;
 } UIGeometryState;
 
 typedef struct UIContainerWidget {
@@ -98,10 +111,12 @@ struct UIWidgetClass {
 struct UIWidget {
     char label[UI_LABEL_MAX_SIZE]; /// Label of the given widget
     MediaRect dims;      /// Dimensions of the widget
-    UIWidgetType type;  /// Type of the widget. Used to render it.
+    UIWidgetType type;   /// Type of the widget. Used to render it.
     int options;         /// OR'ed values drom UIOptions
     UIWidgetState state; /// Current state of widget.
     void *priv_data;     /// Used in the case of widgets like sliders and textboxes.
+    int rowspan;         /// Grid Row Span
+    int colspan;         /// Grid Col Span
 };
 
 

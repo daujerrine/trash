@@ -1,6 +1,7 @@
 // TODO Implement vectors
 
 #include "ui.h"
+#include "util.h"
 
 /// Size of widgetlist
 #define DEFAULT_WIDGETLIST_SIZE 16
@@ -16,6 +17,7 @@
 
 #define XCENTER_RECT(_fg, _bg) ((_bg).x + (_bg).w / 2 - (_fg).w / 2)
 #define YCENTER_RECT(_fg, _bg) ((_bg).y + (_bg).h / 2 - (_fg).h / 2)
+
 #define CENTER_RECT(_fg, _bg) ((MediaRect) {\
         .x = XCENTER_RECT((_fg), (_bg)),\
         .y = YCENTER_RECT((_fg), (_bg)),\
@@ -27,7 +29,6 @@
     (_y) >= (_rect).y &&\
     (_x) <= (_rect).x + (_rect).w &&\
     (_y) <= (_rect).y + (_rect).h)
-
 
 /*
  * =============================================================================
@@ -48,7 +49,7 @@ void ui_init(UIState *s, MediaState *w, MediaRect dims)
 
     s->g.grid_list = malloc(DEFAULT_GRIDLIST_SIZE * sizeof(*s->g.grid_list));
     s->g.grid_list_size = DEFAULT_GRIDLIST_SIZE;
-    s->g.grid_list_offset = 0;
+    s->g.grid_list_top = 0;
 
     s->num_widgets = 0;
 }
@@ -69,6 +70,8 @@ UIWidget *ui_add_widget(UIState *s, UIWidgetType type, const char *label, int op
 {
     /// TODO accomodate container widgets
     UIWidget k = ui_widget_init(s, type, label, options);
+    U_VECGROW2(s->widget_list, &s->widget_list_size, s->num_widgets);
+    printf("adding %s \"%s\" on pos %d\n", ui_widget_list[type].name, label, s->num_widgets);
     s->widget_list[s->num_widgets] = k;
     return &s->widget_list[s->num_widgets++];
 }
@@ -108,45 +111,79 @@ void ui_refesh_widgets(UIState *s)
  * Called before anything else. If new elements have been added, the widget
  * rectangles are updated. Use an if statement to detect changes or something
  * similar.
+ *
+ * Widget Allocation Logic:
+ * 
+ * 1. Default grid is 1x1.
+ * 2. While Widgets still there perform the following:
+ *     2.1. If grid exhausted, Dequeue from grid list
+ *          Else, check if offset is equal to widget number
+ *              If yes, set this to the current grid
+ *          Fill up widgets and calculate widget rectangles
+ *     2.2. If widget height is larger than anyone else's, increase minimum
+ *          widget height for row and recalc height for everyone in row.
+ *     2.3. If widget col span or row span is set, recalculate the available
+ *          rows and available columns and row column offsets.
+ *     2.4  Keep incrementing the expected dimensions of the widget container.
+ * 
+ * 6. Refresh each individual widget to recalculate rectangles.
  */
+
+
+UIGridEntry default_grid = {
+    .widget_offset = 0,
+    .rows = 1,
+    .cols = 1,
+    .repeat_till = -1,
+};
+
+static inline void grid_reset(UIGeometryState *g)
+{
+    g->current_dim = g->container_dim;
+    g->current_rows = 1;
+    g->current_cols = 1;
+    g->grid_list_index = 0;
+    g->widget_index = 0;
+    g->cursor_x = 0;
+    g->cursor_y = 0;
+}
+
+static inline UIGridEntry *iter_grid(UIGeometryState *g, int widget_index)
+{
+    if (g->grid_list_top == 0                  ||
+        g->grid_list_index >= g->grid_list_top ||
+        widget_index < g->grid_list[g->grid_list_index].widget_offset) {
+        printf("Default Grid\n");
+        return &default_grid;
+    }
+
+    printf("Custom Grid %d %d\n", g->grid_list[g->grid_list_index].widget_offset, widget_index);
+    return &g->grid_list[g->grid_list_index++];
+}
  
 void ui_refresh_layout(UIState *s)
 {
     UIGeometryState *g = &s->g;
     UIGridEntry *curr_grid;
-
-    g->current_dim = g->container_dim;
-    g->current_rows = 1;
-    g->current_cols = 1;
-    g->cursor_x = 0;
-    g->cursor_y = 0;
-
+    
     int min_grid_height = 0;
-    int grid_list_index = 0;
 
-    if (g->grid_list_offset == 0)
-        curr_grid = NULL;
-    else {
-        curr_grid = &g->grid_list[grid_list_index];
-        if (curr_grid->widget_offset == 0) {
-            g->current_rows = curr_grid->rows;
-            g->current_cols = curr_grid->cols;
-            grid_list_index++;
-        }
-    }
+    grid_reset(g);
 
     // TODO Fix the Grid Layout
 
     for (int i = 0; i < s->num_widgets;) {
-        printf("p\n");
-        g->current_dim.w = g->container_dim.w / g->current_rows;
-        for (int j = 0; j < g->current_cols; j++) {
+        curr_grid = iter_grid(g, i);
+        g->current_dim.w = g->container_dim.w / curr_grid->cols;
+        printf("Entering loop: grid: %dr x %dc\n", curr_grid->rows, curr_grid->cols);
+        for (int j = 0; j < curr_grid->rows; j++) {
             printf("q\n");
-            for (int k = 0; k < g->current_rows; k++) {
+            g->current_dim.x = g->container_dim.x;
+            for (int k = 0; k < curr_grid->cols; k++) {
 
                 min_grid_height = min_grid_height > s->widget_list[i].dims.h ? min_grid_height : s->widget_list[i].dims.h;
 
-                printf("k = %d j = %d\n", k, j);
+                printf("k = %d j = %d %s\n", k, j, s->widget_list[i].label);
 
                 s->widget_list[i].dims.x = DEFAULT_PADDING + g->current_dim.x;
                 s->widget_list[i].dims.y = g->current_dim.y + DEFAULT_PADDING;
@@ -154,31 +191,19 @@ void ui_refresh_layout(UIState *s)
                 s->widget_list[i].dims.h = min_grid_height + 1;
 
                 printf("(%d, %d, %d, %d)\n",
-                s->widget_list[i].dims.x,
-                s->widget_list[i].dims.y,
-                s->widget_list[i].dims.w,
-                s->widget_list[i].dims.h);
+                    s->widget_list[i].dims.x,
+                    s->widget_list[i].dims.y,
+                    s->widget_list[i].dims.w,
+                    s->widget_list[i].dims.h);
                 
                 i++;
+                g->current_dim.x += g->current_dim.w;
 
                 if (i >= s->num_widgets)
                     goto end;
-                g->current_dim.x += g->current_dim.w;
             }
             g->current_dim.y += min_grid_height + DEFAULT_PADDING;
-            g->current_dim.x = g->container_dim.x;
         }
-
-        if (grid_list_index >= g->grid_list_offset) {
-            curr_grid = NULL;
-            g->current_rows = 1;
-            g->current_cols = 1;
-        } else if (i == curr_grid->widget_offset) {
-            printf("Switching: %d :: %d %d\n", i, curr_grid->rows, curr_grid->cols);
-            curr_grid = &g->grid_list[grid_list_index++];
-            g->current_rows = curr_grid->rows;
-            g->current_cols = curr_grid->cols;
-        } 
     }
 
 end:
@@ -189,8 +214,9 @@ end:
 int ui_grid(UIState *s, uint8_t rows, uint8_t cols)
 {
     UIGeometryState *g = &s->g;
-
-    g->grid_list[g->grid_list_offset++] = (UIGridEntry) {
+    printf("Grid start %dr x %dc from %d, total %d\n", rows, cols, s->num_widgets, (int) rows * cols);
+    U_VECGROW2(g->grid_list, &g->grid_list_size, g->grid_list_index);
+    g->grid_list[g->grid_list_top++] = (UIGridEntry) {
         .widget_offset = s->num_widgets,
         .rows          = rows,
         .cols          = cols,
@@ -204,7 +230,7 @@ int ui_repeatgrid(UIState *s, uint8_t rows, uint8_t cols, int8_t repeat_till)
 {
     UIGeometryState *g = &s->g;
 
-    g->grid_list[g->grid_list_offset++] = (UIGridEntry) {
+    g->grid_list[g->grid_list_top++] = (UIGridEntry) {
         .widget_offset = s->num_widgets,
         .rows          = rows,
         .cols          = cols,
