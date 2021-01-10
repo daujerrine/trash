@@ -1,0 +1,71 @@
+{
+    <SDL_Renderer>
+    Memcheck:Addr4
+    obj:/usr/lib/x86_64-linux-gnu/dri/i965_dri.so
+}
+{
+    <SDL_Renderer>
+    Memcheck:Addr8
+    obj:/usr/lib/x86_64-linux-gnu/dri/i965_dri.so
+}
+{
+    <SDL_Renderer>
+    Memcheck:Addr8
+    fun:__memcmp_sse4_1
+    obj:/usr/lib/x86_64-linux-gnu/dri/i965_dri.so
+}
+{
+    <SDL_Renderer>
+    Memcheck:Addr1
+    fun:__memcmp_sse4_1
+    obj:/usr/lib/x86_64-linux-gnu/dri/i965_dri.so
+}
+{
+    <SDL_Renderer>
+    Memcheck:Addr8
+    fun:memcpy@GLIBC_2.2.5
+    obj:/usr/lib/x86_64-linux-gnu/dri/i965_dri.so
+}
+{
+    <SDL_Renderer>
+    Memcheck:Addr4
+    fun:memcpy@GLIBC_2.2.5
+    obj:/usr/lib/x86_64-linux-gnu/dri/i965_dri.so
+}
+{
+    <SDL_Renderer>
+    Memcheck:Addr2
+    fun:memcpy@GLIBC_2.2.5
+    obj:/usr/lib/x86_64-linux-gnu/dri/i965_dri.so
+}
+{
+    <SDL_Renderer>
+    Memcheck:Addr1
+    fun:memcpy@GLIBC_2.2.5
+    obj:/usr/lib/x86_64-linux-gnu/dri/i965_dri.so
+}
+{
+    <SDL_Renderer>
+    Memcheck:Leak
+    fun:*alloc
+    fun:strdup
+    obj:/usr/lib/x86_64-linux-gnu/libX11.so.*
+}
+{
+    <SDL_Renderer>
+    Memcheck:Leak
+    fun:*alloc
+    obj:/usr/lib/x86_64-linux-gnu/libX11.so.*
+}
+{
+    <SDL_Renderer>
+    Memcheck:Leak
+    fun:*alloc
+    obj:*/libpulse*
+}
+{
+    <SDL_Renderer>
+    Memcheck:Leak
+    fun:*alloc
+    fun:_dl_*
+}
