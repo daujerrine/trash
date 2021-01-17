@@ -23,10 +23,25 @@ struct MediaTimer {
     int64_t time;
     uint32_t duration;
 
-    MediaTimer();
-    inline void update();
+    MediaTimer(uint32_t duration);
+    inline void update(uint32_t delta);
     inline bool done();
 };
+
+inline void MediaTimer::update(uint32_t delta)
+{
+    this->time -= delta;
+}
+
+inline bool MediaTimer::done()
+{
+    if (this->time <= 0) {
+        this->time = this->duration;
+        return true;
+    } else {
+        return false;
+    }
+}
 
 struct MediaColor {
     uint8_t r;
@@ -50,13 +65,19 @@ typedef struct MediaObject {
     ~MediaObject();
 } MediaObject;
 
+/*
+ * =============================================================================
+ * MediaState
+ * =============================================================================
+ */
+
 /// Driver class for the Media
 class MediaState {
     protected:
-        static const size_t ERROR_MESSAGE_SIZE                = 1024 * 8;
-        static char         err_msg[ERROR_MESSAGE_SIZE] = "";
+        static const size_t   ERROR_MESSAGE_SIZE          = 1024 * 8;
+        static constexpr char err_msg[ERROR_MESSAGE_SIZE] = "";
 
-    private:
+    public:
         SDL_Window *w;           /// Default Window
         SDL_Renderer *r;         /// Default Renderer
         SDL_Event e;             /// Events
@@ -69,13 +90,45 @@ class MediaState {
         int main_h;              /// Main window height
         uint32_t delta;          /// Delta Time
 
-    public:
-        MediaState(int w, int h, int max_fps, const char *font_path);
+        MediaState(
+            int w = 800,
+            int h = 600,
+            int max_fps = 60,
+            const char *window_name = "Game",
+            const char *font_path = "font.otb"
+        );
         ~MediaState();
         inline void loop_start();
         inline void loop_end();
-        inline void get_fps();
+        inline float get_fps();
 };
+
+inline void MediaState::loop_start()
+{
+    this->fps.start = SDL_GetTicks();
+}
+
+inline void MediaState::loop_end()
+{
+    this->fps.end = SDL_GetTicks();
+    this->fps.elapsed = this->fps.end - this->fps.start;
+
+    if (this->fps.elapsed < this->max_fps)
+        SDL_Delay(this->max_fps - this->fps.elapsed);
+
+    this->fps.value = 1000 / (float) (SDL_GetTicks() - this->fps.start);
+}
+
+inline float MediaState::get_fps()
+{
+    return this->fps.value;
+}
+
+/*
+ * =============================================================================
+ * MediaGraphics
+ * =============================================================================
+ */
 
 class MediaGraphics {
     protected:
@@ -90,11 +143,17 @@ class MediaGraphics {
 
         // Basic
 
-        MediaGraphics(MediaState &m);
+        MediaGraphics(MediaState &m): m(m) {};
         inline void paint(const MediaObject *m, const MediaRect *dest);
         inline int set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+        inline void clear();
+        inline void present();
 
         // Graphics Primitives
+
+        inline int point(int x, int y);
+        inline int points(const MediaPoint *points, int count);
+        inline int points(const std::vector<MediaPoint> &points);
 
         inline int line(int x1, int x2, int y1, int y2);
         inline int line(const MediaRect dims);
@@ -112,5 +171,94 @@ class MediaGraphics {
         MediaObject text(const char *str);
         MediaObject text(std::string &str);
 };
+
+inline void MediaGraphics::paint(const MediaObject *m, const MediaRect *dest)
+{
+    if (dest)
+        SDL_RenderCopy(this->m.r, m->texture, NULL, dest);
+    else
+        SDL_RenderCopy(this->m.r, m->texture, NULL, &m->clip_rect);
+}
+
+
+inline int MediaGraphics::set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+{
+    return SDL_SetRenderDrawColor(this->m.r, r, g, b, a);
+}
+
+inline void MediaGraphics::clear()
+{
+    SDL_RenderClear(this->m.r);
+}
+
+inline void MediaGraphics::present()
+{
+    SDL_RenderPresent(this->m.r);
+}
+
+inline int MediaGraphics::point(int x, int y)
+{
+    return SDL_RenderDrawPoint(this->m.r, x, y);
+}
+
+inline int MediaGraphics::points(const MediaPoint *points, int count)
+{
+    return SDL_RenderDrawPoints(this->m.r, points, count);
+}
+
+inline int MediaGraphics::points(const std::vector<MediaPoint> &points)
+{
+    return SDL_RenderDrawLines(this->m.r, points.data(), points.size());
+}
+
+inline int MediaGraphics::line(int x1, int x2, int y1, int y2)
+{
+    return SDL_RenderDrawLine(this->m.r, x1, x1, y1, y2);
+}
+
+inline int MediaGraphics::line(MediaRect k)
+{
+    return SDL_RenderDrawLine(this->m.r, k.x, k.y, k.x + k.w, k.y + k.h);
+}
+
+inline int MediaGraphics::lines(const MediaPoint *points, int count)
+{
+    return SDL_RenderDrawLines(this->m.r, points, count);
+}
+
+inline int MediaGraphics::lines(const std::vector<MediaPoint> &points)
+{
+    return SDL_RenderDrawLines(this->m.r, points.data(), points.size());
+}
+
+inline int MediaGraphics::rect(const MediaRect *rect)
+{
+    return SDL_RenderDrawRect(this->m.r, rect);
+}
+
+inline int MediaGraphics::rects(const MediaRect *rects, int count)
+{
+    return SDL_RenderDrawRects(this->m.r, rects, count);
+}
+
+inline int MediaGraphics::rects(const std::vector<MediaRect> &rects)
+{
+    return SDL_RenderDrawRects(this->m.r, rects.data(), rects.size());
+}
+
+inline int MediaGraphics::frect(const MediaRect *rect)
+{
+    return SDL_RenderFillRect(this->m.r, rect);
+}
+
+inline int MediaGraphics::frects(const MediaRect *rects, int count)
+{
+    return SDL_RenderFillRects(this->m.r, rects, count);
+}
+
+inline int MediaGraphics::frects(const std::vector<MediaRect> &rects)
+{
+    return SDL_RenderFillRects(this->m.r, rects.data(), rects.size());
+}
 
 #endif
