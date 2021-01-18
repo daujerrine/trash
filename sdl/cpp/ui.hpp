@@ -55,27 +55,51 @@ typedef enum UIGravity {
     LEFT
 } UIGravity;
 
+
+/// Primitives used for drawing the GUI components.
 class UIPrimitives {
     private:
         MediaGraphics &g;
-        MediaColor &c;
+        int padding;
+        int margin;
+        int min_height;
+        int min_width;
 
     public:
-        const int padding;
-        const int margin;
-        const int min_height;
-        const int min_width;
-        virtual inline void set_color(MediaColor c);
+        virtual UIPrimitives(MediaGraphics &g): g(g) {};
         virtual inline int box(UIWidget &u, MediaRect k) = 0;
         virtual inline int fbox(UIWidget &u, MediaRect k) = 0;
-        virtual inline int line(UIWidget &u, MediaRect k) = 0;
-        virtual inline int slider_handle(UIWidget &u, MediaRect k) = 0;
-        virtual inline int slider_rail(UIWidget &u, MediaRect k) = 0;
-        virtual inline int scrollbar_handle(UIWidget &u, MediaRect k) = 0;
-        virtual inline int scrollbar_rail(UIWidget &u, MediaRect k) = 0;
+        virtual inline int line(UIWidget &u, int x1, int x2, int y1, int y2) = 0;
 };
 
-class UIDefaultPrimitives : public UIPrimitives;
+/*
+ * =============================================================================
+ * UIDefaultPrimitives
+ * =============================================================================
+ */
+
+class UIDefaultPrimitives : public UIPrimitives {
+    public:
+        int padding    = UI_DEFAULT_PADDING;
+        int margin     = UI_DEFAULT_MARGIN;
+        int min_height = UI_DEFAULT_MIN_HEIGHT;
+        int min_width  = UI_DEFAULT_MIN_WIDTH;
+};
+
+inline int UIDefaultPrimitives::box(UIWidget &u, MediaRect k)
+{
+    g.rect(k);
+}
+
+inline int UIDefaultPrimitives::fbox(UIWidget &u, MediaRect k)
+{
+    g.frect(k)
+}
+
+inline int UIDefaultPrimitives::line(UIWidget &u, int x1, int y1, int x2, int y2)
+{
+    g.line(x1, y1, x2, y2);
+}
 
 struct UIGridEntry {
     int widget_offset;
@@ -146,7 +170,7 @@ class UIState {
         std::vector<UIWidget> widgets;
 
     public:
-        UIState ()
+        UIState (MediaState &m, MediaGraphics &g):m(m), g(g) {};
         UIContainer &add_container();
         template <typename Widget, typename ...Args>
         UIWidget &add<Widget>(std::string label, int options, Args &&...args);
