@@ -9,8 +9,21 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+#define PRINT_LINE printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
+#define LZCHECK(_q) \
+    if ((_q) < 0) { \
+        printf("LZERO: "); \
+        PRINT_LINE \
+    }
+#define NULLCHECK(_q) \
+    if ((_q) == nullptr) { \
+        printf("NULL: "); \
+        PRINT_LINE \
+    }
+
 typedef SDL_Rect MediaRect;
 typedef SDL_Point MediaPoint;
+typedef SDL_Color MediaColor;
 
 struct MediaFPSCounter {
     uint64_t start;
@@ -19,6 +32,9 @@ struct MediaFPSCounter {
     float value;
 };
 
+/**
+ * Used for timing operations.
+ */
 struct MediaTimer {
     int64_t time;
     uint32_t duration;
@@ -43,27 +59,43 @@ inline bool MediaTimer::done()
     }
 }
 
-struct MediaColor {
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
-    uint8_t a;
-
-    MediaColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a):
-        r(r), g(g), b(b), a(a) {}
-};
-
 /**
- * Used in place of Surfaces and textures
+ * Used in place of Surfaces and textures.
+ * 
+ * Note: ALWAYS pass REFERENCES to MediaObjects in functions, else they will be
+ * destructed by the function call copying over the values.
  */
-
-typedef struct MediaObject {
+struct MediaObject {
     SDL_Texture *texture;
     MediaRect clip_rect;
 
-    MediaObject();
-    ~MediaObject();
-} MediaObject;
+    /// Explicitly used to reassign textures. Automatically frees an existing
+    /// allocated texture if it exists.
+    void set(SDL_Texture *texture);
+
+    /// Frees the texture,
+    void free();
+
+    // The texture must be null by default.
+    MediaObject(): texture(nullptr) {}
+
+    ~MediaObject() {
+        this->free();
+        this->texture = nullptr;
+    }
+};
+
+/// Typedef used for function arguments to pass a MediaObject.
+
+typedef MediaObject& MediaObjectRef;
+
+inline MediaRect scale_rect(MediaObjectRef k, int sw, int sh) {
+    return { k.clip_rect.x, k.clip_rect.y, k.clip_rect.w * sw, k.clip_rect.h * sh };
+}
+
+inline MediaRect scale_rect(MediaRect &k, int sw, int sh) {
+    return { k.x, k.y, k.w * sw, k.h * sh };
+}
 
 /*
  * =============================================================================
@@ -144,8 +176,10 @@ class MediaGraphics {
         // Basic
 
         MediaGraphics(MediaState &m): m(m) {};
-        inline void paint(const MediaObject *m, const MediaRect *dest);
+        inline void paint(const MediaObject &m, const MediaRect dest);
+        inline void paint(const MediaObject &m);
         inline int set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+        inline int set_color(MediaColor c);
         inline void clear();
         inline void present();
 
@@ -168,97 +202,110 @@ class MediaGraphics {
         inline int frects(const std::vector<MediaRect> &rects);
 
         // Text and Images
-        MediaObject text(const char *str);
-        MediaObject text(std::string &str);
+
+        void text(MediaObjectRef k, const char *str, MediaColor c);
+        void text(MediaObjectRef k, const char *str);
+        void text(MediaObjectRef k, std::string str, MediaColor c);
+        void text(MediaObjectRef k, std::string str);
 };
 
-inline void MediaGraphics::paint(const MediaObject *m, const MediaRect *dest)
+inline void MediaGraphics::paint(const MediaObject &k, const MediaRect dest)
 {
-    if (dest)
-        SDL_RenderCopy(this->m.r, m->texture, NULL, dest);
-    else
-        SDL_RenderCopy(this->m.r, m->texture, NULL, &m->clip_rect);
+    SDL_RenderCopy(m.r, k.texture, nullptr, &dest);
+}
+
+inline void MediaGraphics::paint(const MediaObject &k)
+{
+    // printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
+    // printf("** %lx\n", (unsigned long int) k.texture);
+    MediaRect q = {0, 0, 10, 10};
+    int w = SDL_RenderCopy(m.r, k.texture, nullptr, &k.clip_rect);
+
+    char *err;
+    if (w < 0)
+        printf("Error: %d %s\n", w, SDL_GetError());
 }
 
 
 inline int MediaGraphics::set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
-    return SDL_SetRenderDrawColor(this->m.r, r, g, b, a);
+    return SDL_SetRenderDrawColor(m.r, r, g, b, a);
 }
 
 inline void MediaGraphics::clear()
 {
-    SDL_RenderClear(this->m.r);
+    SDL_RenderClear(m.r);
+    set_color(0, 0, 0, 255);
 }
 
 inline void MediaGraphics::present()
 {
-    SDL_RenderPresent(this->m.r);
+    SDL_RenderPresent(m.r);
 }
 
 inline int MediaGraphics::point(int x, int y)
 {
-    return SDL_RenderDrawPoint(this->m.r, x, y);
+    return SDL_RenderDrawPoint(m.r, x, y);
 }
 
 inline int MediaGraphics::points(const MediaPoint *points, int count)
 {
-    return SDL_RenderDrawPoints(this->m.r, points, count);
+    return SDL_RenderDrawPoints(m.r, points, count);
 }
 
 inline int MediaGraphics::points(const std::vector<MediaPoint> &points)
 {
-    return SDL_RenderDrawLines(this->m.r, points.data(), points.size());
+    return SDL_RenderDrawLines(m.r, points.data(), points.size());
 }
 
 inline int MediaGraphics::line(int x1, int x2, int y1, int y2)
 {
-    return SDL_RenderDrawLine(this->m.r, x1, x1, y1, y2);
+    return SDL_RenderDrawLine(m.r, x1, x1, y1, y2);
 }
 
 inline int MediaGraphics::line(MediaRect k)
 {
-    return SDL_RenderDrawLine(this->m.r, k.x, k.y, k.x + k.w, k.y + k.h);
+    return SDL_RenderDrawLine(m.r, k.x, k.y, k.x + k.w, k.y + k.h);
 }
 
 inline int MediaGraphics::lines(const MediaPoint *points, int count)
 {
-    return SDL_RenderDrawLines(this->m.r, points, count);
+    return SDL_RenderDrawLines(m.r, points, count);
 }
 
 inline int MediaGraphics::lines(const std::vector<MediaPoint> &points)
 {
-    return SDL_RenderDrawLines(this->m.r, points.data(), points.size());
+    return SDL_RenderDrawLines(m.r, points.data(), points.size());
 }
 
 inline int MediaGraphics::rect(const MediaRect *rect)
 {
-    return SDL_RenderDrawRect(this->m.r, rect);
+    return SDL_RenderDrawRect(m.r, rect);
 }
 
 inline int MediaGraphics::rects(const MediaRect *rects, int count)
 {
-    return SDL_RenderDrawRects(this->m.r, rects, count);
+    return SDL_RenderDrawRects(m.r, rects, count);
 }
 
 inline int MediaGraphics::rects(const std::vector<MediaRect> &rects)
 {
-    return SDL_RenderDrawRects(this->m.r, rects.data(), rects.size());
+    return SDL_RenderDrawRects(m.r, rects.data(), rects.size());
 }
 
 inline int MediaGraphics::frect(const MediaRect *rect)
 {
-    return SDL_RenderFillRect(this->m.r, rect);
+    return SDL_RenderFillRect(m.r, rect);
 }
 
 inline int MediaGraphics::frects(const MediaRect *rects, int count)
 {
-    return SDL_RenderFillRects(this->m.r, rects, count);
+    return SDL_RenderFillRects(m.r, rects, count);
 }
 
 inline int MediaGraphics::frects(const std::vector<MediaRect> &rects)
 {
-    return SDL_RenderFillRects(this->m.r, rects.data(), rects.size());
+    return SDL_RenderFillRects(m.r, rects.data(), rects.size());
 }
 
 #endif

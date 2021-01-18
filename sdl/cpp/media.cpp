@@ -2,6 +2,23 @@
 
 /*
  * =============================================================================
+ * MediaObject
+ * =============================================================================
+ */
+ 
+void MediaObject::set(SDL_Texture *texture) {
+    if (this->texture != nullptr) {
+        this->free();
+    }
+    this->texture = texture;
+}
+
+void MediaObject::free() {
+    SDL_DestroyTexture(this->texture);
+}
+
+/*
+ * =============================================================================
  * MediaState
  * =============================================================================
  */
@@ -73,6 +90,42 @@ MediaState::~MediaState()
     SDL_DestroyWindow(this->w);
     TTF_CloseFont(this->font);
     SDL_Quit();
+}
+
+/*
+ * =============================================================================
+ * MediaGraphics
+ * =============================================================================
+ */
+
+void MediaGraphics::text(MediaObjectRef k, const char *str, MediaColor c)
+{
+    SDL_Surface *t = TTF_RenderText_Solid(this->m.font, str, c); NULLCHECK(t);
+    SDL_GetClipRect(t, &k.clip_rect);
+    SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t); NULLCHECK(ttx);
+    SDL_FreeSurface(t);
+    k.texture = ttx;
+}
+
+void MediaGraphics::text(MediaObjectRef k, const char *str)
+{
+    // printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
+    this->text(k, str, (SDL_Color) {255, 255, 255, 255});
+}
+
+void MediaGraphics::text(MediaObjectRef k, std::string str, MediaColor c)
+{
+    SDL_Surface *t = TTF_RenderText_Solid(this->m.font, str.c_str(), c); NULLCHECK(t);
+    SDL_GetClipRect(t, &k.clip_rect);
+    SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t); NULLCHECK(ttx);
+    SDL_FreeSurface(t);
+    k.set(ttx);
+}
+
+void MediaGraphics::text(MediaObjectRef k, std::string str)
+{
+    // printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
+    this->text(k, str, (SDL_Color) {255, 255, 255, 255});
 }
 
 /*
