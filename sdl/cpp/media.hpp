@@ -20,10 +20,22 @@
         printf("NULL: "); \
         PRINT_LINE \
     }
-
 typedef SDL_Rect MediaRect;
 typedef SDL_Point MediaPoint;
 typedef SDL_Color MediaColor;
+
+/// Widget Gravity
+typedef enum MediaGravity {
+    CENTER,
+    TOPLEFT,
+    TOP,
+    TOPRIGHT,
+    RIGHT,
+    BOTTOMRIGHT,
+    BOTTOM,
+    BOTTOMLEFT,
+    LEFT
+} MediaGravity;
 
 struct MediaFPSCounter {
     uint64_t start;
@@ -31,6 +43,46 @@ struct MediaFPSCounter {
     uint64_t elapsed;
     float value;
 };
+
+/**
+ * Aligns an outer rectangle with an inner one.
+ */
+ 
+static inline MediaRect _rect_align(MediaRect out, MediaRect in, MediaGravity g, int hpad, int vpad)
+{
+    switch (g) {
+    case TOPLEFT:
+        return (MediaRect) { out.x + hpad, out.y + vpad, in.w, in.h };
+
+    case TOP:
+        return (MediaRect) { out.x + out.w / 2 - in.w / 2, out.y + vpad, in.w, in.h };
+
+    case TOPRIGHT:
+        return (MediaRect) { out.x + out.w - in.w - hpad, out.y + vpad, in.w, in.h};
+
+    case RIGHT:
+        return (MediaRect) { out.x + out.w - in.w - hpad, out.y / 2 - in.h / 2, in.w, in.h };
+
+    case BOTTOMRIGHT:
+        return (MediaRect) { out.x + out.w - in.w - hpad, out.y + out.w - in.w - vpad, in.w, in.h };
+
+    case BOTTOM:
+        return (MediaRect) { out.x + out.w / 2 - in.w / 2, out.y + out.h - in.h - hpad, in.w, in.h };
+
+    case BOTTOMLEFT:
+        return (MediaRect) { out.x + hpad, out.y + out.h - in.h - hpad, in.w, in.h };
+
+    case LEFT:
+        return (MediaRect) { out.x + hpad, out.y + out.h / 2 - in.h / 2, in.w, in.h };
+
+    case CENTER:
+        return (MediaRect) { out.x + out.w / 2 - in.w / 2, out.y + out.h / 2 - in.h / 2, in.w, in.h };
+
+    default:
+        return (MediaRect) {0, 0, 0, 0};
+    }
+}
+
 
 /**
  * Used for timing operations.
@@ -76,6 +128,8 @@ struct MediaObject {
     /// Frees the texture,
     void free();
 
+    inline void align(MediaRect k, MediaGravity g = CENTER, int hpad = 0, int vpad = 0);
+
     // The texture must be null by default.
     MediaObject(): texture(nullptr) {}
 
@@ -84,6 +138,12 @@ struct MediaObject {
         this->texture = nullptr;
     }
 };
+
+inline void MediaObject::align(MediaRect k, MediaGravity g, int hpad, int vpad) {
+    clip_rect = _rect_align(clip_rect, k, g, hpad, vpad);
+}
+
+
 
 /// Typedef used for function arguments to pass a MediaObject.
 
@@ -194,10 +254,10 @@ class MediaGraphics {
         inline int lines(const MediaPoint *points, int count);
         inline int lines(const std::vector<MediaPoint> &points);
 
-        inline int rect(const MediaRect *rect);
+        inline int rect(const MediaRect &rect);
         inline int rects(const MediaRect *rects, int count);
         inline int rects(const std::vector<MediaRect> &rects);
-        inline int frect(const MediaRect *rect);
+        inline int frect(const MediaRect &rect);
         inline int frects(const MediaRect *rects, int count);
         inline int frects(const std::vector<MediaRect> &rects);
 
@@ -278,9 +338,9 @@ inline int MediaGraphics::lines(const std::vector<MediaPoint> &points)
     return SDL_RenderDrawLines(m.r, points.data(), points.size());
 }
 
-inline int MediaGraphics::rect(const MediaRect *rect)
+inline int MediaGraphics::rect(const MediaRect &rect)
 {
-    return SDL_RenderDrawRect(m.r, rect);
+    return SDL_RenderDrawRect(m.r, &rect);
 }
 
 inline int MediaGraphics::rects(const MediaRect *rects, int count)
@@ -293,9 +353,9 @@ inline int MediaGraphics::rects(const std::vector<MediaRect> &rects)
     return SDL_RenderDrawRects(m.r, rects.data(), rects.size());
 }
 
-inline int MediaGraphics::frect(const MediaRect *rect)
+inline int MediaGraphics::frect(const MediaRect &rect)
 {
-    return SDL_RenderFillRect(m.r, rect);
+    return SDL_RenderFillRect(m.r, &rect);
 }
 
 inline int MediaGraphics::frects(const MediaRect *rects, int count)

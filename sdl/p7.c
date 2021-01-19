@@ -67,7 +67,7 @@ int main(int argc, char **argv)
             sprintf(str, "FPS: %f delta = %u seconds = %d", m_get_fps(&s), s.delta, seconds);
             msg = m_text(&s, str);
             m_set_color(&s, 255, 255, 255, 255);
-            m_paint(&s, &msg, NULL);
+            m_paint(&s, &msg, &(MediaRect) {0, 0, 20, 80});
             ui_draw_widgets(&ui);
             m_set_color(&s, 0, 0, 0, 255);
             m_objfree(&msg);

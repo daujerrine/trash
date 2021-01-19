@@ -108,7 +108,7 @@ int main(int argc, char **argv)
             MediaObject k = m_text(&s, str);
             m_set_color(&s, 255, 255, 255, 255);
             m_rect(&s, &pos);
-            m_paint(&s, &k, NULL);
+            m_paint(&s, &k, &(MediaRect) {0, 0, 500, 20});
             m_set_color(&s, 0, 0, 0, 255);
             m_objfree(&k);
         SDL_RenderPresent(s.renderer);
