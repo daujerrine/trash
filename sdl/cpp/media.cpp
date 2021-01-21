@@ -14,6 +14,7 @@ void MediaObject::set(SDL_Texture *texture) {
 }
 
 void MediaObject::free() {
+//    printf("[POTENTIAL BUG] Free Called\n");
     SDL_DestroyTexture(this->texture);
 }
 

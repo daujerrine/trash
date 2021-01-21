@@ -129,7 +129,8 @@ struct MediaObject {
     void free();
 
     inline void align(MediaRect k, MediaGravity g = CENTER, int hpad = 0, int vpad = 0);
-
+    inline void scale(int sw, int sh);
+    
     // The texture must be null by default.
     MediaObject(): texture(nullptr) {}
 
@@ -141,6 +142,11 @@ struct MediaObject {
 
 inline void MediaObject::align(MediaRect k, MediaGravity g, int hpad, int vpad) {
     clip_rect = _rect_align(clip_rect, k, g, hpad, vpad);
+}
+
+inline void MediaObject::scale(int sw, int sh) {
+    clip_rect.w *= sw;
+    clip_rect.h *= sh;
 }
 
 

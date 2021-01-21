@@ -5,15 +5,17 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include "media.hpp"
+#include "ui.hpp"
 
 using std::to_string;
 
 int main() {
     MediaState m;
     MediaGraphics g(m);
-
+    UIState u(m, g);
     MediaObject k;
     MediaRect q = {40, 40, 300, 200};
+    UILabel &label1 = u.add<UILabel>("helllkjkjlkjlkjkjklo", 0);
 
     while (m.active) {
         m.loop_start();
@@ -39,6 +41,9 @@ int main() {
         //SDL_RenderCopy(m.r, ttx, nullptr, &q);
         g.line(10, 10, 400, 400);
         g.set_color(0, 0, 0, 255);
+        //PRINT_LINE
+        u.draw();
+        //PRINT_LINE
         g.present();
         //SDL_DestroyTexture(ttx);
         m.loop_end();
