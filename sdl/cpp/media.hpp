@@ -140,8 +140,12 @@ struct MediaObject {
     }
 };
 
+#define PRINTRECT(_r) (printf("%d %d %d %d\n", _r.x, _r.y, _r.w, _r.h)) 
 inline void MediaObject::align(MediaRect k, MediaGravity g, int hpad, int vpad) {
-    clip_rect = _rect_align(clip_rect, k, g, hpad, vpad);
+    PRINTRECT(clip_rect);
+    PRINTRECT(k);
+    PRINTRECT(_rect_align(k, clip_rect, g, hpad, vpad));
+    clip_rect = _rect_align(k, clip_rect, g, hpad, vpad);
 }
 
 inline void MediaObject::scale(int sw, int sh) {
@@ -300,8 +304,8 @@ inline int MediaGraphics::set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 
 inline void MediaGraphics::clear()
 {
-    SDL_RenderClear(m.r);
     set_color(0, 0, 0, 255);
+    SDL_RenderClear(m.r);
 }
 
 inline void MediaGraphics::present()

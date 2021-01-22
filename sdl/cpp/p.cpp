@@ -15,8 +15,14 @@ int main() {
     UIState u(m, g);
     MediaObject k;
     MediaRect q = {40, 40, 300, 200};
-    UILabel &label1 = u.add<UILabel>("helllkjkjlkjlkjkjklo", 0);
-
+    UILabel &label1 = u.add<UILabel>("Out Of Memory");
+    u.add<UILabel>("==================");
+    u.add<UILabel>("This program has crashed due to the lack of");
+    u.add<UILabel>("free memory in your system.");
+    u.geo.grid(1, 2);
+    u.add<UILabel>("asas");
+    u.add<UILabel>("asas");
+    u.refresh();
     while (m.active) {
         m.loop_start();
 
@@ -37,7 +43,7 @@ int main() {
         //SDL_FreeSurface(t);
         g.clear();
         g.set_color(128, 255, 255, 255);
-        g.paint(k, scale_rect(k, 5, 5));
+        g.paint(k);
         //SDL_RenderCopy(m.r, ttx, nullptr, &q);
         g.line(10, 10, 400, 400);
         g.set_color(0, 0, 0, 255);

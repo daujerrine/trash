@@ -1,5 +1,10 @@
 #include "ui.hpp"
 
+// Weird compiler obligations
+// fixed in C++17
+
+constexpr const UIGridEntry UIGeometry::default_grid;
+
 /*
  * =============================================================================
  * UIContainer
@@ -44,6 +49,7 @@ void UILabel::update()
 
 void UILabel::refresh()
 {
+    PRINT_LINE
     tx_label.align(dims);
 }
 
@@ -68,6 +74,8 @@ void UIState::snap(UIGravity grav, int hpad, int vpad)
 
 void UIState::draw()
 {
+    g.set_color(255, 255, 255, 255);
+    g.rect(dims);
     for (auto &i: widgets) {
         i->draw();
     }
@@ -82,7 +90,7 @@ void UIState::update()
 
 void UIState::refresh()
 {
-    
+    geo.calculate_all();
     for (auto &i: widgets) {
         i->refresh();
     }
