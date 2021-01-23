@@ -53,6 +53,7 @@ class UIWidget {
         
         UIWidget(MediaState &m, MediaGraphics &g, std::string label, int options):
             m(m), g(g), label(label), options(options) {};
+        virtual ~UIWidget() {};
         virtual void draw() = 0;
         virtual void update() = 0;
         virtual void refresh() = 0;
@@ -151,6 +152,7 @@ class UIGeometry {
 
 inline void UIGeometry::grid(int rows, int cols, int repeat_till)
 {
+    printf("new grid: %ld %d %d %d\n", widgets.size(), rows, cols, repeat_till);
     grid_list.emplace_back((UIGridEntry) { widgets.size(), rows, cols, repeat_till });
 }
 
@@ -189,6 +191,7 @@ inline UIGridEntry const *UIGeometry::iter(int widget_index) {
 inline void UIGeometry::calculate_all() {
     UIGridEntry const *curr_grid;
     int min_grid_height = 0;
+    grid_index = 0;
     current_dim = container_dim;
     PRINT_LINE
     printf("widget size: %ld\n", widgets.size());
@@ -269,6 +272,10 @@ class UILabel : public UIWidget {
         {
             g.text(tx_label, label);
             dims = tx_label.clip_rect;
+        }
+
+        ~UILabel() {
+            // printf("Destructor called\n");
         }
 
         void draw();

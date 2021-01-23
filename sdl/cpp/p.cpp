@@ -17,9 +17,16 @@ int main() {
     MediaRect q = {40, 40, 300, 200};
     UILabel &label1 = u.add<UILabel>("Out Of Memory");
     u.add<UILabel>("==================");
-    u.add<UILabel>("This program has crashed due to the lack of");
+    u.add<UILabel>("This prograaaaaaaaaaaaaam has crashed due to the lack of");
     u.add<UILabel>("free memory in your system.");
     u.geo.grid(1, 2);
+    u.add<UILabel>("asas");
+    u.add<UILabel>("asas");
+    u.add<UILabel>("asas");
+    u.add<UILabel>("asas");
+    u.geo.grid(1, 4);
+    u.add<UILabel>("asas");
+    u.add<UILabel>("asas");
     u.add<UILabel>("asas");
     u.add<UILabel>("asas");
     u.refresh();

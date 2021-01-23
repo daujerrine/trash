@@ -44,10 +44,12 @@ struct MediaFPSCounter {
     float value;
 };
 
+
+
 /**
  * Aligns an outer rectangle with an inner one.
  */
- 
+
 static inline MediaRect _rect_align(MediaRect out, MediaRect in, MediaGravity g, int hpad, int vpad)
 {
     switch (g) {
@@ -140,7 +142,8 @@ struct MediaObject {
     }
 };
 
-#define PRINTRECT(_r) (printf("%d %d %d %d\n", _r.x, _r.y, _r.w, _r.h)) 
+#define PRINTRECT(_r) (printf("rect(%d, %d, %d, %d)\n", _r.x, _r.y, _r.w, _r.h))
+
 inline void MediaObject::align(MediaRect k, MediaGravity g, int hpad, int vpad) {
     PRINTRECT(clip_rect);
     PRINTRECT(k);
@@ -157,7 +160,7 @@ inline void MediaObject::scale(int sw, int sh) {
 
 /// Typedef used for function arguments to pass a MediaObject.
 
-typedef MediaObject& MediaObjectRef;
+typedef MediaObject & MediaObjectRef;
 
 inline MediaRect scale_rect(MediaObjectRef k, int sw, int sh) {
     return { k.clip_rect.x, k.clip_rect.y, k.clip_rect.w * sw, k.clip_rect.h * sh };
@@ -246,12 +249,17 @@ class MediaGraphics {
         // Basic
 
         MediaGraphics(MediaState &m): m(m) {};
-        inline void paint(const MediaObject &m, const MediaRect dest);
-        inline void paint(const MediaObject &m);
+
+        inline void paint(const MediaObjectRef k, const MediaRect &src, const MediaRect &dest);
+        inline void paint(const MediaObjectRef k, const MediaRect &src);
+        inline void paint(const MediaObjectRef k);
+        inline void paint_clip(const MediaObjectRef k, const MediaRect &src);
+
         inline int set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
         inline int set_color(MediaColor c);
-        inline void clear();
-        inline void present();
+
+        inline void clear();   /// Called at start of draw loop
+        inline void present(); /// Called at end of draw loop
 
         // Graphics Primitives
 
@@ -279,19 +287,28 @@ class MediaGraphics {
         void text(MediaObjectRef k, std::string str);
 };
 
-inline void MediaGraphics::paint(const MediaObject &k, const MediaRect dest)
+inline void MediaGraphics::paint(const MediaObjectRef k, const MediaRect &src, const MediaRect &dest)
 {
-    SDL_RenderCopy(m.r, k.texture, nullptr, &dest);
+    SDL_RenderCopy(m.r, k.texture, &src, &dest);
 }
 
-inline void MediaGraphics::paint(const MediaObject &k)
+inline void MediaGraphics::paint(const MediaObjectRef k, const MediaRect &src)
+{
+    SDL_RenderCopy(m.r, k.texture, &src, &k.clip_rect);
+}
+
+/// Clip the object to the bounding rectangle's dimensions.
+inline void MediaGraphics::paint_clip(const MediaObjectRef k, const MediaRect &src)
+{
+    MediaRect self_clip = { 0, 0, src.w, src.h }; 
+    SDL_RenderCopy(m.r, k.texture, &self_clip, &k.clip_rect);
+}
+
+inline void MediaGraphics::paint(const MediaObjectRef k)
 {
     // printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
     // printf("** %lx\n", (unsigned long int) k.texture);
-    MediaRect q = {0, 0, 10, 10};
     int w = SDL_RenderCopy(m.r, k.texture, nullptr, &k.clip_rect);
-
-    char *err;
     if (w < 0)
         printf("Error: %d %s\n", w, SDL_GetError());
 }

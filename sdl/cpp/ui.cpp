@@ -1,9 +1,10 @@
 #include "ui.hpp"
 
-// Weird compiler obligations
-// fixed in C++17
+// --- Weird compiler obligations. Fixed in C++17.
 
 constexpr const UIGridEntry UIGeometry::default_grid;
+
+// --- End Weird compiler obligations.
 
 /*
  * =============================================================================
@@ -38,9 +39,19 @@ int UIContainer::add<Widget>(std::string label, int options)
  * =============================================================================
  */
 
+inline MediaRect smaller(MediaRect in, MediaRect out)
+{
+    if (in.w > out.w)
+        return {0, 0, out.w, out.h};
+    else if (in.h > out.h)
+        return {0, 0, out.w, out.h};
+    else
+        return in;
+}
+
 void UILabel::draw()
 {
-    g.paint(tx_label);
+    g.paint(tx_label, smaller(tx_label.clip_rect, dims), tx_label.clip_rect);
 }
 
 void UILabel::update()
