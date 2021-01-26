@@ -46,12 +46,29 @@ inline MediaRect smaller(MediaRect in, MediaRect out)
     else if (in.h > out.h)
         return {0, 0, out.w, out.h};
     else
+        return {0, 0, in.w, in.h};
+}
+
+inline MediaRect smaller_dest(MediaRect in, MediaRect out)
+{
+    if (in.w > out.w)
+        return out;
+    else if (in.h > out.h)
+        return out;
+    else
         return in;
 }
 
 void UILabel::draw()
 {
-    g.paint(tx_label, smaller(tx_label.clip_rect, dims), tx_label.clip_rect);
+    /*printf("***\n");
+    PRINTRECT(o_label.src_rect);
+    PRINTRECT(o_label.dest_rect);
+    PRINTRECT(dims);
+    PRINTRECT(smaller(o_label.dest_rect, dims));
+    PRINTRECT(smaller_dest(o_label.dest_rect, dims));
+    printf("***\n");*/
+    g.paint(o_label);
 }
 
 void UILabel::update()
@@ -61,7 +78,13 @@ void UILabel::update()
 void UILabel::refresh()
 {
     PRINT_LINE
-    tx_label.align(dims);
+    MediaDims k = o_label.dims();
+    printf("## %d %d\n", k.w, dims.w);
+    if ( o_label.dest_rect.w > dims.w ||
+        ((o_label.src_rect_ptr != nullptr) && (k.w > dims.w))) {
+        o_label.clip(dims.w, dims.h);
+    }
+    o_label.align(dims);
 }
 
 /*
@@ -86,7 +109,7 @@ void UIState::snap(UIGravity grav, int hpad, int vpad)
 void UIState::draw()
 {
     g.set_color(255, 255, 255, 255);
-    g.rect(dims);
+    g.rect(geo.container_dim);
     for (auto &i: widgets) {
         i->draw();
     }

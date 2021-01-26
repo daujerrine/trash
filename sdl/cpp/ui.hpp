@@ -213,7 +213,7 @@ inline void UIGeometry::calculate_all() {
                 widgets[i]->dims.x = UI_DEFAULT_PADDING + current_dim.x;
                 widgets[i]->dims.y = current_dim.y + UI_DEFAULT_PADDING;
                 widgets[i]->dims.w = current_dim.w - 2 * UI_DEFAULT_PADDING;
-                widgets[i]->dims.h = min_grid_height + 1;
+                widgets[i]->dims.h = min_grid_height;
 
                 printf("(%d, %d, %d, %d)\n",
                     widgets[i]->dims.x,
@@ -260,7 +260,7 @@ class UIContainer : public UIWidget {
 class UILabel : public UIWidget {
     protected:
         static constexpr char const *name = "label";
-        MediaObject tx_label;
+        MediaClipObject o_label;
 
     public:
         int rowspan;
@@ -270,8 +270,8 @@ class UILabel : public UIWidget {
         UILabel(MediaState &m, MediaGraphics &g, std::string label, int options = 0):
             UIWidget(m, g, label, options)
         {
-            g.text(tx_label, label);
-            dims = tx_label.clip_rect;
+            g.text(o_label, label);
+            dims = o_label.dest_rect;
         }
 
         ~UILabel() {

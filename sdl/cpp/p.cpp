@@ -15,6 +15,7 @@ int main() {
     UIState u(m, g);
     MediaObject k;
     MediaRect q = {40, 40, 300, 200};
+    MediaRect dims = {100, 100, 400, 400};
     UILabel &label1 = u.add<UILabel>("Out Of Memory");
     u.add<UILabel>("==================");
     u.add<UILabel>("This prograaaaaaaaaaaaaam has crashed due to the lack of");
@@ -41,6 +42,35 @@ int main() {
 
             case SDL_KEYDOWN:
                 printf("%d\n", m.e.key.keysym.sym);
+                switch (m.e.key.keysym.sym) {
+                case SDLK_RIGHT:
+                    PRINT_LINE;
+                    dims.w += 5;
+                    u.geo.set_container_dim(dims);
+                    u.refresh();
+                    break;
+
+                case SDLK_LEFT:
+                    PRINT_LINE;
+                    dims.w -= 5;
+                    u.geo.set_container_dim(dims);
+                    u.refresh();
+                    break;
+
+                case SDLK_UP:
+                    PRINT_LINE;
+                    dims.h--;
+                    u.geo.set_container_dim(dims);
+                    u.refresh();
+                    break;
+
+                case SDLK_DOWN:
+                    PRINT_LINE;
+                    dims.h++;
+                    u.geo.set_container_dim(dims);
+                    u.refresh();
+                    break;
+                }
                 break;
             }
         }

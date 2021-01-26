@@ -10,6 +10,8 @@
 #include <SDL2/SDL_ttf.h>
 
 #define PRINT_LINE printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
+#define PRINTRECT(_r) (printf("rect(%d, %d, %d, %d)\n", _r.x, _r.y, _r.w, _r.h))
+
 #define LZCHECK(_q) \
     if ((_q) < 0) { \
         printf("LZERO: "); \
@@ -36,6 +38,12 @@ typedef enum MediaGravity {
     BOTTOMLEFT,
     LEFT
 } MediaGravity;
+
+
+struct MediaDims {
+    int w;
+    int h;
+};
 
 struct MediaFPSCounter {
     uint64_t start;
@@ -119,9 +127,10 @@ inline bool MediaTimer::done()
  * Note: ALWAYS pass REFERENCES to MediaObjects in functions, else they will be
  * destructed by the function call copying over the values.
  */
+
 struct MediaObject {
     SDL_Texture *texture;
-    MediaRect clip_rect;
+    MediaRect dest_rect;
 
     /// Explicitly used to reassign textures. Automatically frees an existing
     /// allocated texture if it exists.
@@ -132,43 +141,105 @@ struct MediaObject {
 
     inline void align(MediaRect k, MediaGravity g = CENTER, int hpad = 0, int vpad = 0);
     inline void scale(int sw, int sh);
+    inline MediaDims dims();
     
     // The texture must be null by default.
     MediaObject(): texture(nullptr) {}
 
-    ~MediaObject() {
+    virtual ~MediaObject() {
         this->free();
         this->texture = nullptr;
     }
 };
 
-#define PRINTRECT(_r) (printf("rect(%d, %d, %d, %d)\n", _r.x, _r.y, _r.w, _r.h))
-
 inline void MediaObject::align(MediaRect k, MediaGravity g, int hpad, int vpad) {
-    PRINTRECT(clip_rect);
+    PRINTRECT(dest_rect);
     PRINTRECT(k);
-    PRINTRECT(_rect_align(k, clip_rect, g, hpad, vpad));
-    clip_rect = _rect_align(k, clip_rect, g, hpad, vpad);
+    PRINTRECT(_rect_align(k, dest_rect, g, hpad, vpad));
+    dest_rect = _rect_align(k, dest_rect, g, hpad, vpad);
 }
 
 inline void MediaObject::scale(int sw, int sh) {
-    clip_rect.w *= sw;
-    clip_rect.h *= sh;
+    dest_rect.w *= sw;
+    dest_rect.h *= sh;
 }
 
+inline MediaDims MediaObject::dims() {
+    MediaDims k;
+    SDL_QueryTexture(texture, nullptr, nullptr, &k.w, &k.h);
+    return k;
+}
 
+/**
+ * Used for objects that may be clipped alongside being scaled.
+ */
+
+struct MediaClipObject : MediaObject {
+
+    MediaRect src_rect;
+    MediaRect *src_rect_ptr = nullptr;
+
+    /// Clips the src rect and the width and height of the dest rect.
+    inline void clip(int w, int h);
+    inline void clip(MediaRect k);
+
+    /// Clips only the src rect
+    inline void clip_src(int w, int h);
+    inline void clip_src(MediaRect k);
+
+    /// Clears clipping of src rect and dest rect.
+    inline void clip_clear();
+    inline void clip_clear_src();
+
+    ~MediaClipObject() {}
+};
+
+inline void MediaClipObject::clip_src(int w, int h)
+{
+    src_rect_ptr = &src_rect;
+    src_rect.x = 0;
+    src_rect.y = 0;
+    src_rect.w = w;
+    src_rect.h = h;
+}
+
+inline void MediaClipObject::clip_src(MediaRect k)
+{
+    src_rect_ptr = &src_rect;
+    src_rect = k;
+}
+
+inline void MediaClipObject::clip(int w, int h)
+{
+    clip_src(w, h);
+    dest_rect.w = w;
+    dest_rect.h = h;
+}
+
+inline void MediaClipObject::clip(MediaRect k)
+{
+    clip_src(k);
+    dest_rect.w = k.w;
+    dest_rect.h = k.h;
+}
+
+inline void MediaClipObject::clip_clear_src()
+{
+    src_rect_ptr = nullptr;
+}
+
+inline void MediaClipObject::clip_clear()
+{
+    src_rect_ptr = nullptr;
+    MediaDims k = dims();
+    dest_rect.w = k.w;
+    dest_rect.h = k.h;
+}
 
 /// Typedef used for function arguments to pass a MediaObject.
-
 typedef MediaObject & MediaObjectRef;
+typedef MediaClipObject & MediaClipObjectRef;
 
-inline MediaRect scale_rect(MediaObjectRef k, int sw, int sh) {
-    return { k.clip_rect.x, k.clip_rect.y, k.clip_rect.w * sw, k.clip_rect.h * sh };
-}
-
-inline MediaRect scale_rect(MediaRect &k, int sw, int sh) {
-    return { k.x, k.y, k.w * sw, k.h * sh };
-}
 
 /*
  * =============================================================================
@@ -253,6 +324,8 @@ class MediaGraphics {
         inline void paint(const MediaObjectRef k, const MediaRect &src, const MediaRect &dest);
         inline void paint(const MediaObjectRef k, const MediaRect &src);
         inline void paint(const MediaObjectRef k);
+        inline void paint(const MediaClipObjectRef k);
+
         inline void paint_clip(const MediaObjectRef k, const MediaRect &src);
 
         inline int set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
@@ -280,6 +353,7 @@ class MediaGraphics {
         inline int frects(const std::vector<MediaRect> &rects);
 
         // Text and Images
+        /// @note Object Makers will always set the dest rectangle to object dims
 
         void text(MediaObjectRef k, const char *str, MediaColor c);
         void text(MediaObjectRef k, const char *str);
@@ -294,24 +368,34 @@ inline void MediaGraphics::paint(const MediaObjectRef k, const MediaRect &src, c
 
 inline void MediaGraphics::paint(const MediaObjectRef k, const MediaRect &src)
 {
-    SDL_RenderCopy(m.r, k.texture, &src, &k.clip_rect);
+    SDL_RenderCopy(m.r, k.texture, &src, &k.dest_rect);
 }
 
 /// Clip the object to the bounding rectangle's dimensions.
 inline void MediaGraphics::paint_clip(const MediaObjectRef k, const MediaRect &src)
 {
     MediaRect self_clip = { 0, 0, src.w, src.h }; 
-    SDL_RenderCopy(m.r, k.texture, &self_clip, &k.clip_rect);
+    SDL_RenderCopy(m.r, k.texture, &self_clip, &k.dest_rect);
 }
 
 inline void MediaGraphics::paint(const MediaObjectRef k)
 {
     // printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
     // printf("** %lx\n", (unsigned long int) k.texture);
-    int w = SDL_RenderCopy(m.r, k.texture, nullptr, &k.clip_rect);
+    int w = SDL_RenderCopy(m.r, k.texture, nullptr, &k.dest_rect);
     if (w < 0)
         printf("Error: %d %s\n", w, SDL_GetError());
 }
+
+inline void MediaGraphics::paint(const MediaClipObjectRef k)
+{
+    // printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
+    // printf("** %lx\n", (unsigned long int) k.texture);
+    int w = SDL_RenderCopy(m.r, k.texture, k.src_rect_ptr, &k.dest_rect);
+    if (w < 0)
+        printf("Error: %d %s\n", w, SDL_GetError());
+}
+
 
 
 inline int MediaGraphics::set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
