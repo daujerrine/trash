@@ -20,6 +20,20 @@ void MediaObject::free() {
 
 /*
  * =============================================================================
+ * MediaClipObject
+ * =============================================================================
+ */
+
+void MediaClipObject::set(SDL_Texture *texture) {
+    if (this->texture != nullptr) {
+        this->free();
+    }
+    this->texture = texture;
+    SDL_QueryTexture(this->texture, nullptr, nullptr, &w, &h);
+}
+
+/*
+ * =============================================================================
  * MediaState
  * =============================================================================
  */

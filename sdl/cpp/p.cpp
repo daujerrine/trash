@@ -30,6 +30,9 @@ int main() {
     u.add<UILabel>("asas");
     u.add<UILabel>("asas");
     u.add<UILabel>("asas");
+    u.add<UILabel>("asas");
+    u.add<UIButton>("asas");
+    u.add<UIButton>("asas");
     u.refresh();
     while (m.active) {
         m.loop_start();
@@ -44,28 +47,24 @@ int main() {
                 printf("%d\n", m.e.key.keysym.sym);
                 switch (m.e.key.keysym.sym) {
                 case SDLK_RIGHT:
-                    PRINT_LINE;
                     dims.w += 5;
                     u.geo.set_container_dim(dims);
                     u.refresh();
                     break;
 
                 case SDLK_LEFT:
-                    PRINT_LINE;
                     dims.w -= 5;
                     u.geo.set_container_dim(dims);
                     u.refresh();
                     break;
 
                 case SDLK_UP:
-                    PRINT_LINE;
                     dims.h--;
                     u.geo.set_container_dim(dims);
                     u.refresh();
                     break;
 
                 case SDLK_DOWN:
-                    PRINT_LINE;
                     dims.h++;
                     u.geo.set_container_dim(dims);
                     u.refresh();
@@ -74,19 +73,15 @@ int main() {
                 break;
             }
         }
+
+        u.update();
         g.text(k, "FPS: " + to_string(m.get_fps()));
-        //SDL_Surface *t = TTF_RenderText_Solid(m.font, ("quack" + to_string(m.get_fps())).c_str(), (SDL_Color) {255, 255, 255, 255} ); NULLCHECK(t);
-        //SDL_Texture *ttx = SDL_CreateTextureFromSurface(m.r, t); NULLCHECK(ttx);
-        //SDL_FreeSurface(t);
+
         g.clear();
+        u.draw();
         g.set_color(128, 255, 255, 255);
         g.paint(k);
-        //SDL_RenderCopy(m.r, ttx, nullptr, &q);
         g.line(10, 10, 400, 400);
-        g.set_color(0, 0, 0, 255);
-        //PRINT_LINE
-        u.draw();
-        //PRINT_LINE
         g.present();
         //SDL_DestroyTexture(ttx);
         m.loop_end();

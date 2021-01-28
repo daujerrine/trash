@@ -7,10 +7,16 @@
 #include <vector>
 #include <string>
 
-#define UI_DEFAULT_PADDING 10
-#define UI_DEFAULT_MARGIN 10
+#define UI_DEFAULT_PADDING 3
+#define UI_DEFAULT_MARGIN 5
 #define UI_DEFAULT_MIN_WIDTH 30
 #define UI_DEFAULT_MIN_HEIGHT 30
+
+#define POINT_IN_RECT(_x, _y, _rect) (\
+    (_x) >= (_rect).x &&\
+    (_y) >= (_rect).y &&\
+    (_x) <= (_rect).x + (_rect).w &&\
+    (_y) <= (_rect).y + (_rect).h)
 
 
 // Options of a widget
@@ -108,6 +114,7 @@ inline int UIDefaultPrimitives::box(UIWidget &u, MediaRect k)
 inline int UIDefaultPrimitives::fbox(UIWidget &u, MediaRect k)
 {
     return g.frect(k);
+    return g.rect(k);
 }
 
 inline int UIDefaultPrimitives::line(UIWidget &u, int x1, int y1, int x2, int y2)
@@ -190,7 +197,7 @@ inline UIGridEntry const *UIGeometry::iter(int widget_index) {
 
 inline void UIGeometry::calculate_all() {
     UIGridEntry const *curr_grid;
-    int min_grid_height = 0;
+    int min_grid_height;
     grid_index = 0;
     current_dim = container_dim;
     PRINT_LINE
@@ -202,6 +209,7 @@ inline void UIGeometry::calculate_all() {
         for (int j = 0; j < curr_grid->rows; j++) {
             printf("q\n");
             current_dim.x = container_dim.x;
+            min_grid_height = 0;
             for (int k = 0; k < curr_grid->cols; k++) {
 
                 min_grid_height = min_grid_height > widgets[i]->dims.h ?
@@ -210,9 +218,9 @@ inline void UIGeometry::calculate_all() {
 
                 printf("k = %d j = %d %s\n", k, j, widgets[i]->get_name());
 
-                widgets[i]->dims.x = UI_DEFAULT_PADDING + current_dim.x;
-                widgets[i]->dims.y = current_dim.y + UI_DEFAULT_PADDING;
-                widgets[i]->dims.w = current_dim.w - 2 * UI_DEFAULT_PADDING;
+                widgets[i]->dims.x = UI_DEFAULT_MARGIN + current_dim.x;
+                widgets[i]->dims.y = current_dim.y + UI_DEFAULT_MARGIN;
+                widgets[i]->dims.w = current_dim.w - 2 * UI_DEFAULT_MARGIN;
                 widgets[i]->dims.h = min_grid_height;
 
                 printf("(%d, %d, %d, %d)\n",
@@ -227,7 +235,7 @@ inline void UIGeometry::calculate_all() {
                 if (i >= widgets.size())
                     goto end;
             }
-            current_dim.y += min_grid_height + UI_DEFAULT_PADDING;
+            current_dim.y += min_grid_height + UI_DEFAULT_MARGIN;
         }
     }
 
@@ -263,18 +271,50 @@ class UILabel : public UIWidget {
         MediaClipObject o_label;
 
     public:
-        int rowspan;
-        int colspan;
-        bool skip;
-        
         UILabel(MediaState &m, MediaGraphics &g, std::string label, int options = 0):
             UIWidget(m, g, label, options)
         {
             g.text(o_label, label);
             dims = o_label.dest_rect;
+            dims.h += 2 * UI_DEFAULT_PADDING;
         }
 
         ~UILabel() {
+            // printf("Destructor called\n");
+        }
+
+        void draw();
+        void update();
+        void refresh();
+
+        inline bool is_down()
+        {
+            return false;
+        }
+
+        inline bool is_changed()
+        {
+            return false;
+        }
+};
+
+class UIButton : public UIWidget {
+    protected:
+        static constexpr char const *name = "label";
+        MediaClipObject o_label;
+
+    public:
+        UIWidgetState state = UI_WIDGET_NORMAL;
+
+        UIButton(MediaState &m, MediaGraphics &g, std::string label, int options = 0):
+            UIWidget(m, g, label, options)
+        {
+            g.text(o_label, label);
+            dims = o_label.dest_rect;
+            dims.h += 2 * UI_DEFAULT_PADDING;
+        }
+
+        ~UIButton() {
             // printf("Destructor called\n");
         }
 
@@ -304,10 +344,10 @@ class UILabel : public UIWidget {
 
 class UIState {
     private:    
-        MediaState &m;
-        MediaGraphics &g;
+        MediaState &m; /// @todo replace these in sub elements with function arg passing instead?
+        MediaGraphics &g; /// @todo replace these in sub elements with function arg passing instead?
         UIDefaultPrimitives p;
-        MediaRect dims = {100, 100, 400, 400};
+        MediaRect dims = {0, 0, 800, 600};
         int options;
         std::vector<std::unique_ptr<UIWidget>> widgets;
 

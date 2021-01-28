@@ -86,7 +86,7 @@ static inline MediaRect _rect_align(MediaRect out, MediaRect in, MediaGravity g,
         return (MediaRect) { out.x + hpad, out.y + out.h / 2 - in.h / 2, in.w, in.h };
 
     case CENTER:
-        return (MediaRect) { out.x + out.w / 2 - in.w / 2, out.y + out.h / 2 - in.h / 2, in.w, in.h };
+        return (MediaRect) { out.x + out.w / 2 - in.w / 2, out.y + out.h / 2 - 1 - in.h / 2, in.w, in.h };
 
     default:
         return (MediaRect) {0, 0, 0, 0};
@@ -134,7 +134,7 @@ struct MediaObject {
 
     /// Explicitly used to reassign textures. Automatically frees an existing
     /// allocated texture if it exists.
-    void set(SDL_Texture *texture);
+    virtual void set(SDL_Texture *texture);
 
     /// Frees the texture,
     void free();
@@ -179,17 +179,28 @@ struct MediaClipObject : MediaObject {
     MediaRect src_rect;
     MediaRect *src_rect_ptr = nullptr;
 
+    int w;
+    int h;
+
+    /// Overridden to store actual width and height as well.
+    void set(SDL_Texture *texture);
+
     /// Clips the src rect and the width and height of the dest rect.
     inline void clip(int w, int h);
+    inline void clip(int w);
     inline void clip(MediaRect k);
 
     /// Clips only the src rect
     inline void clip_src(int w, int h);
+    inline void clip_src(int w);
     inline void clip_src(MediaRect k);
 
     /// Clears clipping of src rect and dest rect.
     inline void clip_clear();
     inline void clip_clear_src();
+
+    /// Used to control element overflow in things like GUI elements.
+    inline void overflow_x(MediaRect bounds);
 
     ~MediaClipObject() {}
 };
@@ -203,6 +214,15 @@ inline void MediaClipObject::clip_src(int w, int h)
     src_rect.h = h;
 }
 
+inline void MediaClipObject::clip_src(int w)
+{
+    src_rect_ptr = &src_rect;
+    src_rect.x = 0;
+    src_rect.y = 0;
+    src_rect.w = w;
+}
+
+
 inline void MediaClipObject::clip_src(MediaRect k)
 {
     src_rect_ptr = &src_rect;
@@ -214,6 +234,20 @@ inline void MediaClipObject::clip(int w, int h)
     clip_src(w, h);
     dest_rect.w = w;
     dest_rect.h = h;
+}
+
+inline void MediaClipObject::clip(int w)
+{
+    clip_src(w);
+    dest_rect.w = w;
+}
+
+inline void MediaClipObject::overflow_x(MediaRect bounds)
+{
+    if (  dest_rect.w > bounds.w ||
+        ((src_rect_ptr != nullptr) && (src_rect.w < w))) {
+        clip(bounds.w, h);
+    }
 }
 
 inline void MediaClipObject::clip(MediaRect k)
@@ -395,8 +429,6 @@ inline void MediaGraphics::paint(const MediaClipObjectRef k)
     if (w < 0)
         printf("Error: %d %s\n", w, SDL_GetError());
 }
-
-
 
 inline int MediaGraphics::set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {

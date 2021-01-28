@@ -39,6 +39,13 @@ int UIContainer::add<Widget>(std::string label, int options)
  * =============================================================================
  */
 
+
+/*
+ * -----------------------------------------------------------------------------
+ * UILabel
+ * -----------------------------------------------------------------------------
+ */
+
 inline MediaRect smaller(MediaRect in, MediaRect out)
 {
     if (in.w > out.w)
@@ -77,13 +84,76 @@ void UILabel::update()
 
 void UILabel::refresh()
 {
-    PRINT_LINE
-    MediaDims k = o_label.dims();
-    printf("## %d %d\n", k.w, dims.w);
-    if ( o_label.dest_rect.w > dims.w ||
-        ((o_label.src_rect_ptr != nullptr) && (k.w > dims.w))) {
-        o_label.clip(dims.w, dims.h);
+    o_label.overflow_x(dims);
+    o_label.align(dims);
+}
+
+/*
+ * -----------------------------------------------------------------------------
+ * UIButton
+ * -----------------------------------------------------------------------------
+ */
+
+void UIButton::draw()
+{
+    switch (state) {
+    case UI_WIDGET_NORMAL:
+        g.rect(dims);
+        g.paint(o_label);
+        break;
+
+    case UI_WIDGET_ACTIVE:
+        g.set_color(80, 80, 80, 255);
+        g.frect(dims);
+        g.set_color(255, 255, 255, 255);
+        g.rect(dims);
+        g.paint(o_label);
+        break;
+
+    case UI_WIDGET_DOWN:
+        g.frect(dims);
+        SDL_SetTextureColorMod(o_label.texture, 0, 0, 0);
+        o_label.dest_rect.y += 1;
+        g.paint(o_label);
+        SDL_SetTextureColorMod(o_label.texture, 255, 255, 255);
+        o_label.dest_rect.y -= 1;
+        break;
     }
+}
+
+void UIButton::update()
+{
+    switch (m.e.type) {
+    case SDL_MOUSEMOTION:
+        if (POINT_IN_RECT(m.e.motion.x, m.e.motion.y, dims) && state != UI_WIDGET_DOWN) {
+            state = UI_WIDGET_ACTIVE;
+        } else if (state != UI_WIDGET_DOWN) {
+            state = UI_WIDGET_NORMAL;
+        }
+        break;
+
+    case SDL_MOUSEBUTTONDOWN:
+        if (POINT_IN_RECT(m.e.button.x, m.e.button.y, dims)) {
+            state = UI_WIDGET_DOWN;
+        }
+        break;
+
+    case SDL_MOUSEBUTTONUP:
+        if (POINT_IN_RECT(m.e.button.x, m.e.button.y, dims) && state == UI_WIDGET_DOWN) {
+            state = UI_WIDGET_ACTIVE;
+            printf("Clicked\n");
+        } else if (POINT_IN_RECT(m.e.button.x, m.e.button.y, dims)) {
+            state = UI_WIDGET_ACTIVE;
+        } else {
+            state = UI_WIDGET_NORMAL;
+        }
+        break;
+    }
+}
+
+void UIButton::refresh()
+{
+    o_label.overflow_x(dims);
     o_label.align(dims);
 }
 
@@ -108,6 +178,8 @@ void UIState::snap(UIGravity grav, int hpad, int vpad)
 
 void UIState::draw()
 {
+    g.set_color(32, 32, 32, 255);
+    g.frect(geo.container_dim);
     g.set_color(255, 255, 255, 255);
     g.rect(geo.container_dim);
     for (auto &i: widgets) {
