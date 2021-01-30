@@ -18,7 +18,6 @@
     (_x) <= (_rect).x + (_rect).w &&\
     (_y) <= (_rect).y + (_rect).h)
 
-
 // Options of a widget
 
 enum UIOptions {

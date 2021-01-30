@@ -52,13 +52,16 @@ struct MediaFPSCounter {
     float value;
 };
 
-
+/**
+ * Generic Utility functions go here.
+ */
+namespace Util {
 
 /**
  * Aligns an outer rectangle with an inner one.
  */
 
-static inline MediaRect _rect_align(MediaRect out, MediaRect in, MediaGravity g, int hpad, int vpad)
+static inline MediaRect rect_align(MediaRect out, MediaRect in, MediaGravity g, int hpad, int vpad)
 {
     switch (g) {
     case TOPLEFT:
@@ -93,6 +96,21 @@ static inline MediaRect _rect_align(MediaRect out, MediaRect in, MediaGravity g,
     }
 }
 
+inline bool point_in_rect(x, y, rect)
+{
+    return ((x) >= (rect).x && (y) >= (rect).y &&
+            (x) <= (rect).x + (rect).w && (y) <= (rect).y + (rect).h);
+}
+}; // namespace Util end
+
+/**
+ * Generic Event handlers
+ */
+
+namespace Behaviour {
+
+inline void on_click()
+}
 
 /**
  * Used for timing operations.
@@ -155,8 +173,8 @@ struct MediaObject {
 inline void MediaObject::align(MediaRect k, MediaGravity g, int hpad, int vpad) {
     PRINTRECT(dest_rect);
     PRINTRECT(k);
-    PRINTRECT(_rect_align(k, dest_rect, g, hpad, vpad));
-    dest_rect = _rect_align(k, dest_rect, g, hpad, vpad);
+    PRINTRECT(Util::rect_align(k, dest_rect, g, hpad, vpad));
+    dest_rect = Util::rect_align(k, dest_rect, g, hpad, vpad);
 }
 
 inline void MediaObject::scale(int sw, int sh) {
