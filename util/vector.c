@@ -120,7 +120,7 @@ int main() {
         return 1;
     }
 
-    for (int i = 0; i < 1024; i++)
+    for (int i = 0; i < 32; i++)
         VEC_PUSH(k, 5, ok);
     printf("%d\n", VEC_GET(k, 0));
     VEC_FREE(k);

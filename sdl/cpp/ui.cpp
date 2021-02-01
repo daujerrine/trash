@@ -2,9 +2,12 @@
 
 // --- Weird compiler obligations. Fixed in C++17.
 
-constexpr const UIGridEntry UIGeometry::default_grid;
+constexpr const UIGridGeometry::UIGridEntry UIGridGeometry::default_grid;
+constexpr const UIRelativeGeometry::GravityEntry UIRelativeGeometry::default_grav;
 
 // --- End Weird compiler obligations.
+
+using Util::point_in_rect;
 
 /*
  * =============================================================================
@@ -125,7 +128,7 @@ void UIButton::update()
 {
     switch (m.e.type) {
     case SDL_MOUSEMOTION:
-        if (POINT_IN_RECT(m.e.motion.x, m.e.motion.y, dims) && state != UI_WIDGET_DOWN) {
+        if (point_in_rect(m.e.motion.x, m.e.motion.y, dims) && state != UI_WIDGET_DOWN) {
             state = UI_WIDGET_ACTIVE;
         } else if (state != UI_WIDGET_DOWN) {
             state = UI_WIDGET_NORMAL;
@@ -133,16 +136,16 @@ void UIButton::update()
         break;
 
     case SDL_MOUSEBUTTONDOWN:
-        if (POINT_IN_RECT(m.e.button.x, m.e.button.y, dims)) {
+        if (point_in_rect(m.e.button.x, m.e.button.y, dims)) {
             state = UI_WIDGET_DOWN;
         }
         break;
 
     case SDL_MOUSEBUTTONUP:
-        if (POINT_IN_RECT(m.e.button.x, m.e.button.y, dims) && state == UI_WIDGET_DOWN) {
+        if (point_in_rect(m.e.button.x, m.e.button.y, dims) && state == UI_WIDGET_DOWN) {
             state = UI_WIDGET_ACTIVE;
             printf("Clicked\n");
-        } else if (POINT_IN_RECT(m.e.button.x, m.e.button.y, dims)) {
+        } else if (point_in_rect(m.e.button.x, m.e.button.y, dims)) {
             state = UI_WIDGET_ACTIVE;
         } else {
             state = UI_WIDGET_NORMAL;
@@ -163,20 +166,15 @@ void UIButton::refresh()
  * =============================================================================
  */
 
-
 /*
-void UIState::add(UIWidget *k)
+void UITopLevel::add(UIWidget *k)
 {
     std::unique_ptr<UIWidget> p(k);
     widgets.push_back(std::move(p));
 }
 */
 
-void UIState::snap(UIGravity grav, int hpad, int vpad)
-{
-}
-
-void UIState::draw()
+void UITopLevel::draw()
 {
     g.set_color(32, 32, 32, 255);
     g.frect(geo.container_dim);
@@ -187,20 +185,17 @@ void UIState::draw()
     }
 }
 
-void UIState::update()
+void UITopLevel::update()
 {
     for (auto &i: widgets) {
         i->update();
     }
 }
 
-void UIState::refresh()
+void UITopLevel::refresh()
 {
     geo.calculate_all();
     for (auto &i: widgets) {
         i->refresh();
     }
 }
-
-
-

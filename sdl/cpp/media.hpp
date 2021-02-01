@@ -77,7 +77,7 @@ static inline MediaRect rect_align(MediaRect out, MediaRect in, MediaGravity g, 
         return (MediaRect) { out.x + out.w - in.w - hpad, out.y / 2 - in.h / 2, in.w, in.h };
 
     case BOTTOMRIGHT:
-        return (MediaRect) { out.x + out.w - in.w - hpad, out.y + out.w - in.w - vpad, in.w, in.h };
+        return (MediaRect) { out.x + out.w - in.w - hpad, out.y + out.h - in.h - vpad, in.w, in.h };
 
     case BOTTOM:
         return (MediaRect) { out.x + out.w / 2 - in.w / 2, out.y + out.h - in.h - hpad, in.w, in.h };
@@ -96,21 +96,14 @@ static inline MediaRect rect_align(MediaRect out, MediaRect in, MediaGravity g, 
     }
 }
 
-inline bool point_in_rect(x, y, rect)
+
+static inline bool point_in_rect(int x, int y, MediaRect rect)
 {
     return ((x) >= (rect).x && (y) >= (rect).y &&
             (x) <= (rect).x + (rect).w && (y) <= (rect).y + (rect).h);
 }
+
 }; // namespace Util end
-
-/**
- * Generic Event handlers
- */
-
-namespace Behaviour {
-
-inline void on_click()
-}
 
 /**
  * Used for timing operations.
