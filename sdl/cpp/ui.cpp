@@ -81,8 +81,10 @@ void UILabel::draw()
     g.paint(o_label);
 }
 
-void UILabel::update()
+
+bool UILabel::update()
 {
+    return true;
 }
 
 void UILabel::refresh()
@@ -124,7 +126,7 @@ void UIButton::draw()
     }
 }
 
-void UIButton::update()
+bool UIButton::update()
 {
     switch (m.e.type) {
     case SDL_MOUSEMOTION:
@@ -152,6 +154,8 @@ void UIButton::update()
         }
         break;
     }
+
+    return true;
 }
 
 void UIButton::refresh()
@@ -173,29 +177,14 @@ void UITopLevel::add(UIWidget *k)
     widgets.push_back(std::move(p));
 }
 */
-
-void UITopLevel::draw()
+/*
+template <typename Geometry>
+void UITopLevel<Geometry>::draw()
 {
     g.set_color(32, 32, 32, 255);
     g.frect(geo.container_dim);
     g.set_color(255, 255, 255, 255);
     g.rect(geo.container_dim);
-    for (auto &i: widgets) {
-        i->draw();
-    }
+    
 }
-
-void UITopLevel::update()
-{
-    for (auto &i: widgets) {
-        i->update();
-    }
-}
-
-void UITopLevel::refresh()
-{
-    geo.calculate_all();
-    for (auto &i: widgets) {
-        i->refresh();
-    }
-}
+*/

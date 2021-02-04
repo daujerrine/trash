@@ -12,22 +12,23 @@ using std::to_string;
 int main() {
     MediaState m;
     MediaGraphics g(m);
-    UITopLevel u(m, g, "top", 0);
-    UIContainer<UIGridGeometry> &c = u.add<UIContainer<UIGridGeometry>>("sadasd", 0);
     MediaObject k;
     MediaRect q = {40, 40, 300, 200};
     MediaRect dims = {100, 100, 400, 400};
+
+    UITopLevel u(m, g, "top", 0, (MediaRect) {0, 0, 800, 600});
     u.geo.add(CENTER, 0, 0);
+    UIContainer<UIGridGeometry> &c = u.add<UIContainer<UIGridGeometry>>("sadasd", 0, (MediaRect) {0, 0, 400, 300});
     c.add<UILabel>("Out Of Memory");
     c.add<UILabel>("==================");
     c.add<UILabel>("This prograaaaaaaaaaaaaam has crashed due to the lack of");
     c.add<UILabel>("free memory in your system.");
-    c.geo_a.add(1, 2);
+    c.geo.add(1, 2);
     c.add<UILabel>("asas");
     c.add<UILabel>("asas");
     c.add<UILabel>("asas");
     c.add<UILabel>("asas");
-    c.geo_a.add(1, 4);
+    c.geo.add(1, 4);
     c.add<UILabel>("asas");
     c.add<UILabel>("asas");
     c.add<UILabel>("asas");
@@ -36,6 +37,7 @@ int main() {
     c.add<UIButton>("asas");
     c.add<UIButton>("asas");
     u.refresh();
+    c.refresh();
     while (m.active) {
         m.loop_start();
 
@@ -71,6 +73,16 @@ int main() {
                     u.geo.set_container_dim(dims);
                     u.refresh();
                     break;
+                }
+                break;
+
+            case SDL_WINDOWEVENT:
+                switch (m.e.window.event) {
+                    case SDL_WINDOWEVENT_RESIZED:
+                    case SDL_WINDOWEVENT_SIZE_CHANGED:
+                        printf("resized\n");
+                        u.dims = { 0, 0, m.e.window.data1, m.e.window.data2 };
+                        u.refresh();
                 }
                 break;
             }

@@ -164,9 +164,9 @@ struct MediaObject {
 };
 
 inline void MediaObject::align(MediaRect k, MediaGravity g, int hpad, int vpad) {
-    PRINTRECT(dest_rect);
-    PRINTRECT(k);
-    PRINTRECT(Util::rect_align(k, dest_rect, g, hpad, vpad));
+    // PRINTRECT(dest_rect);
+    // PRINTRECT(k);
+    // PRINTRECT(Util::rect_align(k, dest_rect, g, hpad, vpad));
     dest_rect = Util::rect_align(k, dest_rect, g, hpad, vpad);
 }
 
