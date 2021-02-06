@@ -12,6 +12,7 @@ using std::to_string;
 int main() {
     MediaState m;
     MediaGraphics g(m);
+
     MediaObject k;
     MediaRect q = {40, 40, 300, 200};
     MediaRect dims = {100, 100, 400, 400};

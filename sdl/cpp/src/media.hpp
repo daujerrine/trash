@@ -316,7 +316,7 @@ class MediaState {
             int h = 600,
             int max_fps = 60,
             const char *window_name = "Game",
-            const char *font_path = "font.otb"
+            const char *font_path = "assets/font.otb"
         );
         ~MediaState();
         inline void loop_start();
