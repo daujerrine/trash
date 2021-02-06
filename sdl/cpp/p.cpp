@@ -17,8 +17,8 @@ int main() {
     MediaRect dims = {100, 100, 400, 400};
 
     UITopLevel u(m, g, "top", 0, (MediaRect) {0, 0, 800, 600});
-    u.geo.add(CENTER, 0, 0);
-    UIContainer<UIGridGeometry> &c = u.add<UIContainer<UIGridGeometry>>("sadasd", 0, (MediaRect) {0, 0, 400, 300});
+    u.geo.add(BOTTOMRIGHT, 10, 10);
+    UIFrame &c = u.add<UIFrame>("sadasd", 0, (MediaRect) {0, 0, 400, 300});
     c.add<UILabel>("Out Of Memory");
     c.add<UILabel>("==================");
     c.add<UILabel>("This prograaaaaaaaaaaaaam has crashed due to the lack of");
@@ -36,6 +36,9 @@ int main() {
     c.add<UILabel>("asas");
     c.add<UIButton>("asas");
     c.add<UIButton>("asas");
+
+    u.geo.add(TOPRIGHT, 10, 10);
+    u.add<UILabel>("TankGame 0.0.1");
     u.refresh();
     c.refresh();
     while (m.active) {
@@ -75,20 +78,11 @@ int main() {
                     break;
                 }
                 break;
-
-            case SDL_WINDOWEVENT:
-                switch (m.e.window.event) {
-                    case SDL_WINDOWEVENT_RESIZED:
-                    case SDL_WINDOWEVENT_SIZE_CHANGED:
-                        printf("resized\n");
-                        u.dims = { 0, 0, m.e.window.data1, m.e.window.data2 };
-                        u.refresh();
-                }
-                break;
             }
+
+            u.update();
         }
 
-        u.update();
         g.text(k, "FPS: " + to_string(m.get_fps()));
 
         g.clear();

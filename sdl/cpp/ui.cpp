@@ -2,7 +2,7 @@
 
 // --- Weird compiler obligations. Fixed in C++17.
 
-constexpr const UIGridGeometry::UIGridEntry UIGridGeometry::default_grid;
+constexpr const UIGridGeometry::GridEntry UIGridGeometry::default_grid;
 constexpr const UIRelativeGeometry::GravityEntry UIRelativeGeometry::default_grav;
 
 // --- End Weird compiler obligations.
@@ -103,6 +103,7 @@ void UIButton::draw()
 {
     switch (state) {
     case UI_WIDGET_NORMAL:
+        g.set_color(255, 255, 255, 255);
         g.rect(dims);
         g.paint(o_label);
         break;
@@ -116,6 +117,7 @@ void UIButton::draw()
         break;
 
     case UI_WIDGET_DOWN:
+        g.set_color(255, 255, 255, 255);
         g.frect(dims);
         SDL_SetTextureColorMod(o_label.texture, 0, 0, 0);
         o_label.dest_rect.y += 1;
@@ -166,7 +168,7 @@ void UIButton::refresh()
 
 /*
  * =============================================================================
- * UIState
+ * UITopLevel
  * =============================================================================
  */
 
@@ -188,3 +190,38 @@ void UITopLevel<Geometry>::draw()
     
 }
 */
+
+bool UITopLevel::update()
+{
+    bool no_refresh;
+
+    switch (m.e.type) {
+    case SDL_WINDOWEVENT:
+        switch (m.e.window.event) {
+            case SDL_WINDOWEVENT_RESIZED:
+            case SDL_WINDOWEVENT_SIZE_CHANGED:
+                dims = { 0, 0, m.e.window.data1, m.e.window.data2 };
+                refresh();
+        }
+        break;
+    }
+    
+    for (auto &i: widgets)
+        no_refresh = i->update();
+
+    if (!no_refresh) {
+        refresh();
+        return false;
+    }
+    return true;
+}
+
+void UIFrame::draw()
+{
+    g.set_color(40, 40, 40, 255);
+    g.frect(geo.container_dim);
+    g.set_color(255, 255, 255, 255);
+    g.rect(geo.container_dim);
+    for (auto &i: widgets)
+        i->draw();
+}
