@@ -288,6 +288,20 @@ typedef MediaClipObject & MediaClipObjectRef;
 
 /*
  * =============================================================================
+ * MediaFont
+ * =============================================================================
+ */
+
+/// Font Creation Thing
+/*
+class MediaFont {
+    protected
+        vector
+};
+*/
+
+/*
+ * =============================================================================
  * MediaState
  * =============================================================================
  */
@@ -297,14 +311,16 @@ class MediaState {
     protected:
         static const size_t   ERROR_MESSAGE_SIZE          = 1024 * 8;
         static constexpr char err_msg[ERROR_MESSAGE_SIZE] = "";
+        const char *sdl_err_msg; /// Error Message Pointer
+        bool fail_flag = false;  /// Has initialisation failed?
 
+    /// @todo handle error throws
     public:
         SDL_Window *w;           /// Default Window
         SDL_Renderer *r;         /// Default Renderer
         SDL_Event e;             /// Events
         TTF_Font *font;          /// Default Font
         MediaFPSCounter fps;     /// FPS tracker
-        const char *sdl_err_msg; /// Error Message Pointer
         bool active;             /// Is frame loop active?
         int max_fps;             /// Maximum FPS of game
         int main_w;              /// Main window width
@@ -319,6 +335,12 @@ class MediaState {
             const char *font_path = "assets/font.otb"
         );
         ~MediaState();
+
+        const char *get_err();
+        bool fail();
+        void print_err();
+        void display_err();
+
         inline void loop_start();
         inline void loop_end();
         inline float get_fps();
@@ -425,25 +447,26 @@ inline void MediaGraphics::paint_clip(const MediaObjectRef k, const MediaRect &s
 
 inline void MediaGraphics::paint(const MediaObjectRef k)
 {
-    // printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
+    // PRINT_LINE
     // printf("** %lx\n", (unsigned long int) k.texture);
-    int w = SDL_RenderCopy(m.r, k.texture, nullptr, &k.dest_rect);
-    if (w < 0)
-        printf("Error: %d %s\n", w, SDL_GetError());
+    SDL_RenderCopy(m.r, k.texture, nullptr, &k.dest_rect);
 }
 
 inline void MediaGraphics::paint(const MediaClipObjectRef k)
 {
-    // printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
+    // PRINT_LINE
     // printf("** %lx\n", (unsigned long int) k.texture);
-    int w = SDL_RenderCopy(m.r, k.texture, k.src_rect_ptr, &k.dest_rect);
-    if (w < 0)
-        printf("Error: %d %s\n", w, SDL_GetError());
+    SDL_RenderCopy(m.r, k.texture, k.src_rect_ptr, &k.dest_rect);
 }
 
 inline int MediaGraphics::set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     return SDL_SetRenderDrawColor(m.r, r, g, b, a);
+}
+
+inline int MediaGraphics::set_color(MediaColor c)
+{
+    return SDL_SetRenderDrawColor(m.r, c.r, c.g, c.b, c.a);
 }
 
 inline void MediaGraphics::clear()

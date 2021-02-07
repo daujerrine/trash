@@ -6,11 +6,47 @@
 #include <SDL2/SDL_ttf.h>
 #include "media.hpp"
 #include "ui.hpp"
+#include "scenes/main_scene.hpp"
 
 using std::to_string;
 
 int main() {
     MediaState m;
+
+    if (m.fail()) {
+        m.display_err();
+        return 1;
+    }
+
+    MediaGraphics g(m);
+
+    MainScene main_scene(m, g);
+    main_scene.init();
+
+    while (m.active) {
+        m.loop_start();
+
+        while (SDL_PollEvent(&m.e)) {
+            switch (m.e.type) {
+            case SDL_QUIT:
+                m.active = false;
+                break;
+            }
+
+            main_scene.update();
+        }
+
+        g.clear();
+        main_scene.draw();
+        g.present();
+        //SDL_DestroyTexture(ttx);
+        m.loop_end();
+
+    }
+    return 0;
+}
+
+/*
     MediaGraphics g(m);
 
     MediaObject k;
@@ -94,6 +130,4 @@ int main() {
         g.present();
         //SDL_DestroyTexture(ttx);
         m.loop_end();
-    }
-    return 0;
-}
+*/
