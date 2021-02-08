@@ -359,7 +359,10 @@ inline void MediaState::loop_end()
     if (this->fps.elapsed < this->max_fps)
         SDL_Delay(this->max_fps - this->fps.elapsed);
 
-    this->fps.value = 1000 / (float) (SDL_GetTicks() - this->fps.start);
+
+    this->delta = (SDL_GetTicks() - this->fps.start);
+
+    this->fps.value = 1000 / (float) this->delta;
 }
 
 inline float MediaState::get_fps()

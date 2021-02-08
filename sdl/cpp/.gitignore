@@ -1,0 +1,8 @@
+*.a
+*.o
+*.cmake
+CMakeCache.txt
+CMakeFiles/
+config.h
+tankgame
+Makefile

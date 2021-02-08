@@ -77,13 +77,24 @@ class UIWidget {
         /// Draws the widget to the screen.
         virtual void draw() = 0;
 
+        /// Processes events for the given widget,
+        /// @return false if refresh() needs to be invoked by the parent widget. True otherwise.
+        virtual bool event() = 0;
+
         /// Updates the widget.
         /// @return false if refresh() needs to be invoked by the parent widget. True otherwise.
         virtual bool update() = 0;
 
         virtual inline bool is_down() = 0;
         virtual inline bool is_changed() = 0;
-        virtual inline char const *get_name() {
+
+        virtual void set_label(std::string label)
+        {
+            this->label = label;
+        }
+        
+        virtual inline char const *get_name()
+        {
             return name;
         }
 };
@@ -156,16 +167,15 @@ class UIGeometry {
     public:
         UIGeometry (std::vector<std::unique_ptr<UIWidget>> &widgets): widgets(widgets) {}
         MediaRect container_dim;
-        inline void set_container_dim(MediaRect dim);
+        inline void set_container_dim(MediaRect dims);
         virtual inline void calculate_all() = 0;
 };
 
-inline void UIGeometry::set_container_dim(MediaRect dim)
+inline void UIGeometry::set_container_dim(MediaRect dims)
 {
-    container_dim = dim;
+    container_dim = dims;
     calculate_all();
 }
-
 
 /*
  * -----------------------------------------------------------------------------
@@ -191,12 +201,13 @@ class UIGridGeometry : public UIGeometry {
         static constexpr const GridEntry default_grid = { 0, 1, 1, 0 };
         UIGridGeometry(std::vector<std::unique_ptr<UIWidget>> &widgets): UIGeometry(widgets) {}
         std::vector<GridEntry> grid_list;
-        MediaRect current_dim;
         int grid_index;
-
+        bool initial_refresh = true;
         inline void add(int rows, int cols, int repeat_till = 1);
         inline void set_row_height(int widget_index, int row_start, int h);
+        inline void set_container_dim(MediaRect dims);
         inline void calculate_all();
+        inline void translate_all(MediaPoint pos);
 };
 
 inline void UIGridGeometry::add(int rows, int cols, int repeat_till)
@@ -214,8 +225,8 @@ inline void UIGridGeometry::set_row_height(int widget_index, int row_start, int 
 
 inline UIGridGeometry::GridEntry const *UIGridGeometry::iter(int widget_index)
 {
-    if (grid_list.size() == 0            ||
-        grid_index >= grid_list.size()   ||
+    if (grid_list.size() == 0          ||
+        grid_index >= grid_list.size() ||
         widget_index < grid_list[grid_index].widget_offset) {
         printf("Default Grid\n");
         return &default_grid;
@@ -227,11 +238,12 @@ inline UIGridGeometry::GridEntry const *UIGridGeometry::iter(int widget_index)
 
 inline void UIGridGeometry::calculate_all()
 {
+    printf("><><><><><><> called\n");
     GridEntry const *curr_grid;
     int min_grid_height;
     int row_start;
     grid_index = 0;
-    current_dim = container_dim;
+    MediaRect current_dim = container_dim;
 
     for (int i = 0; i < widgets.size();) {
         curr_grid = iter(i);
@@ -241,7 +253,6 @@ inline void UIGridGeometry::calculate_all()
             current_dim.x = container_dim.x;
             min_grid_height = 0;
             for (int k = 0; k < curr_grid->cols; k++) {
-
                 if (min_grid_height < widgets[i]->dims.h) {
                     set_row_height(i, row_start, widgets[i]->dims.h);
                     min_grid_height = widgets[i]->dims.h;
@@ -250,9 +261,9 @@ inline void UIGridGeometry::calculate_all()
                 widgets[i]->dims.y = current_dim.y + UI_DEFAULT_MARGIN;
                 widgets[i]->dims.w = current_dim.w - 2 * UI_DEFAULT_MARGIN;
                 widgets[i]->dims.h = min_grid_height;
-                i++;
                 current_dim.x += current_dim.w;
 
+                i++;
                 if (i >= widgets.size())
                     goto end;
             }
@@ -262,6 +273,31 @@ inline void UIGridGeometry::calculate_all()
 
 end:
     return;
+}
+
+inline void UIGridGeometry::translate_all(MediaPoint dims)
+{
+    int diffx = dims.x - container_dim.x;
+    int diffy = dims.y - container_dim.y;
+
+    for (int i = 0; i < widgets.size(); i++) {
+        widgets[i]->dims.x += diffx;
+        widgets[i]->dims.y += diffy;
+    }
+}
+
+inline void UIGridGeometry::set_container_dim(MediaRect dims)
+{
+    if (initial_refresh == true && container_dim.w == dims.w && container_dim.h == dims.h) {
+        printf(">>>>>>>> translate\n");
+        translate_all({dims.x, dims.y});
+        container_dim = dims;
+    } else {
+        printf(">>>>>>>> resize\n");
+        container_dim = dims;
+        calculate_all();
+        initial_refresh = false;
+    }
 }
 
 /*
@@ -363,6 +399,8 @@ class UILabel : public UIWidget {
         {
             return false;
         }
+
+        void set_label(std::string label);
 };
 
 class UIButton : public UIWidget {
@@ -427,12 +465,12 @@ class UIContainer : public UIWidget {
         ): UIWidget(m, g, label, options), geo(widgets)
         {
             this->dims = dims;
-            printf("UAUAUAUAUAU\n");
-            PRINTRECT(this->dims);
+            //printf("UAUAUAUAUAU\n");
+            //PRINTRECT(this->dims);
             geo.set_container_dim(this->dims);
             refresh();
-            printf("EAEAEAEAEAE\n");
-            PRINTRECT(this->dims);
+            //printf("EAEAEAEAEAE\n");
+            //PRINTRECT(this->dims);
         }
 
         virtual void draw();
@@ -466,8 +504,8 @@ class UIContainer : public UIWidget {
     {
         Widget *k = new Widget(m, g, label, options, args...);
         std::unique_ptr<UIWidget> p(k);
-        printf("INIT DUNCCCCCCC\n");
-        PRINTRECT(p->dims);
+        //printf("INIT DUNCCCCCCC\n");
+        //PRINTRECT(p->dims);
         widgets.push_back(std::move(p));
         return *k;
     }
@@ -505,7 +543,6 @@ template <typename Geometry>
 void UIContainer<Geometry>::refresh()
 {
     geo.set_container_dim(dims);
-    geo.calculate_all();
     for (auto &i: widgets)
         i->refresh();
 }
@@ -528,8 +565,8 @@ class UITopLevel : public UIContainer<UIRelativeGeometry> {
             int options = 0,
             MediaRect dims = {0, 0, 0, 0}
         ): UIContainer(m, g, label, options, dims) {
-            printf("INIT))()()()(\n");
-            PRINTRECT(dims);
+            //printf("INIT))()()()(\n");
+            //PRINTRECT(dims);
         }
 
         bool update();

@@ -6,12 +6,17 @@
 #include <SDL2/SDL_ttf.h>
 #include "media.hpp"
 #include "ui.hpp"
-#include "scenes/main_scene.hpp"
+#include "scene.hpp"
+#include "scenes/title_scene.hpp"
+#include "scenes/game_scene.hpp"
 
 using std::to_string;
 
+Scene *scene_list[3];
+
 int main() {
     MediaState m;
+    SceneState s = SCENE_TITLE;
 
     if (m.fail()) {
         m.display_err();
@@ -20,9 +25,14 @@ int main() {
 
     MediaGraphics g(m);
 
-    MainScene main_scene(m, g);
-    main_scene.init();
+    TitleScene title_scene(m, g, s);
+    GameScene game_scene(m, g, s);
+    game_scene.init();
+    title_scene.init();
 
+    scene_list[SCENE_GAME] = &game_scene;
+    scene_list[SCENE_TITLE] = &title_scene;
+    
     while (m.active) {
         m.loop_start();
 
@@ -32,12 +42,12 @@ int main() {
                 m.active = false;
                 break;
             }
-
-            main_scene.update();
         }
 
+        scene_list[s]->update();
+
         g.clear();
-        main_scene.draw();
+        scene_list[s]->draw();
         g.present();
         //SDL_DestroyTexture(ttx);
         m.loop_end();

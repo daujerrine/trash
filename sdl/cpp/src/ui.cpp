@@ -93,6 +93,14 @@ void UILabel::refresh()
     o_label.align(dims);
 }
 
+void UILabel::set_label(std::string label)
+{
+    this->label = label;
+    g.text(o_label, label);
+    dims = o_label.dest_rect;
+    dims.h += 2 * UI_DEFAULT_PADDING; /// @todo remove this
+}
+
 /*
  * -----------------------------------------------------------------------------
  * UIButton

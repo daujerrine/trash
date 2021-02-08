@@ -5,6 +5,13 @@
 
 #ifndef SCENE_H
 #define SCENE_H
+
+enum SceneState {
+    SCENE_TITLE = 0,
+    SCENE_GAME,
+    SCENE_GAME_OVER
+};
+
 class Scene {
     public:
         ~Scene() {}
