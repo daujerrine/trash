@@ -141,29 +141,37 @@ void UIButton::draw()
 
 bool UIButton::event()
 {
+    if (clicked_flag == true)
+        clicked_flag = false;
     switch (m.e.type) {
     case SDL_MOUSEMOTION:
         if (point_in_rect(m.e.motion.x, m.e.motion.y, dims) && state != UI_WIDGET_DOWN) {
             state = UI_WIDGET_ACTIVE;
+            //clicked_flag = false;
         } else if (state != UI_WIDGET_DOWN) {
             state = UI_WIDGET_NORMAL;
+            //clicked_flag = false;
         }
         break;
 
     case SDL_MOUSEBUTTONDOWN:
         if (point_in_rect(m.e.button.x, m.e.button.y, dims)) {
             state = UI_WIDGET_DOWN;
+            //clicked_flag = false;
         }
         break;
 
     case SDL_MOUSEBUTTONUP:
         if (point_in_rect(m.e.button.x, m.e.button.y, dims) && state == UI_WIDGET_DOWN) {
             state = UI_WIDGET_ACTIVE;
-            printf("Clicked\n");
+            printf("Here\n");
+            clicked_flag = true;
         } else if (point_in_rect(m.e.button.x, m.e.button.y, dims)) {
             state = UI_WIDGET_ACTIVE;
+            //clicked_flag = false;
         } else {
             state = UI_WIDGET_NORMAL;
+            //clicked_flag = false;
         }
         break;
     }

@@ -12,10 +12,14 @@
 #define UI_DEFAULT_MIN_WIDTH 30
 #define UI_DEFAULT_MIN_HEIGHT 30
 
+#define UI_OPTION_DEF_SELF_MAX 24
+#define UI_OPTION_DEF_PARENT(x) ((x) << UI_OPTION_DEF_SELF_MAX)
+#define UI_OPTION_DEF(x) (1 << (x))
+
 // Options of a widget
 enum UIOptions {
-    UI_OPTION_NOCLIP = 0x1,
-    UI_OPTION_NOSTRETCH = 0x2,
+    UI_OPTION_NOCLIP    = UI_OPTION_DEF(0),
+    UI_OPTION_NOSTRETCH = UI_OPTION_DEF(1),
 };
 
 enum UIWidgetState {
@@ -55,7 +59,15 @@ class UIWidget {
         static constexpr char const *name = "generic widget";
         MediaState &m;
         MediaGraphics &g;
-        int options;  /// Several Drawing options
+
+        /**
+         * Several Drawing options.
+         * The first three bytes from the LSB are reserved for the widget's
+         * options itself. The last byte is reserved for the parent widget.
+         *
+         * Parent - Self - Self - Self
+         */
+        uint32_t options;
 
     public:
         /// "Ideal" dimensions of the given widget.
@@ -407,6 +419,7 @@ class UIButton : public UIWidget {
     protected:
         static constexpr char const *name = "label";
         MediaClipObject o_label;
+        bool clicked_flag = false;
 
     public:
         UIWidgetState state = UI_WIDGET_NORMAL;
@@ -432,7 +445,7 @@ class UIButton : public UIWidget {
 
         inline bool is_down()
         {
-            return false;
+            return clicked_flag;
         }
 
         inline bool is_changed()
