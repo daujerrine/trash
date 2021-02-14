@@ -81,6 +81,10 @@ void UILabel::draw()
     g.paint(o_label);
 }
 
+bool UILabel::event()
+{
+    return true;
+}
 
 bool UILabel::update()
 {
@@ -97,8 +101,7 @@ void UILabel::set_label(std::string label)
 {
     this->label = label;
     g.text(o_label, label);
-    dims = o_label.dest_rect;
-    dims.h += 2 * UI_DEFAULT_PADDING; /// @todo remove this
+    refresh();
 }
 
 /*
@@ -136,7 +139,7 @@ void UIButton::draw()
     }
 }
 
-bool UIButton::update()
+bool UIButton::event()
 {
     switch (m.e.type) {
     case SDL_MOUSEMOTION:
@@ -165,6 +168,11 @@ bool UIButton::update()
         break;
     }
 
+    return true;
+}
+
+bool UIButton::update()
+{
     return true;
 }
 
@@ -199,7 +207,7 @@ void UITopLevel<Geometry>::draw()
 }
 */
 
-bool UITopLevel::update()
+bool UITopLevel::event()
 {
     bool no_refresh;
 
@@ -213,15 +221,8 @@ bool UITopLevel::update()
         }
         break;
     }
-    
-    for (auto &i: widgets)
-        no_refresh = i->update();
 
-    if (!no_refresh) {
-        refresh();
-        return false;
-    }
-    return true;
+    return UIContainer::event();
 }
 
 void UIFrame::draw()

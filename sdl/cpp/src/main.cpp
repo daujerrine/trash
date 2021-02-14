@@ -25,14 +25,14 @@ int main() {
 
     MediaGraphics g(m);
 
-    TitleScene title_scene(m, g, s);
+   /* TitleScene title_scene(m, g, s);
     GameScene game_scene(m, g, s);
     game_scene.init();
     title_scene.init();
 
     scene_list[SCENE_GAME] = &game_scene;
     scene_list[SCENE_TITLE] = &title_scene;
-    
+    */
     while (m.active) {
         m.loop_start();
 
@@ -42,14 +42,15 @@ int main() {
                 m.active = false;
                 break;
             }
+            //scene_list[s]->event();
         }
-
-        scene_list[s]->update();
+        // scene_list[s]->update();
 
         g.clear();
-        scene_list[s]->draw();
+        //scene_list[s]->draw();
+        g.set_color(255, 255, 255, 255);
+        g.rect({200, 200, 200, 200});
         g.present();
-        //SDL_DestroyTexture(ttx);
         m.loop_end();
 
     }

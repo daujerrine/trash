@@ -152,7 +152,9 @@ struct MediaObject {
 
     inline void align(MediaRect k, MediaGravity g = CENTER, int hpad = 0, int vpad = 0);
     inline void scale(int sw, int sh);
-    inline MediaDims dims();
+    inline MediaDims tx_dims();
+    inline void set_size(int w, int h);
+    inline void set_rect(MediaRect k);
     
     // The texture must be null by default.
     MediaObject(): texture(nullptr) {}
@@ -163,22 +165,36 @@ struct MediaObject {
     }
 };
 
-inline void MediaObject::align(MediaRect k, MediaGravity g, int hpad, int vpad) {
+inline void MediaObject::align(MediaRect k, MediaGravity g, int hpad, int vpad)
+{
     // PRINTRECT(dest_rect);
     // PRINTRECT(k);
     // PRINTRECT(Util::rect_align(k, dest_rect, g, hpad, vpad));
     dest_rect = Util::rect_align(k, dest_rect, g, hpad, vpad);
 }
 
-inline void MediaObject::scale(int sw, int sh) {
+inline void MediaObject::scale(int sw, int sh)
+{
     dest_rect.w *= sw;
     dest_rect.h *= sh;
 }
 
-inline MediaDims MediaObject::dims() {
+inline MediaDims MediaObject::tx_dims()
+{
     MediaDims k;
     SDL_QueryTexture(texture, nullptr, nullptr, &k.w, &k.h);
     return k;
+}
+
+inline void MediaObject::set_size(int w, int h)
+{
+    dest_rect.w = w;
+    dest_rect.h = h;
+}
+
+inline void MediaObject::set_rect(MediaRect k)
+{
+    dest_rect = k;
 }
 
 /**
@@ -276,7 +292,7 @@ inline void MediaClipObject::clip_clear_src()
 inline void MediaClipObject::clip_clear()
 {
     src_rect_ptr = nullptr;
-    MediaDims k = dims();
+    MediaDims k = tx_dims();
     dest_rect.w = k.w;
     dest_rect.h = k.h;
 }

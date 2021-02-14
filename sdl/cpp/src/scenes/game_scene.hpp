@@ -16,8 +16,9 @@ class GameScene : public Scene {
         int counter_val = 0;
         MediaTimer timer;
 
-        MediaRect player;
-        std::vector<MediaPoint> enemies;
+        MediaRect player = {0, 0, 40, 40};
+        MediaRect bullet = {0, 0, 10, 10};
+        bool firing = false;
 
     public:
         GameScene(MediaState &m, MediaGraphics &g, SceneState &s):
@@ -26,6 +27,7 @@ class GameScene : public Scene {
         ~GameScene() {};
         void init();
         void draw();
+        void event();
         void update();
         void close();
 };
@@ -45,6 +47,46 @@ void GameScene::init()
 void GameScene::draw()
 {
     ui.draw();
+    g.set_color(255, 255, 255, 255);
+    g.rect(player);
+    if (firing) {
+        g.set_color(255, 128, 0, 255); 
+        g.frect(bullet);
+    }
+}
+
+void GameScene::event()
+{
+    switch (m.e.type) {
+    case SDL_KEYDOWN:
+        printf("%d\n", m.e.key.keysym.sym);
+        switch (m.e.key.keysym.sym) {
+        case SDLK_RIGHT:
+            player.x += 5;
+            break;
+
+        case SDLK_LEFT:
+            player.x -= 5;
+            break;
+
+        case SDLK_UP:
+            player.y -= 5;
+            break;
+
+        case SDLK_DOWN:
+            player.y += 5;
+            break;
+
+        case SDLK_SPACE:
+            if (firing == false) {
+                bullet = Util::rect_align(player, bullet, CENTER, 0, 0);
+                firing = true;
+            }
+            break;
+        }
+        break;
+    }
+    ui.event();
 }
 
 void GameScene::update()
@@ -55,6 +97,13 @@ void GameScene::update()
     if (timer.done()) {
         counter_val++;
         counter->set_label(std::to_string(counter_val) + " delta: " + std::to_string(m.delta));
+    }
+
+    if (firing) {
+        bullet.y -= 20;
+        if (bullet.y < 0) {
+            firing = false;
+        }
     }
 }
 

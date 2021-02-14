@@ -238,7 +238,6 @@ inline UIGridGeometry::GridEntry const *UIGridGeometry::iter(int widget_index)
 
 inline void UIGridGeometry::calculate_all()
 {
-    printf("><><><><><><> called\n");
     GridEntry const *curr_grid;
     int min_grid_height;
     int row_start;
@@ -387,6 +386,7 @@ class UILabel : public UIWidget {
         }
 
         void draw();
+        bool event();
         bool update();
         void refresh();
 
@@ -426,6 +426,7 @@ class UIButton : public UIWidget {
         }
 
         void draw();
+        bool event();
         bool update();
         void refresh();
 
@@ -474,6 +475,7 @@ class UIContainer : public UIWidget {
         }
 
         virtual void draw();
+        virtual bool event();
         virtual bool update();
         virtual void refresh();
         virtual void resize(MediaRect dims);
@@ -527,6 +529,19 @@ void UIContainer<Geometry>::draw()
 }
 
 template <typename Geometry>
+bool UIContainer<Geometry>::event()
+{
+    bool no_refresh;
+    for (auto &i: widgets)
+        no_refresh = i->event();
+    if (!no_refresh) {
+        refresh();
+        return false;
+    }
+    return true;
+}
+
+template <typename Geometry>
 bool UIContainer<Geometry>::update()
 {
     bool no_refresh;
@@ -568,8 +583,8 @@ class UITopLevel : public UIContainer<UIRelativeGeometry> {
             //printf("INIT))()()()(\n");
             //PRINTRECT(dims);
         }
-
-        bool update();
+        
+        bool event();
 };
 
 
@@ -591,6 +606,7 @@ class UIFrame : public UIContainer<UIGridGeometry> {
             int options = 0,
             MediaRect dims = {0, 0, 0, 0}
         ): UIContainer(m, g, label, options, dims) {}
+
         void draw();
 };
 #endif

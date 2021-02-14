@@ -19,6 +19,7 @@ class TitleScene : public Scene {
         ~TitleScene() {};
         void init();
         void draw();
+        void event();
         void update();
         void close();
 };
@@ -36,7 +37,8 @@ void TitleScene::draw()
     ui.draw();
 }
 
-void TitleScene::update()
+
+void TitleScene::event()
 {
     switch (m.e.type) {
     case SDL_KEYUP:
@@ -46,6 +48,11 @@ void TitleScene::update()
         }
         break;
     }
+    ui.event();
+}
+
+void TitleScene::update()
+{
     ui.update();
 }
 

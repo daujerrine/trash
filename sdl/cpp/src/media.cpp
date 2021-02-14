@@ -83,7 +83,7 @@ MediaState::MediaState(
             throw -1;
         }
 
-        SDL_SetRenderDrawColor(this->r, 0x00, 0x00, 0x00, 0xFF);
+        //SDL_SetRenderDrawColor(this->r, 0x00, 0x00, 0x00, 0xFF);
 
         if ((ret = TTF_Init()) < 0) {
             this->sdl_err_msg = TTF_GetError();
@@ -157,8 +157,10 @@ void MediaGraphics::text(MediaObjectRef k, const char *str)
 
 void MediaGraphics::text(MediaObjectRef k, std::string str, MediaColor c)
 {
+    MediaRect dims;
     SDL_Surface *t = TTF_RenderText_Solid(this->m.font, str.c_str(), c); NULLCHECK(t);
-    SDL_GetClipRect(t, &k.dest_rect);
+    SDL_GetClipRect(t, &dims);
+    k.set_size(dims.w, dims.h);
     SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t); NULLCHECK(ttx);
     SDL_FreeSurface(t);
     k.set(ttx);

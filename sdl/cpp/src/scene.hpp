@@ -17,6 +17,7 @@ class Scene {
         ~Scene() {}
         virtual void init()   = 0;
         virtual void draw()   = 0;
+        virtual void event()  = 0;
         virtual void update() = 0;
         virtual void close()  = 0;
 };
