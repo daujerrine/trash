@@ -17,8 +17,11 @@ class GameScene : public Scene {
         MediaTimer timer;
 
         MediaRect player = {0, 0, 40, 40};
+        int xdelta = 0, ydelta = 0;
+        int friction = 1;
         MediaRect bullet = {0, 0, 10, 10};
         bool firing = false;
+        bool motion = false;
 
     public:
         GameScene(MediaState &m, MediaGraphics &g, SceneState &s):
@@ -57,35 +60,63 @@ void GameScene::draw()
 
 void GameScene::event()
 {
-    switch (m.e.type) {
-    case SDL_KEYDOWN:
-        printf("%d\n", m.e.key.keysym.sym);
-        switch (m.e.key.keysym.sym) {
-        case SDLK_RIGHT:
-            player.x += 5;
+    if (m.e.key.repeat == 0) {
+        switch (m.e.type) {
+        case SDL_KEYDOWN:
+            printf("%d\n", m.e.key.keysym.sym);
+            switch (m.e.key.keysym.sym) {
+            case SDLK_RIGHT:
+                xdelta = 5;
+                motion = true;
+                break;
+
+            case SDLK_LEFT:
+                xdelta = -5;
+                motion = true;
+                break;
+
+            case SDLK_UP:
+                ydelta = -5;
+                motion = true;
+                break;
+
+            case SDLK_DOWN:
+                ydelta = 5;
+                motion = true;
+                break;
+
+            case SDLK_SPACE:
+                if (firing == false) {
+                    bullet = Util::rect_align(player, bullet, CENTER, 0, 0);
+                    firing = true;
+                }
+                break;
+            }
             break;
 
-        case SDLK_LEFT:
-            player.x -= 5;
-            break;
+        case SDL_KEYUP:
+            printf("%d\n", m.e.key.keysym.sym);
+            switch (m.e.key.keysym.sym) {
+            case SDLK_RIGHT:
+                xdelta -= 5;
+                break;
 
-        case SDLK_UP:
-            player.y -= 5;
-            break;
+            case SDLK_LEFT:
+                xdelta -= -5;
+                break;
 
-        case SDLK_DOWN:
-            player.y += 5;
-            break;
+            case SDLK_UP:
+                ydelta -= -5;
+                break;
 
-        case SDLK_SPACE:
-            if (firing == false) {
-                bullet = Util::rect_align(player, bullet, CENTER, 0, 0);
-                firing = true;
+            case SDLK_DOWN:
+                ydelta -= 5;
+                break;
             }
             break;
         }
-        break;
     }
+
     ui.event();
 }
 
@@ -98,6 +129,14 @@ void GameScene::update()
         counter_val++;
         counter->set_label(std::to_string(counter_val) + " delta: " + std::to_string(m.delta));
     }
+
+    player.x += xdelta;
+    player.y += ydelta;
+
+    if (xdelta > 0 && !motion)
+        xdelta -= friction;
+    if (ydelta > 0 && !motion)
+        ydelta -= friction;
 
     if (firing) {
         bullet.y -= 20;

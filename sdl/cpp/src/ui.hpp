@@ -12,14 +12,16 @@
 #define UI_DEFAULT_MIN_WIDTH 30
 #define UI_DEFAULT_MIN_HEIGHT 30
 
-#define UI_OPTION_DEF_SELF_MAX 24
-#define UI_OPTION_DEF_PARENT(x) ((x) << UI_OPTION_DEF_SELF_MAX)
+#define UI_OPTION_DEF_MAX 24
+#define UI_OPTION_DEF_PARENT_MAX 32
 #define UI_OPTION_DEF(x) (1 << (x))
+#define UI_OPTION_DEF_PARENT(x) (UI_OPTION_DEF(x) << UI_OPTION_DEF_MAX)
+
 
 // Options of a widget
 enum UIOptions {
-    UI_OPTION_NOCLIP    = UI_OPTION_DEF(0),
-    UI_OPTION_NOSTRETCH = UI_OPTION_DEF(1),
+    UI_OPTION_NOCLIP  = UI_OPTION_DEF(0),
+    UI_OPTION_STRETCH = UI_OPTION_DEF(1),
 };
 
 enum UIWidgetState {
@@ -62,10 +64,10 @@ class UIWidget {
 
         /**
          * Several Drawing options.
-         * The first three bytes from the LSB are reserved for the widget's
-         * options itself. The last byte is reserved for the parent widget.
+         * The first two bytes from the LSB are reserved for the widget's
+         * options itself. The last 2 bytes are reserved for the parent widget.
          *
-         * Parent - Self - Self - Self
+         * Parent - Parent - Self - Self
          */
         uint32_t options;
 
