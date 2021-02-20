@@ -270,10 +270,12 @@ inline void UIGridGeometry::calculate_all()
                     set_row_height(i, row_start, widgets[i]->dims.h);
                     min_grid_height = widgets[i]->dims.h;
                 }
+                printf("1>>"); PRINTRECT(widgets[i]->dims);
                 widgets[i]->dims.x = UI_DEFAULT_MARGIN + current_dim.x;
                 widgets[i]->dims.y = current_dim.y + UI_DEFAULT_MARGIN;
                 widgets[i]->dims.w = current_dim.w - 2 * UI_DEFAULT_MARGIN;
                 widgets[i]->dims.h = min_grid_height;
+                printf("2>>"); PRINTRECT(widgets[i]->dims);
                 current_dim.x += current_dim.w;
 
                 i++;
@@ -359,7 +361,8 @@ inline UIRelativeGeometry::GravityEntry const *UIRelativeGeometry::iter(int widg
     return &grav_list[grav_index++];
 }
 
-inline void UIRelativeGeometry::calculate_all() {
+inline void UIRelativeGeometry::calculate_all()
+{
     GravityEntry const *current_grav;
     grav_index = 0;
     printf("RELGEO\n");
@@ -546,9 +549,12 @@ void UIContainer<Geometry>::draw()
 template <typename Geometry>
 bool UIContainer<Geometry>::event()
 {
-    bool no_refresh;
+    bool no_refresh = true;
     for (auto &i: widgets)
-        no_refresh = i->event();
+        // order of variables is IMPORTANT here. if no_refresh is first,
+        // i->update() will not be evaluated.
+        no_refresh = i->event() || no_refresh;
+
     if (!no_refresh) {
         refresh();
         return false;
@@ -559,9 +565,13 @@ bool UIContainer<Geometry>::event()
 template <typename Geometry>
 bool UIContainer<Geometry>::update()
 {
-    bool no_refresh;
+    bool no_refresh = true;
+
     for (auto &i: widgets)
-        no_refresh = i->update();
+        // order of variables is IMPORTANT here. if no_refresh is first,
+        // i->update() will not be evaluated.
+        no_refresh = i->update() || no_refresh;
+
     if (!no_refresh) {
         refresh();
         return false;

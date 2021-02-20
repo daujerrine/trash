@@ -5,6 +5,7 @@
 #include "ui.hpp"
 #include <vector>
 #include <string>
+#include <stdlib.h>
 
 class GameScene : public Scene {
     private:
@@ -13,11 +14,16 @@ class GameScene : public Scene {
         UITopLevel ui;
         SceneState &s;
         UILabel *counter;
+        UILabel *info, *info2;
         int counter_val = 0;
         MediaTimer timer;
 
         MediaRect player = {0, 0, 40, 40};
-        int xdelta = 0, ydelta = 0;
+        int xvel = 0, yvel = 0;
+        int xpvel = 0, ypvel = 0;
+        int xaccn = 0;
+        int yaccn = 0;
+        int cap = 10;
         int friction = 1;
         MediaRect bullet = {0, 0, 10, 10};
         bool firing = false;
@@ -41,8 +47,9 @@ void GameScene::init()
     ui.geo.add(BOTTOMRIGHT, 0, 0);
     UIFrame &c = ui.add<UIFrame>("Menu", 0, (MediaRect) {0, 0, 400, 100});
     c.add<UILabel>("Game Scene");
-    c.add<UILabel>("You are now playing the game");
     counter = &c.add<UILabel>("0");
+    info    = &c.add<UILabel>("");
+    info2    = &c.add<UILabel>("");
     ui.refresh();
 }
 
@@ -66,22 +73,22 @@ void GameScene::event()
             printf("%d\n", m.e.key.keysym.sym);
             switch (m.e.key.keysym.sym) {
             case SDLK_RIGHT:
-                xdelta = 5;
+                xaccn = 2;
                 motion = true;
                 break;
 
             case SDLK_LEFT:
-                xdelta = -5;
+                xaccn = -2;
                 motion = true;
                 break;
 
             case SDLK_UP:
-                ydelta = -5;
+                yaccn = -2;
                 motion = true;
                 break;
 
             case SDLK_DOWN:
-                ydelta = 5;
+                yaccn = 2;
                 motion = true;
                 break;
 
@@ -98,19 +105,23 @@ void GameScene::event()
             printf("%d\n", m.e.key.keysym.sym);
             switch (m.e.key.keysym.sym) {
             case SDLK_RIGHT:
-                xdelta -= 5;
+                xaccn = 0;
+                motion = false;
                 break;
 
             case SDLK_LEFT:
-                xdelta -= -5;
+                xaccn = 0;
+                motion = false;
                 break;
 
             case SDLK_UP:
-                ydelta -= -5;
+                yaccn = 0;
+                motion = false;
                 break;
 
             case SDLK_DOWN:
-                ydelta -= 5;
+                yaccn = 0;
+                motion = false;
                 break;
             }
             break;
@@ -130,13 +141,33 @@ void GameScene::update()
         counter->set_label(std::to_string(counter_val) + " delta: " + std::to_string(m.delta));
     }
 
-    player.x += xdelta;
-    player.y += ydelta;
+    /*info->set_label("Xvel: " + std::to_string(xvel) + " " +\
+                    "Yvel: " + std::to_string(yvel) + " " +\
+                    "Xaccn: " + std::to_string(xaccn) + " " +\
+                    "Yaccn: " + std::to_string(yaccn) + " " +\
+                    "Px: "   + std::to_string(player.x) + " " +\
+                    "Py: "   + std::to_string(player.y));
+    info2->set_label("M: " + std::to_string(motion));
+    */
+    if (abs(xvel) < cap && motion)
+        xvel += xaccn;
+    if (abs(yvel) < cap && motion)
+        yvel += yaccn;
+    
+    player.x += xvel;
+    player.y += yvel;
+    
+    if (!motion) {
+        if (xvel > 0) xvel -= friction;
+        if (xvel < 0) xvel += friction;
+        if (yvel > 0) yvel -= friction;
+        if (yvel < 0) yvel += friction;
+        if (xvel > 0) xvel -= friction;
+        if (xvel < 0) xvel += friction;
+        if (yvel > 0) yvel -= friction;
+        if (yvel < 0) yvel += friction;
+    }
 
-    if (xdelta > 0 && !motion)
-        xdelta -= friction;
-    if (ydelta > 0 && !motion)
-        ydelta -= friction;
 
     if (firing) {
         bullet.y -= 20;

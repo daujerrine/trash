@@ -88,7 +88,7 @@ bool UILabel::event()
 
 bool UILabel::update()
 {
-    return true;
+    return false;
 }
 
 void UILabel::refresh()
@@ -141,6 +141,8 @@ void UIButton::draw()
 
 bool UIButton::event()
 {
+    printf("Button event\n");
+
     if (clicked_flag == true)
         clicked_flag = false;
     switch (m.e.type) {
@@ -181,7 +183,7 @@ bool UIButton::event()
 
 bool UIButton::update()
 {
-    return true;
+    return false;
 }
 
 void UIButton::refresh()

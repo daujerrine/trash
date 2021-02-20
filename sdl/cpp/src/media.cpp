@@ -142,9 +142,9 @@ void MediaState::display_err()
 
 void MediaGraphics::text(MediaObjectRef k, const char *str, MediaColor c)
 {
-    SDL_Surface *t = TTF_RenderText_Solid(this->m.font, str, c); NULLCHECK(t);
+    SDL_Surface *t = TTF_RenderText_Solid(this->m.font, str, c);
     SDL_GetClipRect(t, &k.dest_rect);
-    SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t); NULLCHECK(ttx);
+    SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
     SDL_FreeSurface(t);
     k.texture = ttx;
 }
@@ -158,10 +158,10 @@ void MediaGraphics::text(MediaObjectRef k, const char *str)
 void MediaGraphics::text(MediaObjectRef k, std::string str, MediaColor c)
 {
     MediaRect dims;
-    SDL_Surface *t = TTF_RenderText_Solid(this->m.font, str.c_str(), c); NULLCHECK(t);
+    SDL_Surface *t = TTF_RenderText_Solid(this->m.font, str.c_str(), c);
     SDL_GetClipRect(t, &dims);
     k.set_size(dims.w, dims.h);
-    SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t); NULLCHECK(ttx);
+    SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
     SDL_FreeSurface(t);
     k.set(ttx);
 }
