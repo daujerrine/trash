@@ -16,6 +16,7 @@ set_target_properties(TankGame PROPERTIES OUTPUT_NAME "tankgame")
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 
 add_library(MediaLib media.cpp)
 add_library(UILib ui.cpp)

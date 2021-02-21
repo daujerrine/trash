@@ -141,8 +141,6 @@ void UIButton::draw()
 
 bool UIButton::event()
 {
-    printf("Button event\n");
-
     if (clicked_flag == true)
         clicked_flag = false;
     switch (m.e.type) {

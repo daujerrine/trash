@@ -2,6 +2,7 @@
 #define MEDIA_H
 
 #include <vector>
+#include <map>
 #include <string>
 
 #include <cstdint>
@@ -25,6 +26,7 @@
 typedef SDL_Rect MediaRect;
 typedef SDL_Point MediaPoint;
 typedef SDL_Color MediaColor;
+typedef SDL_Texture MediaTexture;
 
 /// Widget Gravity
 typedef enum MediaGravity {
@@ -51,6 +53,12 @@ struct MediaFPSCounter {
     uint64_t elapsed;
     float value;
 };
+
+/*
+ * =============================================================================
+ * Util
+ * =============================================================================
+ */
 
 /**
  * Generic Utility functions go here.
@@ -105,6 +113,13 @@ static inline bool point_in_rect(int x, int y, MediaRect rect)
 
 }; // namespace Util end
 
+
+/*
+ * =============================================================================
+ * MediaTimer
+ * =============================================================================
+ */
+
 /**
  * Used for timing operations.
  */
@@ -132,6 +147,12 @@ inline bool MediaTimer::done()
     }
 }
 
+/*
+ * =============================================================================
+ * MediaObject
+ * =============================================================================
+ */
+
 /**
  * Used in place of Surfaces and textures.
  * 
@@ -140,7 +161,7 @@ inline bool MediaTimer::done()
  */
 
 struct MediaObject {
-    SDL_Texture *texture;
+    MediaTexture *texture;
     MediaRect dest_rect;
 
     /// Explicitly used to reassign textures. Automatically frees an existing
@@ -196,6 +217,13 @@ inline void MediaObject::set_rect(MediaRect k)
 {
     dest_rect = k;
 }
+
+/*
+ * -----------------------------------------------------------------------------
+ * MediaClipObject
+ * -----------------------------------------------------------------------------
+ */
+
 
 /**
  * Used for objects that may be clipped alongside being scaled.
@@ -308,13 +336,51 @@ typedef MediaClipObject & MediaClipObjectRef;
  * =============================================================================
  */
 
-/// Font Creation Thing
-/*
+/**
+ * Caching monospace TTF/Bitmap font renderer.
+ */
+
 class MediaFont {
-    protected
-        vector
+    public:
+        enum FontDataType {
+            FONT_DATA_STANDARD,
+            FONT_DATA_IMAGE
+        };
+
+    protected:
+        s
+        // We cache any glyphs we use.
+        MediaTexture *std_glyphs[128]; // Usually we don't really access glyphs
+                                       // above 128
+        std::map<uint32_t, MediaTexture *> ext_glyphs; // Any extra glyphs we need
+
+        inline MediaTexture *get_glyph(uint32_t glyph);
+
+    public:
+        MediaFont(FontDataType ft, char *font_path)
+        {
+            for (int i = 0; i < 128; i++) {
+                Font.render
+            }
+        }
+
+        MediaFont(FontDataType ft, std::string font_path): MediaFont(font_path.c_str()) {}
+        ~MediaFont() {}
+
+        void set_glyph_spacing(int spacing);
+        void set_line_spacing(int spacing);
+
+        void text(MediaObjectRef k, const char *str, MediaColor c);
+        void text(MediaObjectRef k, const char *str);
+        void text(MediaObjectRef k, std::string str, MediaColor c);
+        void text(MediaObjectRef k, std::string str);
+
+        void wrap_text(MediaObjectRef k, const char *str, MediaRect wrap_rect, MediaColor c);
+        void wrap_text(MediaObjectRef k, const char *str, MediaRect wrap_rect);
+        void wrap_text(MediaObjectRef k, std::string str, MediaRect wrap_rect, MediaColor c);
+        void wrap_text(MediaObjectRef k, std::string str, MediaRect wrap_rect);
 };
-*/
+
 
 /*
  * =============================================================================
@@ -332,16 +398,16 @@ class MediaState {
 
     /// @todo handle error throws
     public:
-        SDL_Window *w;           /// Default Window
-        SDL_Renderer *r;         /// Default Renderer
-        SDL_Event e;             /// Events
-        TTF_Font *font;          /// Default Font
-        MediaFPSCounter fps;     /// FPS tracker
-        bool active;             /// Is frame loop active?
-        int max_fps;             /// Maximum FPS of game
-        int main_w;              /// Main window width
-        int main_h;              /// Main window height
-        uint32_t delta;          /// Delta Time
+        SDL_Window *w;       /// Default Window
+        SDL_Renderer *r;     /// Default Renderer
+        SDL_Event e;         /// Events
+        TTF_Font *font;      /// Default Font
+        MediaFPSCounter fps; /// FPS tracker
+        bool active;         /// Is frame loop active?
+        int max_fps;         /// Maximum FPS of game
+        int main_w;          /// Main window width
+        int main_h;          /// Main window height
+        uint32_t delta;      /// Delta Time
 
         MediaState(
             int w = 800,
