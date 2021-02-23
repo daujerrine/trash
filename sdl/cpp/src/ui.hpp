@@ -50,6 +50,76 @@ static inline bool clicked(MediaState &k, MediaRect b, UIWidgetState &b)
 
 /*
  * =============================================================================
+ * UIPrimitives
+ * =============================================================================
+ */
+
+/// Primitives used for drawing the GUI components.
+class UIPrimitives {
+    protected:
+        MediaGraphics &g;
+        int padding;
+        int margin;
+        int min_height;
+        int min_width;
+
+    public:
+        UIPrimitives(MediaGraphics &g): g(g) {};
+        virtual inline int box(UIWidget &u, MediaRect k) = 0;
+        virtual inline int fbox(UIWidget &u, MediaRect k) = 0;
+        virtual inline int line(UIWidget &u, int x1, int x2, int y1, int y2) = 0;
+};
+
+class UIDefaultPrimitives : public UIPrimitives {
+    protected:
+        int padding    = UI_DEFAULT_PADDING;
+        int margin     = UI_DEFAULT_MARGIN;
+        int min_height = UI_DEFAULT_MIN_HEIGHT;
+        int min_width  = UI_DEFAULT_MIN_WIDTH;
+
+    public:
+        UIDefaultPrimitives(MediaGraphics &g): UIPrimitives(g) {}
+        inline int box(UIWidget &u, MediaRect k);
+        inline int fbox(UIWidget &u, MediaRect k);
+        inline int line(UIWidget &u, int x1, int x2, int y1, int y2);
+};
+
+inline int UIDefaultPrimitives::box(UIWidget &u, MediaRect k)
+{
+    return g.rect(k);
+}
+
+inline int UIDefaultPrimitives::fbox(UIWidget &u, MediaRect k)
+{
+    return g.frect(k);
+    return g.rect(k);
+}
+
+inline int UIDefaultPrimitives::line(UIWidget &u, int x1, int y1, int x2, int y2)
+{
+    return g.line(x1, y1, x2, y2);
+}
+
+
+/*
+ * =============================================================================
+ * UIState
+ * =============================================================================
+ */
+
+/**
+ * Context variables included in every widget
+ * @todo Pass as argument instead?
+ */
+struct UIState {
+    MediaState    &m;
+    MediaGraphics &g;
+    UIPrimitives  &p;
+    UIState(MediaState &m, MediaGraphics &g): m(m), g(g) {}
+};
+
+/*
+ * =============================================================================
  * UIWidget
  * =============================================================================
  */
@@ -115,58 +185,6 @@ class UIWidget {
 
 /// Widget list alias
 typedef std::vector<std::unique_ptr<UIWidget>> UIWidgetList;
-
-/*
- * =============================================================================
- * UIPrimitives
- * =============================================================================
- */
-
-/// Primitives used for drawing the GUI components.
-class UIPrimitives {
-    protected:
-        MediaGraphics &g;
-        int padding;
-        int margin;
-        int min_height;
-        int min_width;
-
-    public:
-        UIPrimitives(MediaGraphics &g): g(g) {};
-        virtual inline int box(UIWidget &u, MediaRect k) = 0;
-        virtual inline int fbox(UIWidget &u, MediaRect k) = 0;
-        virtual inline int line(UIWidget &u, int x1, int x2, int y1, int y2) = 0;
-};
-
-class UIDefaultPrimitives : public UIPrimitives {
-    protected:
-        int padding    = UI_DEFAULT_PADDING;
-        int margin     = UI_DEFAULT_MARGIN;
-        int min_height = UI_DEFAULT_MIN_HEIGHT;
-        int min_width  = UI_DEFAULT_MIN_WIDTH;
-
-    public:
-        UIDefaultPrimitives(MediaGraphics &g): UIPrimitives(g) {}
-        inline int box(UIWidget &u, MediaRect k);
-        inline int fbox(UIWidget &u, MediaRect k);
-        inline int line(UIWidget &u, int x1, int x2, int y1, int y2);
-};
-
-inline int UIDefaultPrimitives::box(UIWidget &u, MediaRect k)
-{
-    return g.rect(k);
-}
-
-inline int UIDefaultPrimitives::fbox(UIWidget &u, MediaRect k)
-{
-    return g.frect(k);
-    return g.rect(k);
-}
-
-inline int UIDefaultPrimitives::line(UIWidget &u, int x1, int y1, int x2, int y2)
-{
-    return g.line(x1, y1, x2, y2);
-}
 
 /*
  * =============================================================================
@@ -508,27 +526,27 @@ class UIContainer : public UIWidget {
             return false;
         }
 
-    /**
-     * Adds a widget to the container.
-     * 
-     * unique_ptr packages the allocated data pointer into a class which will
-     * auto-delete the pointer when it goes out of scope.
-     *
-     * We then push it to the widget list vector via std::move, which gives up
-     * ownership of the pointer to the vector. On destruction of the vector the
-     * widget is also destructed.
-     */
+        /**
+         * Adds a widget to the container.
+         * 
+         * unique_ptr packages the allocated data pointer into a class which
+         * will auto-delete the pointer when it goes out of scope.
+         *
+         * We then push it to the widget list vector via std::move, which gives
+         * up ownership of the pointer to the vector. On destruction of the
+         * vector the widget is also destructed.
+         */
 
-    template <typename Widget, typename ...Args>
-    Widget &add(std::string label, int options = 0, Args &&...args)
-    {
-        Widget *k = new Widget(m, g, label, options, args...);
-        std::unique_ptr<UIWidget> p(k);
-        //printf("INIT DUNCCCCCCC\n");
-        //PRINTRECT(p->dims);
-        widgets.push_back(std::move(p));
-        return *k;
-    }
+        template <typename Widget, typename ...Args>
+        Widget &add(std::string label, int options = 0, Args &&...args)
+        {
+            Widget *k = new Widget(m, g, label, options, args...);
+            std::unique_ptr<UIWidget> p(k);
+            //printf("INIT DUNCCCCCCC\n");
+            //PRINTRECT(p->dims);
+            widgets.push_back(std::move(p));
+            return *k;
+        }
 };
 
 template <typename Geometry>
@@ -604,10 +622,7 @@ class UITopLevel : public UIContainer<UIRelativeGeometry> {
             std::string label,
             int options = 0,
             MediaRect dims = {0, 0, 0, 0}
-        ): UIContainer(m, g, label, options, dims) {
-            //printf("INIT))()()()(\n");
-            //PRINTRECT(dims);
-        }
+        ): UIContainer(m, g, label, options, dims) {}
         
         bool event();
 };
@@ -634,4 +649,5 @@ class UIFrame : public UIContainer<UIGridGeometry> {
 
         void draw();
 };
+
 #endif
