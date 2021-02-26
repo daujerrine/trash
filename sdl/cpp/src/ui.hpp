@@ -387,7 +387,7 @@ inline void UIRelativeGeometry::calculate_all()
     PRINTRECT(container_dim);
     for (int i = 0; i < widgets.size(); i++) {
         current_grav = iter(i);
-        widgets[i]->dims = Util::rect_align(
+        widgets[i]->dims = MediaUtil::rect_align(
             container_dim, widgets[i]->dims, current_grav->gravity,
             current_grav->hpad, current_grav->vpad);
     }

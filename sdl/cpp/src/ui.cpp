@@ -7,34 +7,7 @@ constexpr const UIRelativeGeometry::GravityEntry UIRelativeGeometry::default_gra
 
 // --- End Weird compiler obligations.
 
-using Util::point_in_rect;
-
-/*
- * =============================================================================
- * UIContainer
- * =============================================================================
- */
-/*
-class UIContainer : public UIWidget {
-    private:
-        std::vector<UIWidget> widgets;
-        
-    public:
-        template <typename Widget, typename ...Args>
-        int add<Widget>(std::string label, int options, Args &&...args);
-        int add(UIWidget &&a);
-        int draw();
-        int update();
-        int refresh();
-};
-
-template <typename Widget, typename ...Args>
-int UIContainer::add<Widget>(std::string label, int options)
-{
-    Widget w(label, options, args...);
-    add()
-}*/
-
+using MediaUtil::point_in_rect;
 
 /*
  * =============================================================================

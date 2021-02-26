@@ -34,6 +34,60 @@ void MediaClipObject::set(SDL_Texture *texture) {
 
 /*
  * =============================================================================
+ * MediaText
+ * =============================================================================
+ */
+
+void MediaText::text(MediaObjectRef k, const char *str, MediaColor c)
+{
+    SDL_Surface *t = TTF_RenderText_Solid(font, str, c);
+    SDL_GetClipRect(t, &k.dest_rect);
+    SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
+    SDL_FreeSurface(t);
+    k.texture = ttx;
+}
+
+void MediaText::text(MediaObjectRef k, const char *str)
+{
+    this->text(k, str, (SDL_Color) {255, 255, 255, 255});
+}
+
+void MediaText::text(MediaObjectRef k, std::string str, MediaColor c)
+{
+    this->text(k, str.c_str, c);
+}
+
+void MediaText::text(MediaObjectRef k, std::string str)
+{
+    this->text(k, str.c_str);
+}
+
+void MediaText::wrap_text(MediaObjectRef k, const char *str, MediaColor c, MediaRect wrap_rect)
+{
+    SDL_Surface *t = TTF_RenderText_Blended_Wrapped(font, str, c, wrap_rect.w);
+    SDL_GetClipRect(t, &k.dest_rect);
+    SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
+    SDL_FreeSurface(t);
+    k.texture = ttx;
+}
+
+void MediaText::wrap_text(MediaObjectRef k, const char *str, MediaRect wrap_rect)
+{
+    this->wrap_text(k, str, (SDL_Color) {255, 255, 255, 255}, wrap_rect);
+}
+
+void MediaText::wrap_text(MediaObjectRef k, std::string str, MediaColor c, MediaRect wrap_rect)
+{
+    this->wrap_text(k, str.c_str(), c, wrap_rect);
+}
+
+void MediaText::wrap_text(MediaObjectRef k, std::string str, MediaRect wrap_rect)
+{
+    this->wrap_text(k, str.c_str(), (SDL_Color) {255, 255, 255, 255}, wrap_rect);
+}
+
+/*
+ * =============================================================================
  * MediaState
  * =============================================================================
  */

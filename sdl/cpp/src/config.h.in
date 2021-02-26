@@ -1,8 +1,9 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define TankGame_VERSION_MAJOR @TankGame_VERSION_MAJOR@
-#define TankGame_VERSION_MINOR @TankGame_VERSION_MINOR@
-#define TankGame_VERSION_PATCH @TankGame_VERSION_PATCH@
+#define GAME_VERSION_MAJOR @TankGame_VERSION_MAJOR@
+#define GAME_VERSION_MINOR @TankGame_VERSION_MINOR@
+#define GAME_VERSION_PATCH @TankGame_VERSION_PATCH@
+#define GAME_DEBUG_MOGE    @GAME_DEBUG_MODE@
 
 #endif

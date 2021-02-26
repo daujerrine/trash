@@ -18,11 +18,13 @@
         printf("LZERO: "); \
         PRINT_LINE \
     }
+
 #define NULLCHECK(_q) \
     if ((_q) == nullptr) { \
         printf("NULL: "); \
         PRINT_LINE \
     }
+
 typedef SDL_Rect MediaRect;
 typedef SDL_Point MediaPoint;
 typedef SDL_Color MediaColor;
@@ -63,7 +65,7 @@ struct MediaFPSCounter {
 /**
  * Generic Utility functions go here.
  */
-namespace Util {
+namespace MediaUtil {
 
 /**
  * Aligns an outer rectangle with an inner one.
@@ -332,7 +334,7 @@ typedef MediaClipObject & MediaClipObjectRef;
 
 /*
  * =============================================================================
- * MediaFont
+ * MediaText
  * =============================================================================
  */
 
@@ -340,7 +342,7 @@ typedef MediaClipObject & MediaClipObjectRef;
  * Caching monospace TTF/Bitmap font renderer.
  */
 
-class MediaFont {
+class MediaText {
     public:
         enum FontDataType {
             FONT_DATA_STANDARD,
@@ -348,39 +350,40 @@ class MediaFont {
         };
 
     protected:
-        s
         // We cache any glyphs we use.
-        MediaTexture *std_glyphs[128]; // Usually we don't really access glyphs
-                                       // above 128
+        TTF_Font *font;
+        Me
+        MediaRect std_glyph_offsets[128]; // Usually we don't really access glyphs
+                                          // above 128
         std::map<uint32_t, MediaTexture *> ext_glyphs; // Any extra glyphs we need
 
         inline MediaTexture *get_glyph(uint32_t glyph);
 
     public:
-        MediaFont(FontDataType ft, char *font_path)
+        MediaText(FontDataType ft, char *font_path)
         {
+            
             for (int i = 0; i < 128; i++) {
-                Font.render
+                
             }
         }
 
-        MediaFont(FontDataType ft, std::string font_path): MediaFont(font_path.c_str()) {}
-        ~MediaFont() {}
+        MediaText(FontDataType ft, std::string font_path): MediaText(font_path.c_str()) {}
+        ~MediaText() {}
 
-        void set_glyph_spacing(int spacing);
-        void set_line_spacing(int spacing);
+        void set_glyph_spacing(int spacing) {}
+        void set_line_spacing(int spacing) {}
 
         void text(MediaObjectRef k, const char *str, MediaColor c);
         void text(MediaObjectRef k, const char *str);
         void text(MediaObjectRef k, std::string str, MediaColor c);
         void text(MediaObjectRef k, std::string str);
 
-        void wrap_text(MediaObjectRef k, const char *str, MediaRect wrap_rect, MediaColor c);
+        void wrap_text(MediaObjectRef k, const char *str, MediaColor c, MediaRect wrap_rect);
         void wrap_text(MediaObjectRef k, const char *str, MediaRect wrap_rect);
-        void wrap_text(MediaObjectRef k, std::string str, MediaRect wrap_rect, MediaColor c);
+        void wrap_text(MediaObjectRef k, std::string str, MediaColor c, MediaRect wrap_rect);
         void wrap_text(MediaObjectRef k, std::string str, MediaRect wrap_rect);
 };
-
 
 /*
  * =============================================================================
@@ -408,6 +411,10 @@ class MediaState {
         int main_w;          /// Main window width
         int main_h;          /// Main window height
         uint32_t delta;      /// Delta Time
+
+#if GAME_DEBUG_BUILD
+        std::map<std::string, std::string> debug_keys;
+#endif
 
         MediaState(
             int w = 800,
@@ -483,6 +490,7 @@ class MediaGraphics {
         inline int set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
         inline int set_color(MediaColor c);
 
+        inline void set_paint_target(const MediaObjectRef k); /// Set render target
         inline void clear();   /// Called at start of draw loop
         inline void present(); /// Called at end of draw loop
 
@@ -523,13 +531,6 @@ inline void MediaGraphics::paint(const MediaObjectRef k, const MediaRect &src)
     SDL_RenderCopy(m.r, k.texture, &src, &k.dest_rect);
 }
 
-/// Clip the object to the bounding rectangle's dimensions.
-inline void MediaGraphics::paint_clip(const MediaObjectRef k, const MediaRect &src)
-{
-    MediaRect self_clip = { 0, 0, src.w, src.h }; 
-    SDL_RenderCopy(m.r, k.texture, &self_clip, &k.dest_rect);
-}
-
 inline void MediaGraphics::paint(const MediaObjectRef k)
 {
     // PRINT_LINE
@@ -544,6 +545,13 @@ inline void MediaGraphics::paint(const MediaClipObjectRef k)
     SDL_RenderCopy(m.r, k.texture, k.src_rect_ptr, &k.dest_rect);
 }
 
+/// Clip the object to the bounding rectangle's dimensions.
+inline void MediaGraphics::paint_clip(const MediaObjectRef k, const MediaRect &src)
+{
+    MediaRect self_clip = { 0, 0, src.w, src.h }; 
+    SDL_RenderCopy(m.r, k.texture, &self_clip, &k.dest_rect);
+}
+
 inline int MediaGraphics::set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     return SDL_SetRenderDrawColor(m.r, r, g, b, a);
@@ -552,6 +560,11 @@ inline int MediaGraphics::set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 inline int MediaGraphics::set_color(MediaColor c)
 {
     return SDL_SetRenderDrawColor(m.r, c.r, c.g, c.b, c.a);
+}
+
+inline int MediaGraphics::set_paint_target(const MediaObjectRef k)
+{
+    return SDL_SetRenderTarget(m.r, k.texture);
 }
 
 inline void MediaGraphics::clear()

@@ -13,6 +13,9 @@ pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 add_executable(TankGame main.cpp)
 set_target_properties(TankGame PROPERTIES OUTPUT_NAME "tankgame")
 
+# Project flags
+set(GAME_DEBUG_BUILD 1)
+
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -21,7 +24,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 add_library(MediaLib media.cpp)
 add_library(UILib ui.cpp)
 #add_library(SceneLib scenes/main_scene.hpp)
-configure_file(config.h.in config.h)
+configure_file(config.h.in "${PROJECT_SOURCE_DIR}/config.h")
 
 target_include_directories(TankGame PUBLIC ${SDL2_INCLUDE_DIRS})
 target_include_directories(TankGame PUBLIC ${SDL2IMAGE_INCLUDE_DIRS})
