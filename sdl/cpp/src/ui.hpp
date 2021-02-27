@@ -48,6 +48,8 @@ static inline bool clicked(MediaState &k, MediaRect b, UIWidgetState &b)
 */
 };
 
+class UIWidget;
+
 /*
  * =============================================================================
  * UIPrimitives
@@ -115,7 +117,7 @@ struct UIState {
     MediaState    &m;
     MediaGraphics &g;
     UIPrimitives  &p;
-    UIState(MediaState &m, MediaGraphics &g): m(m), g(g) {}
+    UIState(MediaState &m, MediaGraphics &g, UIPrimitives &p): m(m), g(g), p(p) {}
 };
 
 /*
@@ -275,6 +277,7 @@ inline void UIGridGeometry::calculate_all()
     int row_start;
     grid_index = 0;
     MediaRect current_dim = container_dim;
+    // printf("Refresh Triggered\n");
 
     for (int i = 0; i < widgets.size();) {
         curr_grid = iter(i);
@@ -284,16 +287,17 @@ inline void UIGridGeometry::calculate_all()
             current_dim.x = container_dim.x;
             min_grid_height = 0;
             for (int k = 0; k < curr_grid->cols; k++) {
+                // printf("current height %d\n", widgets[i]->dims.h);
                 if (min_grid_height < widgets[i]->dims.h) {
                     set_row_height(i, row_start, widgets[i]->dims.h);
                     min_grid_height = widgets[i]->dims.h;
                 }
-                printf("1>>"); PRINTRECT(widgets[i]->dims);
+                // printf("1>>"); PRINTRECT(widgets[i]->dims);
                 widgets[i]->dims.x = UI_DEFAULT_MARGIN + current_dim.x;
                 widgets[i]->dims.y = current_dim.y + UI_DEFAULT_MARGIN;
                 widgets[i]->dims.w = current_dim.w - 2 * UI_DEFAULT_MARGIN;
                 widgets[i]->dims.h = min_grid_height;
-                printf("2>>"); PRINTRECT(widgets[i]->dims);
+                // printf("2>>"); PRINTRECT(widgets[i]->dims);
                 current_dim.x += current_dim.w;
 
                 i++;
@@ -410,6 +414,7 @@ class UILabel : public UIWidget {
             UIWidget(m, g, label, options)
         {
             g.text(o_label, label);
+            printf("LABELINIT::: "); PRINTRECT(o_label.dest_rect);
             dims = o_label.dest_rect;
             dims.h += 2 * UI_DEFAULT_PADDING; /// @todo remove this
             PRINT_LINE
@@ -569,9 +574,8 @@ bool UIContainer<Geometry>::event()
 {
     bool no_refresh = true;
     for (auto &i: widgets)
-        // order of variables is IMPORTANT here. if no_refresh is first,
-        // i->update() will not be evaluated.
-        no_refresh = i->event() || no_refresh;
+        // Order important for optimisation
+        no_refresh = i->event() && no_refresh;
 
     if (!no_refresh) {
         refresh();
@@ -586,14 +590,14 @@ bool UIContainer<Geometry>::update()
     bool no_refresh = true;
 
     for (auto &i: widgets)
-        // order of variables is IMPORTANT here. if no_refresh is first,
-        // i->update() will not be evaluated.
-        no_refresh = i->update() || no_refresh;
+        // Order important for optimisation
+        no_refresh = i->update() && no_refresh;
 
     if (!no_refresh) {
         refresh();
         return false;
     }
+
     return true;
 }
 

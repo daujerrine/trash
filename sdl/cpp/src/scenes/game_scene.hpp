@@ -58,8 +58,8 @@ void GameScene::init()
     UIFrame &c = ui.add<UIFrame>("Menu", 0, (MediaRect) {0, 0, 400, 100});
     c.add<UILabel>("Game Scene");
     counter = &c.add<UILabel>("0");
-    info    = &c.add<UILabel>("filler");
-    info2    = &c.add<UILabel>("filler");
+    info    = &c.add<UILabel>("");
+    info2    = &c.add<UILabel>("");
     ui.refresh();
 }
 
@@ -189,7 +189,7 @@ void GameScene::update()
 
     if (firing && num_bullets < 20 && bullet_timer.done()) {
         num_bullets++;
-        bullets.push_back(Util::rect_align(player, bullet_dims, CENTER, 0, 0));
+        bullets.push_back(MediaUtil::rect_align(player, bullet_dims, CENTER, 0, 0));
     }
     
     for (auto &i: bullets) {

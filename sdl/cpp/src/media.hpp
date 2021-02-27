@@ -193,7 +193,7 @@ inline void MediaObject::align(MediaRect k, MediaGravity g, int hpad, int vpad)
     // PRINTRECT(dest_rect);
     // PRINTRECT(k);
     // PRINTRECT(Util::rect_align(k, dest_rect, g, hpad, vpad));
-    dest_rect = Util::rect_align(k, dest_rect, g, hpad, vpad);
+    dest_rect = MediaUtil::rect_align(k, dest_rect, g, hpad, vpad);
 }
 
 inline void MediaObject::scale(int sw, int sh)
@@ -331,60 +331,6 @@ inline void MediaClipObject::clip_clear()
 typedef MediaObject & MediaObjectRef;
 typedef MediaClipObject & MediaClipObjectRef;
 
-
-/*
- * =============================================================================
- * MediaText
- * =============================================================================
- */
-
-/**
- * Caching monospace TTF/Bitmap font renderer.
- */
-
-class MediaText {
-    public:
-        enum FontDataType {
-            FONT_DATA_STANDARD,
-            FONT_DATA_IMAGE
-        };
-
-    protected:
-        // We cache any glyphs we use.
-        TTF_Font *font;
-        Me
-        MediaRect std_glyph_offsets[128]; // Usually we don't really access glyphs
-                                          // above 128
-        std::map<uint32_t, MediaTexture *> ext_glyphs; // Any extra glyphs we need
-
-        inline MediaTexture *get_glyph(uint32_t glyph);
-
-    public:
-        MediaText(FontDataType ft, char *font_path)
-        {
-            
-            for (int i = 0; i < 128; i++) {
-                
-            }
-        }
-
-        MediaText(FontDataType ft, std::string font_path): MediaText(font_path.c_str()) {}
-        ~MediaText() {}
-
-        void set_glyph_spacing(int spacing) {}
-        void set_line_spacing(int spacing) {}
-
-        void text(MediaObjectRef k, const char *str, MediaColor c);
-        void text(MediaObjectRef k, const char *str);
-        void text(MediaObjectRef k, std::string str, MediaColor c);
-        void text(MediaObjectRef k, std::string str);
-
-        void wrap_text(MediaObjectRef k, const char *str, MediaColor c, MediaRect wrap_rect);
-        void wrap_text(MediaObjectRef k, const char *str, MediaRect wrap_rect);
-        void wrap_text(MediaObjectRef k, std::string str, MediaColor c, MediaRect wrap_rect);
-        void wrap_text(MediaObjectRef k, std::string str, MediaRect wrap_rect);
-};
-
 /*
  * =============================================================================
  * MediaState
@@ -461,6 +407,60 @@ inline float MediaState::get_fps()
 
 /*
  * =============================================================================
+ * MediaText
+ * =============================================================================
+ */
+
+/**
+ * Caching monospace TTF/Bitmap font renderer.
+ */
+
+class MediaText {
+    public:
+        enum FontDataType {
+            FONT_DATA_STANDARD,
+            FONT_DATA_IMAGE
+        };
+
+    protected:
+        MediaState &m;
+        // We cache any glyphs we use.
+        TTF_Font *font;
+        MediaTexture *glyph_tx;
+        MediaRect std_glyph_offsets[128]; // Usually we don't really access glyphs
+                                          // above 128
+        std::map<uint32_t, MediaTexture *> ext_glyphs; // Any extra glyphs we need
+
+        inline MediaTexture *get_glyph(uint32_t glyph);
+
+    public:
+        void calc(FontDataType ft, char *font_path)
+        {
+            
+            for (int i = 0; i < 128; i++) {
+                
+            }
+        }
+
+        MediaText(MediaState &m, FontDataType ft, std::string font_path): m(m) {}
+        ~MediaText() {}
+
+        void set_glyph_spacing(int spacing) {}
+        void set_line_spacing(int spacing) {}
+
+        void text(MediaObjectRef k, const char *str, MediaColor c);
+        void text(MediaObjectRef k, const char *str);
+        void text(MediaObjectRef k, std::string str, MediaColor c);
+        void text(MediaObjectRef k, std::string str);
+
+        void wrap_text(MediaObjectRef k, const char *str, MediaColor c, MediaRect wrap_rect);
+        void wrap_text(MediaObjectRef k, const char *str, MediaRect wrap_rect);
+        void wrap_text(MediaObjectRef k, std::string str, MediaColor c, MediaRect wrap_rect);
+        void wrap_text(MediaObjectRef k, std::string str, MediaRect wrap_rect);
+};
+
+/*
+ * =============================================================================
  * MediaGraphics
  * =============================================================================
  */
@@ -490,7 +490,7 @@ class MediaGraphics {
         inline int set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
         inline int set_color(MediaColor c);
 
-        inline void set_paint_target(const MediaObjectRef k); /// Set render target
+        inline int set_paint_target(const MediaObjectRef k); /// Set render target
         inline void clear();   /// Called at start of draw loop
         inline void present(); /// Called at end of draw loop
 

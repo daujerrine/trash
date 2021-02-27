@@ -14,7 +14,6 @@ void MediaObject::set(SDL_Texture *texture) {
 }
 
 void MediaObject::free() {
-//    printf("[POTENTIAL BUG] Free Called\n");
     SDL_DestroyTexture(this->texture);
 }
 
@@ -40,8 +39,10 @@ void MediaClipObject::set(SDL_Texture *texture) {
 
 void MediaText::text(MediaObjectRef k, const char *str, MediaColor c)
 {
+    MediaRect dims;
     SDL_Surface *t = TTF_RenderText_Solid(font, str, c);
-    SDL_GetClipRect(t, &k.dest_rect);
+    SDL_GetClipRect(t, &dims);
+    k.set_size(dims.w, dims.h);
     SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
     SDL_FreeSurface(t);
     k.texture = ttx;
@@ -54,18 +55,20 @@ void MediaText::text(MediaObjectRef k, const char *str)
 
 void MediaText::text(MediaObjectRef k, std::string str, MediaColor c)
 {
-    this->text(k, str.c_str, c);
+    this->text(k, str.c_str(), c);
 }
 
 void MediaText::text(MediaObjectRef k, std::string str)
 {
-    this->text(k, str.c_str);
+    this->text(k, str.c_str());
 }
 
 void MediaText::wrap_text(MediaObjectRef k, const char *str, MediaColor c, MediaRect wrap_rect)
 {
+    MediaRect dims;
     SDL_Surface *t = TTF_RenderText_Blended_Wrapped(font, str, c, wrap_rect.w);
-    SDL_GetClipRect(t, &k.dest_rect);
+    SDL_GetClipRect(t, &dims);
+    k.set_size(dims.w, dims.h);
     SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
     SDL_FreeSurface(t);
     k.texture = ttx;
@@ -196,11 +199,13 @@ void MediaState::display_err()
 
 void MediaGraphics::text(MediaObjectRef k, const char *str, MediaColor c)
 {
+    MediaRect dims;
     SDL_Surface *t = TTF_RenderText_Solid(this->m.font, str, c);
-    SDL_GetClipRect(t, &k.dest_rect);
+    SDL_GetClipRect(t, &dims);
+    k.set_size(dims.w, dims.h);
     SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
     SDL_FreeSurface(t);
-    k.texture = ttx;
+    k.set(ttx);
 }
 
 void MediaGraphics::text(MediaObjectRef k, const char *str)
