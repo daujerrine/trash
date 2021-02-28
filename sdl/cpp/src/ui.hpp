@@ -18,10 +18,10 @@
 #define UI_OPTION_DEF_PARENT(x) (UI_OPTION_DEF(x) << UI_OPTION_DEF_MAX)
 
 
-// Options of a widget
 enum UIOptions {
-    UI_OPTION_NOCLIP  = UI_OPTION_DEF(0),
-    UI_OPTION_STRETCH = UI_OPTION_DEF(1),
+    UIOPT_WIDGET_NOCLIP  = UI_OPTION_DEF_PARENT(0),
+    UIOPT_WIDGET_STRETCH = UI_OPTION_DEF_PARENT(1),
+    UIOPT_WIDGET_FIXED   = UI_OPTION_DEF_PARENT(2)
 };
 
 enum UIWidgetState {
@@ -30,6 +30,10 @@ enum UIWidgetState {
     UI_WIDGET_DOWN,
     UI_WIDGET_CHANGED,
     UI_WIDGET_DISABLED
+};
+
+enum UIEventID {
+    UI_BUTTON_CLICKED
 };
 
 /// Widget Gravity
@@ -237,6 +241,8 @@ class UIGridGeometry : public UIGeometry {
         std::vector<GridEntry> grid_list;
         int grid_index;
         bool initial_refresh = true;
+        MediaRect c = {0, 0, 0, 0};
+        
         inline void add(int rows, int cols, int repeat_till = 1);
         inline void set_row_height(int widget_index, int row_start, int h);
         inline void set_container_dim(MediaRect dims);
@@ -246,7 +252,7 @@ class UIGridGeometry : public UIGeometry {
 
 inline void UIGridGeometry::add(int rows, int cols, int repeat_till)
 {
-    printf("new grid: %ld %d %d %d\n", widgets.size(), rows, cols, repeat_till);
+    //printf("new grid: %ld %d %d %d\n", widgets.size(), rows, cols, repeat_till);
     grid_list.emplace_back((GridEntry) { widgets.size(), rows, cols, repeat_till });
 }
 
@@ -262,11 +268,11 @@ inline UIGridGeometry::GridEntry const *UIGridGeometry::iter(int widget_index)
     if (grid_list.size() == 0          ||
         grid_index >= grid_list.size() ||
         widget_index < grid_list[grid_index].widget_offset) {
-        printf("Default Grid\n");
+        //printf("Default Grid\n");
         return &default_grid;
     }
 
-    printf("Custom Grid %d %d\n", widget_index, grid_index);
+    //printf("Custom Grid %d %d\n", widget_index, grid_index);
     return &grid_list[grid_index++];
 }
 
@@ -309,6 +315,10 @@ inline void UIGridGeometry::calculate_all()
     }
 
 end:
+    current_dim.y += min_grid_height + UI_DEFAULT_MARGIN * 3;
+    printf("Recommended size: %d %d\n", container_dim.w, current_dim.y - container_dim.y);
+    printf("Container size: %d %d\n", container_dim.w, container_dim.h);
+    c = {container_dim.x, container_dim.y, container_dim.w, current_dim.y - container_dim.y};
     return;
 }
 
@@ -330,7 +340,7 @@ inline void UIGridGeometry::set_container_dim(MediaRect dims)
         translate_all({dims.x, dims.y});
         container_dim = dims;
     } else {
-        printf(">>>>>>>> resize\n");
+        // printf(">>>>>>>> resize\n");
         container_dim = dims;
         calculate_all();
         initial_refresh = false;
@@ -375,11 +385,11 @@ inline UIRelativeGeometry::GravityEntry const *UIRelativeGeometry::iter(int widg
     if (grav_list.size() == 0            ||
         grav_index >= grav_list.size()   ||
         widget_index < grav_list[grav_index].widget_offset) {
-        printf("Default Grav\n");
+        // printf("Default Grav\n");
         return &default_grav;
     }
 
-    printf("Custom Grav %d %d\n", widget_index, grav_index);
+    // printf("Custom Grav %d %d\n", widget_index, grav_index);
     return &grav_list[grav_index++];
 }
 
@@ -387,8 +397,8 @@ inline void UIRelativeGeometry::calculate_all()
 {
     GravityEntry const *current_grav;
     grav_index = 0;
-    printf("RELGEO\n");
-    PRINTRECT(container_dim);
+    // printf("RELGEO\n");
+    // PRINTRECT(container_dim);
     for (int i = 0; i < widgets.size(); i++) {
         current_grav = iter(i);
         widgets[i]->dims = MediaUtil::rect_align(

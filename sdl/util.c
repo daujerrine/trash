@@ -2,9 +2,6 @@
  * Generic C Utility Library
  * Version 0.0.1
  * Released under Public Domain
- *
- * Anamitra Ghorui <anamitraghorui@gmail.com>
- *
  * 
  */
 

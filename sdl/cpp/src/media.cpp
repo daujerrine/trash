@@ -40,7 +40,15 @@ void MediaClipObject::set(SDL_Texture *texture) {
 void MediaText::text(MediaObjectRef k, const char *str, MediaColor c)
 {
     MediaRect dims;
-    SDL_Surface *t = TTF_RenderText_Solid(font, str, c);
+    SDL_Surface *t;
+
+    // Empty strings are undefined behaviour.
+    if (!str || *str == '\0') {
+        t = TTF_RenderText_Solid(this->m.font, " ", c);
+    } else {
+        t = TTF_RenderText_Solid(this->m.font, str, c);
+    }
+    
     SDL_GetClipRect(t, &dims);
     k.set_size(dims.w, dims.h);
     SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
@@ -66,7 +74,15 @@ void MediaText::text(MediaObjectRef k, std::string str)
 void MediaText::wrap_text(MediaObjectRef k, const char *str, MediaColor c, MediaRect wrap_rect)
 {
     MediaRect dims;
-    SDL_Surface *t = TTF_RenderText_Blended_Wrapped(font, str, c, wrap_rect.w);
+    SDL_Surface *t;
+
+    // Empty strings are undefined behaviour.
+    if (!str || *str == '\0') {
+        t = TTF_RenderText_Blended_Wrapped(font, " ", c, wrap_rect.w);
+    } else {
+        t = TTF_RenderText_Blended_Wrapped(font, str, c, wrap_rect.w);
+    }
+    
     SDL_GetClipRect(t, &dims);
     k.set_size(dims.w, dims.h);
     SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
@@ -140,7 +156,7 @@ MediaState::MediaState(
             throw -1;
         }
 
-        //SDL_SetRenderDrawColor(this->r, 0x00, 0x00, 0x00, 0xFF);
+        SDL_SetRenderDrawColor(this->r, 0x00, 0x00, 0x00, 0xFF);
 
         if ((ret = TTF_Init()) < 0) {
             this->sdl_err_msg = TTF_GetError();
@@ -200,8 +216,18 @@ void MediaState::display_err()
 void MediaGraphics::text(MediaObjectRef k, const char *str, MediaColor c)
 {
     MediaRect dims;
-    SDL_Surface *t = TTF_RenderText_Solid(this->m.font, str, c);
+    SDL_Surface *t;
+
+    // Empty strings are undefined behaviour.
+    if (!str || *str == '\0') {
+        t = TTF_RenderText_Solid(this->m.font, " ", c);
+    } else {
+        t = TTF_RenderText_Solid(this->m.font, str, c);
+    }
+    
     SDL_GetClipRect(t, &dims);
+    //printf("LABELMAKE\n");
+    //PRINTRECT(dims);
     k.set_size(dims.w, dims.h);
     SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
     SDL_FreeSurface(t);
@@ -216,13 +242,7 @@ void MediaGraphics::text(MediaObjectRef k, const char *str)
 
 void MediaGraphics::text(MediaObjectRef k, std::string str, MediaColor c)
 {
-    MediaRect dims;
-    SDL_Surface *t = TTF_RenderText_Solid(this->m.font, str.c_str(), c);
-    SDL_GetClipRect(t, &dims);
-    k.set_size(dims.w, dims.h);
-    SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
-    SDL_FreeSurface(t);
-    k.set(ttx);
+    text(k, str.c_str(), c);
 }
 
 void MediaGraphics::text(MediaObjectRef k, std::string str)

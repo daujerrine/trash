@@ -211,6 +211,7 @@ inline MediaDims MediaObject::tx_dims()
 
 inline void MediaObject::set_size(int w, int h)
 {
+    printf("Setting rectangle: %d %d\n", w, h);
     dest_rect.w = w;
     dest_rect.h = h;
 }

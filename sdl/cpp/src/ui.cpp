@@ -212,6 +212,8 @@ void UIFrame::draw()
     g.frect(geo.container_dim);
     g.set_color(255, 255, 255, 255);
     g.rect(geo.container_dim);
+    g.set_color(255, 128, 128, 255);
+    g.rect(geo.c);
     for (auto &i: widgets)
         i->draw();
 }
