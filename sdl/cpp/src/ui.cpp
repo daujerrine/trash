@@ -169,25 +169,6 @@ void UIButton::refresh()
  * =============================================================================
  */
 
-/*
-void UITopLevel::add(UIWidget *k)
-{
-    std::unique_ptr<UIWidget> p(k);
-    widgets.push_back(std::move(p));
-}
-*/
-/*
-template <typename Geometry>
-void UITopLevel<Geometry>::draw()
-{
-    g.set_color(32, 32, 32, 255);
-    g.frect(geo.container_dim);
-    g.set_color(255, 255, 255, 255);
-    g.rect(geo.container_dim);
-    
-}
-*/
-
 bool UITopLevel::event()
 {
     bool no_refresh;
@@ -209,9 +190,9 @@ bool UITopLevel::event()
 void UIFrame::draw()
 {
     g.set_color(40, 40, 40, 255);
-    g.frect(geo.container_dim);
+    g.frect(geo.c);
     g.set_color(255, 255, 255, 255);
-    g.rect(geo.container_dim);
+    g.rect(geo.c);
     g.set_color(255, 128, 128, 255);
     g.rect(geo.c);
     for (auto &i: widgets)

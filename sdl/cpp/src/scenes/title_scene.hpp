@@ -29,6 +29,7 @@ void TitleScene::init()
     ui.geo.add(CENTER, 0, 0);
     ui.add<UILabel>("Shoot Game");
     ui.refresh();
+    init_flag = true;
 }
 
 
@@ -58,6 +59,7 @@ void TitleScene::update()
 
 void TitleScene::close()
 {
+    init_flag = false;
 }
 
 #endif

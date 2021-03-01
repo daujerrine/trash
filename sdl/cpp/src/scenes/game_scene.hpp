@@ -25,6 +25,7 @@ class GameScene : public Scene {
         MediaRect player = {0, 0, 40, 40};
         MediaRect enemy = {0, 0, 20, 20};
         MediaRect bullet_dims = {0, 0, 10, 10};
+
         int xvel = 0, yvel = 0;
         int xpvel = 0, ypvel = 0;
         int xaccn = 0;
@@ -35,7 +36,6 @@ class GameScene : public Scene {
         int num_bullets = 0;
         bool firing = false;
         bool motion = false;
-
         bool enemy_in = false;
 
     public:
@@ -61,8 +61,8 @@ void GameScene::init()
     info    = &c.add<UILabel>("");
     info2    = &c.add<UILabel>("");
     ui.refresh();
+    init_flag = true;
 }
-
 
 void GameScene::draw()
 {

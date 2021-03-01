@@ -52,6 +52,12 @@ static inline bool clicked(MediaState &k, MediaRect b, UIWidgetState &b)
 */
 };
 
+
+struct UIWidgetProperties {
+    UIGravity text_align;
+    int scale;
+};
+
 class UIWidget;
 
 /*
@@ -455,7 +461,7 @@ class UILabel : public UIWidget {
 
 class UIButton : public UIWidget {
     protected:
-        static constexpr char const *name = "label";
+        static constexpr char const *name = "button";
         MediaClipObject o_label;
         bool clicked_flag = false;
 
@@ -502,7 +508,7 @@ class UIButton : public UIWidget {
 template <typename Geometry>
 class UIContainer : public UIWidget {
     protected:
-        static constexpr char const *name = "container widget";
+        static constexpr char const *name = "container";
         // UIDefaultPrimitives &p;
         UIWidgetList widgets;
         
@@ -627,7 +633,7 @@ void UIContainer<Geometry>::refresh()
 
 class UITopLevel : public UIContainer<UIRelativeGeometry> {
     protected:
-        static constexpr char const *name = "toplevel widget";
+        static constexpr char const *name = "toplevel";
         
     public:
         UITopLevel(
@@ -650,7 +656,7 @@ class UITopLevel : public UIContainer<UIRelativeGeometry> {
 
 class UIFrame : public UIContainer<UIGridGeometry> {
     protected:
-        static constexpr char const *name = "frame container widget";
+        static constexpr char const *name = "frame";
         
     public:
         UIFrame(

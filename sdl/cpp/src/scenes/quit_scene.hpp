@@ -37,6 +37,7 @@ void QuitScene::init()
     yes = &f->add<UIButton>("yes");
     no = &f->add<UIButton>("no");
     ui.refresh();
+    init_flag = true;
 }
 
 
@@ -66,6 +67,7 @@ void QuitScene::update()
 
 void QuitScene::close()
 {
+    init_flag = false;
 }
 
 #endif

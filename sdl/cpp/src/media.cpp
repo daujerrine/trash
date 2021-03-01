@@ -170,7 +170,8 @@ MediaState::MediaState(
             throw -1;
         }
     } catch (int err) {
-        fail_flag = true;
+        display_err();
+        throw err;
     }
 
     this->active = true;
