@@ -210,16 +210,11 @@ class UIGeometry {
 
     public:
         UIGeometry (std::vector<std::unique_ptr<UIWidget>> &widgets): widgets(widgets) {}
-        MediaRect container_dim;
-        inline void set_container_dim(MediaRect dims);
+        MediaRect container_dim  = {0, 0, 0, 0};
+
+        virtual MediaRect set_container_dim(MediaRect dims) = 0;
         virtual inline void calculate_all() = 0;
 };
-
-inline void UIGeometry::set_container_dim(MediaRect dims)
-{
-    container_dim = dims;
-    calculate_all();
-}
 
 /*
  * -----------------------------------------------------------------------------
@@ -248,10 +243,10 @@ class UIGridGeometry : public UIGeometry {
         int grid_index;
         bool initial_refresh = true;
         MediaRect c = {0, 0, 0, 0};
-        
+
         inline void add(int rows, int cols, int repeat_till = 1);
         inline void set_row_height(int widget_index, int row_start, int h);
-        inline void set_container_dim(MediaRect dims);
+        inline MediaRect set_container_dim(MediaRect dims);
         inline void calculate_all();
         inline void translate_all(MediaPoint pos);
 };
