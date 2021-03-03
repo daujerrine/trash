@@ -190,11 +190,9 @@ bool UITopLevel::event()
 void UIFrame::draw()
 {
     g.set_color(40, 40, 40, 255);
-    g.frect(geo.c);
+    g.frect(dims);
     g.set_color(255, 255, 255, 255);
-    g.rect(geo.c);
-    g.set_color(255, 128, 128, 255);
-    g.rect(geo.c);
+    g.rect(dims);
     for (auto &i: widgets)
         i->draw();
 }

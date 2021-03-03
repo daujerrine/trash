@@ -169,7 +169,7 @@ inline bool MediaTimer::done()
 /**
  * Used in place of Surfaces and textures.
  * 
- * Note: ALWAYS pass REFERENCES to MediaObjects in functions, else they will be
+ * @note ALWAYS pass REFERENCES to MediaObjects in functions, else they will be
  * destructed by the function call copying over the values.
  */
 
@@ -446,13 +446,7 @@ class MediaText {
         inline MediaTexture *get_glyph(uint32_t glyph);
 
     public:
-        void calc(FontDataType ft, char *font_path)
-        {
-            
-            for (int i = 0; i < 128; i++) {
-                
-            }
-        }
+        void init(FontDataType ft, char *font_path);
 
         MediaText(MediaState &m, FontDataType ft, std::string font_path): m(m) {}
         ~MediaText() {}

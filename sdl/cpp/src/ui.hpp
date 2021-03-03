@@ -212,8 +212,8 @@ class UIGeometry {
         UIGeometry (std::vector<std::unique_ptr<UIWidget>> &widgets): widgets(widgets) {}
         MediaRect container_dim  = {0, 0, 0, 0};
 
-        virtual MediaRect set_container_dim(MediaRect dims) = 0;
-        virtual inline void calculate_all() = 0;
+        virtual MediaRect calculate_all(MediaRect dims) = 0;
+        virtual MediaRect update_container_dim(MediaRect dims) = 0;
 };
 
 /*
@@ -246,9 +246,10 @@ class UIGridGeometry : public UIGeometry {
 
         inline void add(int rows, int cols, int repeat_till = 1);
         inline void set_row_height(int widget_index, int row_start, int h);
-        inline MediaRect set_container_dim(MediaRect dims);
-        inline void calculate_all();
-        inline void translate_all(MediaPoint pos);
+
+        inline MediaRect calculate_all(MediaRect dims);
+        inline MediaRect translate_all(MediaPoint pos);
+        inline MediaRect update_container_dim(MediaRect dims);
 };
 
 inline void UIGridGeometry::add(int rows, int cols, int repeat_till)
@@ -277,23 +278,27 @@ inline UIGridGeometry::GridEntry const *UIGridGeometry::iter(int widget_index)
     return &grid_list[grid_index++];
 }
 
-inline void UIGridGeometry::calculate_all()
+inline MediaRect UIGridGeometry::calculate_all(MediaRect new_dim)
 {
     GridEntry const *curr_grid;
     int min_grid_height;
     int row_start;
     grid_index = 0;
-    MediaRect current_dim = container_dim;
-    // printf("Refresh Triggered\n");
+    MediaRect current_dim = new_dim;
 
     for (int i = 0; i < widgets.size();) {
+        // PRINT_LINE
         curr_grid = iter(i);
-        current_dim.w = container_dim.w / curr_grid->cols;
+        current_dim.w = new_dim.w / curr_grid->cols;
         row_start = i;
+
         for (int j = 0; j < curr_grid->rows; j++) {
-            current_dim.x = container_dim.x;
+            // PRINT_LINE
+            current_dim.x = new_dim.x;
             min_grid_height = 0;
+
             for (int k = 0; k < curr_grid->cols; k++) {
+                // PRINT_LINE
                 // printf("current height %d\n", widgets[i]->dims.h);
                 if (min_grid_height < widgets[i]->dims.h) {
                     set_row_height(i, row_start, widgets[i]->dims.h);
@@ -308,6 +313,8 @@ inline void UIGridGeometry::calculate_all()
                 current_dim.x += current_dim.w;
 
                 i++;
+                //printf(">>>>\n");
+                //PRINTRECT(current_dim);
                 if (i >= widgets.size())
                     goto end;
             }
@@ -317,13 +324,14 @@ inline void UIGridGeometry::calculate_all()
 
 end:
     current_dim.y += min_grid_height + UI_DEFAULT_MARGIN * 3;
-    printf("Recommended size: %d %d\n", container_dim.w, current_dim.y - container_dim.y);
-    printf("Container size: %d %d\n", container_dim.w, container_dim.h);
-    c = {container_dim.x, container_dim.y, container_dim.w, current_dim.y - container_dim.y};
-    return;
+    // printf("Recommended size: <>%d %d %d %d\n", new_dim.y, current_dim.y, new_dim.w, current_dim.y - new_dim.y);
+    // printf("Container size: %d %d\n", new_dim.w, new_dim.h);
+
+    container_dim = {new_dim.x, new_dim.y, new_dim.w, current_dim.y - new_dim.y};
+    return container_dim;
 }
 
-inline void UIGridGeometry::translate_all(MediaPoint dims)
+inline MediaRect UIGridGeometry::translate_all(MediaPoint dims)
 {
     int diffx = dims.x - container_dim.x;
     int diffy = dims.y - container_dim.y;
@@ -332,19 +340,27 @@ inline void UIGridGeometry::translate_all(MediaPoint dims)
         widgets[i]->dims.x += diffx;
         widgets[i]->dims.y += diffy;
     }
+
+    container_dim.x = dims.x;
+    container_dim.y = dims.y;
+
+    return container_dim;
 }
 
-inline void UIGridGeometry::set_container_dim(MediaRect dims)
+
+/**
+ * @note Here we check whether the container has been simply translated from
+ *       one point to another or not. If so, we simply translate all the
+ *       container's coordinates.
+ */
+inline MediaRect UIGridGeometry::update_container_dim(MediaRect new_dim)
 {
-    if (initial_refresh == true && container_dim.w == dims.w && container_dim.h == dims.h) {
-        printf(">>>>>>>> translate\n");
-        translate_all({dims.x, dims.y});
-        container_dim = dims;
+    if (container_dim.w == new_dim.w && container_dim.h == new_dim.h) {
+        //printf(">>>>>>>> translate\n");
+        return translate_all({new_dim.x, new_dim.y});
     } else {
-        // printf(">>>>>>>> resize\n");
-        container_dim = dims;
-        calculate_all();
-        initial_refresh = false;
+        //printf(">>>>>>>> resize\n");
+        return calculate_all(new_dim);
     }
 }
 
@@ -373,7 +389,8 @@ class UIRelativeGeometry : public UIGeometry {
         int grav_index;
 
         inline void add(UIGravity grav, int hpad, int vpad);
-        inline void calculate_all();
+        inline MediaRect calculate_all(MediaRect new_dim);
+        inline MediaRect update_container_dim(MediaRect new_dim);
 };
 
 inline void UIRelativeGeometry::add(UIGravity grav, int hpad, int vpad)
@@ -394,18 +411,27 @@ inline UIRelativeGeometry::GravityEntry const *UIRelativeGeometry::iter(int widg
     return &grav_list[grav_index++];
 }
 
-inline void UIRelativeGeometry::calculate_all()
+inline MediaRect UIRelativeGeometry::calculate_all(MediaRect new_dim)
 {
     GravityEntry const *current_grav;
     grav_index = 0;
-    // printf("RELGEO\n");
-    // PRINTRECT(container_dim);
+    //printf("RELGEO\n");
+    //PRINTRECT(container_dim);
+    container_dim = new_dim;
     for (int i = 0; i < widgets.size(); i++) {
         current_grav = iter(i);
         widgets[i]->dims = MediaUtil::rect_align(
             container_dim, widgets[i]->dims, current_grav->gravity,
             current_grav->hpad, current_grav->vpad);
+            //PRINTRECT(widgets[i]->dims);
     }
+
+    return container_dim;
+}
+
+inline MediaRect UIRelativeGeometry::update_container_dim(MediaRect new_dim)
+{
+    return calculate_all(new_dim);
 }
 
 
@@ -509,6 +535,7 @@ class UIContainer : public UIWidget {
         
     public:
         Geometry geo;
+
         UIContainer(
             MediaState &m,
             MediaGraphics &g,
@@ -518,10 +545,8 @@ class UIContainer : public UIWidget {
         ): UIWidget(m, g, label, options), geo(widgets)
         {
             this->dims = dims;
-            //printf("UAUAUAUAUAU\n");
-            //PRINTRECT(this->dims);
-            geo.set_container_dim(this->dims);
-            refresh();
+            // this->dims = geo.update_container_dim(dims);
+            // refresh();
             //printf("EAEAEAEAEAE\n");
             //PRINTRECT(this->dims);
         }
@@ -558,8 +583,6 @@ class UIContainer : public UIWidget {
         {
             Widget *k = new Widget(m, g, label, options, args...);
             std::unique_ptr<UIWidget> p(k);
-            //printf("INIT DUNCCCCCCC\n");
-            //PRINTRECT(p->dims);
             widgets.push_back(std::move(p));
             return *k;
         }
@@ -568,8 +591,7 @@ class UIContainer : public UIWidget {
 template <typename Geometry>
 void UIContainer<Geometry>::resize(MediaRect dims)
 {
-    this->dims = dims;
-    geo.set_container_dim(dims);
+    this->dims = geo.update_container_dim(dims);
     refresh();
 }
 
@@ -615,7 +637,7 @@ bool UIContainer<Geometry>::update()
 template <typename Geometry>
 void UIContainer<Geometry>::refresh()
 {
-    geo.set_container_dim(dims);
+    dims = geo.update_container_dim(dims);
     for (auto &i: widgets)
         i->refresh();
 }

@@ -58,7 +58,7 @@ void MediaText::text(MediaObjectRef k, const char *str, MediaColor c)
 
 void MediaText::text(MediaObjectRef k, const char *str)
 {
-    this->text(k, str, (SDL_Color) {255, 255, 255, 255});
+    this->text(k, str, {255, 255, 255, 255});
 }
 
 void MediaText::text(MediaObjectRef k, std::string str, MediaColor c)
@@ -92,7 +92,7 @@ void MediaText::wrap_text(MediaObjectRef k, const char *str, MediaColor c, Media
 
 void MediaText::wrap_text(MediaObjectRef k, const char *str, MediaRect wrap_rect)
 {
-    this->wrap_text(k, str, (SDL_Color) {255, 255, 255, 255}, wrap_rect);
+    this->wrap_text(k, str, {255, 255, 255, 255}, wrap_rect);
 }
 
 void MediaText::wrap_text(MediaObjectRef k, std::string str, MediaColor c, MediaRect wrap_rect)
@@ -102,7 +102,7 @@ void MediaText::wrap_text(MediaObjectRef k, std::string str, MediaColor c, Media
 
 void MediaText::wrap_text(MediaObjectRef k, std::string str, MediaRect wrap_rect)
 {
-    this->wrap_text(k, str.c_str(), (SDL_Color) {255, 255, 255, 255}, wrap_rect);
+    this->wrap_text(k, str.c_str(), {255, 255, 255, 255}, wrap_rect);
 }
 
 /*
@@ -121,7 +121,7 @@ MediaState::MediaState(
 {
     int ret;
     
-    this->max_fps = (1000/max_fps);
+    this->max_fps = (1000 / max_fps);
     this->main_w = w;
     this->main_h = h;
 
@@ -220,6 +220,7 @@ void MediaGraphics::text(MediaObjectRef k, const char *str, MediaColor c)
     SDL_Surface *t;
 
     // Empty strings are undefined behaviour.
+    // printf("String to convert: '%s'\n", str);
     if (!str || *str == '\0') {
         t = TTF_RenderText_Solid(this->m.font, " ", c);
     } else {
@@ -229,7 +230,7 @@ void MediaGraphics::text(MediaObjectRef k, const char *str, MediaColor c)
     SDL_GetClipRect(t, &dims);
     //printf("LABELMAKE\n");
     //PRINTRECT(dims);
-    k.set_size(dims.w, dims.h);
+    k.set_rect(dims);
     SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
     SDL_FreeSurface(t);
     k.set(ttx);
@@ -237,7 +238,6 @@ void MediaGraphics::text(MediaObjectRef k, const char *str, MediaColor c)
 
 void MediaGraphics::text(MediaObjectRef k, const char *str)
 {
-    // printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
     this->text(k, str, (SDL_Color) {255, 255, 255, 255});
 }
 
@@ -248,7 +248,6 @@ void MediaGraphics::text(MediaObjectRef k, std::string str, MediaColor c)
 
 void MediaGraphics::text(MediaObjectRef k, std::string str)
 {
-    // printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
     this->text(k, str, (SDL_Color) {255, 255, 255, 255});
 }
 
