@@ -9,6 +9,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 
 #define PRINT_LINE printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
 #define PRINTRECT(_r) (printf("rect(%d, %d, %d, %d)\n", _r.x, _r.y, _r.w, _r.h))
@@ -29,6 +31,53 @@ typedef SDL_Rect MediaRect;
 typedef SDL_Point MediaPoint;
 typedef SDL_Color MediaColor;
 typedef SDL_Texture MediaTexture;
+
+typedef Mix_Music MediaMusicData;
+typedef Mix_Chunk MediaSampleData;
+
+
+struct MediaException {
+    enum ExceptionType {
+        SUBSYSTEM_SDL,
+        SUBSYSTEM_TTF,
+        SUBSYSTEM_IMG,
+        SUBSYSTEM_MIXER,
+        SUBSYSTEM_NET,
+    };
+
+    char *msg;
+    int err_code;
+    
+    MediaException(char *msg, err_code = -1): msg(msg), err_code(err_code) {}
+
+    MediaException(ExceptionType s, int err_code = -1): err_code(err_code)
+    {
+        switch (s) {
+        case SUBSYSTEM_SDL:
+            msg = SDL_GetError();
+            break;
+
+        case SUBSYSTEM_TTF:
+            msg = TTF_GetError();
+            break;
+
+        case SUBSYSTEM_IMG:
+            msg = IMG_GetError();
+            break;
+
+        case SUBSYSTEM_MIXER:
+            msg = Mix_GetError();
+            break;
+        
+        case SUBSYSTEM_NET:
+        default:
+            msg = "Unknown Error";
+            break;
+        }
+    }
+
+    MediaException()
+};
 
 /// Widget Gravity
 typedef enum MediaGravity {
@@ -121,11 +170,67 @@ static inline bool point_in_rect(int x, int y, MediaRect rect)
  * =============================================================================
  */
 
-/*
-class MediaSound {
-    
-}*/
+class MediaAudio {
+    public:
+        enum Loops {
+            LOOP_FOREVER = 0,
+            LOOP_ONCE = 1
+        };
 
+    protected:
+        bool fail_flag = false;
+};
+
+class MediaSample : public MediaAudio {
+    private:
+        MediaSampleData *data;
+
+    public:
+        MediaAudio(char *filepath)
+        {
+            data = Mix_LoadWAV(filepath);
+            if (!data) {
+                fail_flag = true;
+            }
+        }
+
+        void play(int channel = -1, int loops = LOOP_ONCE)
+        {
+            loops -= 1;
+            Mix_PlayChannel(channel, data, loops);
+        }
+
+        void fade_in(int channel = -1, int loops = LOOP_ONCE);
+
+        static void pause(int channel);
+        static void stop(int channel);
+        static void expire(int channel);
+        static bool is_paused(int channel);
+        static bool is_finished(int channel);
+        static void fade_out(int channel);
+        
+};
+
+
+class MediaMusic : public MediaAudio {
+    private:
+        MediaMusicData *data;
+
+    public:
+        MediaMusic(char *filepath)
+        {
+            data = Mix_LoadMUS(filepath);
+            if (!data) {
+                fail_flag = true;
+            }
+        }
+
+        void play(int channel = -1, int loops = LOOP_ONCE)
+        {
+            loops -= 1;
+            Mix_PlayChannel(channel, data, loops);
+        }
+};
 
 /*
  * =============================================================================

@@ -169,6 +169,17 @@ MediaState::MediaState(
             this->sdl_err_msg = TTF_GetError();
             throw -1;
         }
+
+        if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
+            this->sdl_err_msg = IMG_GetError();
+            throw -1;
+        }
+        
+        if ((ret = Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048)) < 0) {
+            this->sdl_err_msg = Mix_GetError();
+            throw ret;
+        }
+
     } catch (int err) {
         display_err();
         throw err;
