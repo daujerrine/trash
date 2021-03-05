@@ -45,10 +45,10 @@ struct MediaException {
         SUBSYSTEM_NET,
     };
 
-    char *msg;
+    const char *msg;
     int err_code;
     
-    MediaException(char *msg, err_code = -1): msg(msg), err_code(err_code) {}
+    MediaException(char *msg, int err_code = -1): msg(msg), err_code(err_code) {}
 
     MediaException(ExceptionType s, int err_code = -1): err_code(err_code)
     {
@@ -75,8 +75,6 @@ struct MediaException {
             break;
         }
     }
-
-    MediaException()
 };
 
 /// Widget Gravity
@@ -181,36 +179,38 @@ class MediaAudio {
         bool fail_flag = false;
 };
 
+
 class MediaSample : public MediaAudio {
     private:
         MediaSampleData *data;
 
     public:
-        MediaAudio(char *filepath)
+        MediaSample(char *filepath)
         {
             data = Mix_LoadWAV(filepath);
-            if (!data) {
+            if (!data)
                 fail_flag = true;
-            }
         }
 
-        void play(int channel = -1, int loops = LOOP_ONCE)
+        ~MediaSample()
         {
-            loops -= 1;
-            Mix_PlayChannel(channel, data, loops);
+            Mix_FreeChunk(data);
         }
 
-        void fade_in(int channel = -1, int loops = LOOP_ONCE);
-
-        static void pause(int channel);
-        static void stop(int channel);
-        static void expire(int channel);
-        static bool is_paused(int channel);
-        static bool is_finished(int channel);
-        static void fade_out(int channel);
+        bool fail() { return fail_flag; }
+        int set_volume(int volume);
+        int play(int channel = -1, int loops = LOOP_ONCE);
+        int fade_in(int duration, int channel = -1, int loops = LOOP_ONCE);
+        static int fade_out(int duration, int channel = -1);
+        static void pause(int channel = -1);
+        static void resume(int channel = -1);
+        static void stop(int channel = -1);
+        static void expire(int ticks, int channel = -1);
+        static void finished(void (*callback)(int channel));
+        static int paused(int channel);
+        static int playing(int channel);
         
 };
-
 
 class MediaMusic : public MediaAudio {
     private:
@@ -225,12 +225,29 @@ class MediaMusic : public MediaAudio {
             }
         }
 
-        void play(int channel = -1, int loops = LOOP_ONCE)
+        ~MediaMusic()
         {
-            loops -= 1;
-            Mix_PlayChannel(channel, data, loops);
+            Mix_FreeMusic(data);
         }
+
+        bool fail() { return fail_flag; }
+
+        int set_volume(int volume);
+        int play(int loops = LOOP_ONCE);
+        int fade_in(int duration, int loops = LOOP_ONCE);
+
+        static int fade_out(int duration);
+        static int seek_to(double pos);
+
+        static void rewind();
+        static void pause();
+        static void resume();
+        static void stop();
+        static void finished(void (*callback)());
+        static int paused();
+        static int playing();
 };
+
 
 /*
  * =============================================================================

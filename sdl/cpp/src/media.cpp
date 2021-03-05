@@ -2,6 +2,134 @@
 
 /*
  * =============================================================================
+ * MediaSample
+ * =============================================================================
+ */
+
+int MediaSample::set_volume(int volume)
+{
+    return Mix_VolumeChunk(data, volume);
+}
+
+int MediaSample::play(int channel, int loops)
+{
+    loops -= 1;
+    return Mix_PlayChannel(channel, data, loops);
+}
+
+int MediaSample::fade_in(int duration, int channel, int loops)
+{
+    loops -= 1;
+    return Mix_FadeInChannel(channel, data, loops, duration);
+}
+
+void MediaSample::pause(int channel)
+{
+    Mix_Pause(channel);
+}
+
+void MediaSample::resume(int channel)
+{
+    Mix_Resume(channel);
+}
+
+void MediaSample::stop(int channel)
+{
+    Mix_HaltChannel(channel);
+}
+
+void MediaSample::expire(int channel, int ticks)
+{
+    Mix_ExpireChannel(channel, ticks);
+}
+
+void MediaSample::finished(void (*callback)(int channel))
+{
+    Mix_ChannelFinished(callback);
+}
+
+int MediaSample::paused(int channel)
+{
+    return Mix_Paused(channel);
+}
+
+int MediaSample::playing(int channel)
+{
+    return Mix_Playing(channel);
+}
+
+int MediaSample::fade_out(int duration, int channel)
+{
+    return Mix_FadeOutChannel(channel, duration);
+}
+
+/*
+ * =============================================================================
+ * MediaMusic
+ * =============================================================================
+ */
+
+int MediaMusic::set_volume(int volume)
+{
+    return Mix_VolumeMusic(volume);
+}
+
+int MediaMusic::play(int loops)
+{
+    loops -= 1;
+    return Mix_PlayMusic(data, loops);
+}
+
+int MediaMusic::fade_in(int duration, int loops)
+{
+    loops -= 1;
+    return Mix_FadeInMusic(data, loops, duration);
+}
+
+int MediaMusic::seek_to(double pos)
+{
+    return Mix_SetMusicPosition(pos);
+}
+
+void rewind()
+{
+    Mix_RewindMusic();
+}
+
+void MediaMusic::pause()
+{
+    Mix_PauseMusic();
+}
+
+void MediaMusic::stop()
+{
+    Mix_HaltMusic();
+}
+
+void MediaMusic::finished(void (*callback)())
+{
+    Mix_HookMusicFinished(callback);
+}
+
+int MediaMusic::paused()
+{
+    return Mix_PausedMusic();
+}
+
+int MediaMusic::playing()
+{
+    return Mix_PlayingMusic();
+}
+
+int MediaMusic::fade_out(int duration)
+{
+    return Mix_FadeOutMusic(duration);
+}
+
+
+
+/*
+ * =============================================================================
  * MediaObject
  * =============================================================================
  */
