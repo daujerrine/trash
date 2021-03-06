@@ -174,9 +174,6 @@ class MediaAudio {
             LOOP_FOREVER = 0,
             LOOP_ONCE = 1
         };
-
-    protected:
-        bool fail_flag = false;
 };
 
 
@@ -185,11 +182,9 @@ class MediaSample : public MediaAudio {
         MediaSampleData *data;
 
     public:
-        MediaSample(char *filepath)
+        MediaSample(std::string filepath)
         {
-            data = Mix_LoadWAV(filepath);
-            if (!data)
-                fail_flag = true;
+            data = Mix_LoadWAV(filepath.c_str());
         }
 
         ~MediaSample()
@@ -197,32 +192,31 @@ class MediaSample : public MediaAudio {
             Mix_FreeChunk(data);
         }
 
-        bool fail() { return fail_flag; }
+        bool fail() { return data == nullptr; }
+
         int set_volume(int volume);
         int play(int channel = -1, int loops = LOOP_ONCE);
         int fade_in(int duration, int channel = -1, int loops = LOOP_ONCE);
+
         static int fade_out(int duration, int channel = -1);
         static void pause(int channel = -1);
         static void resume(int channel = -1);
         static void stop(int channel = -1);
         static void expire(int ticks, int channel = -1);
+
         static void finished(void (*callback)(int channel));
         static int paused(int channel);
         static int playing(int channel);
-        
 };
 
 class MediaMusic : public MediaAudio {
     private:
-        MediaMusicData *data;
+        MediaMusicData *data = nullptr;
 
     public:
-        MediaMusic(char *filepath)
+        MediaMusic(std::string filepath)
         {
-            data = Mix_LoadMUS(filepath);
-            if (!data) {
-                fail_flag = true;
-            }
+            data = Mix_LoadMUS(filepath.c_str());
         }
 
         ~MediaMusic()
@@ -230,7 +224,7 @@ class MediaMusic : public MediaAudio {
             Mix_FreeMusic(data);
         }
 
-        bool fail() { return fail_flag; }
+        bool fail() { return data == nullptr; }
 
         int set_volume(int volume);
         int play(int loops = LOOP_ONCE);
@@ -238,11 +232,11 @@ class MediaMusic : public MediaAudio {
 
         static int fade_out(int duration);
         static int seek_to(double pos);
-
         static void rewind();
         static void pause();
         static void resume();
         static void stop();
+
         static void finished(void (*callback)());
         static int paused();
         static int playing();
@@ -265,20 +259,30 @@ struct MediaTimer {
     MediaTimer(uint32_t duration);
     inline void update(uint32_t delta);
     inline bool done();
+    inline uint32_t delay();
 };
 
 inline void MediaTimer::update(uint32_t delta)
 {
-    this->time -= delta;
+    time -= delta;
 }
 
 inline bool MediaTimer::done()
 {
-    if (this->time <= 0) {
-        this->time = this->duration;
+    if (time <= 0) {
+        time = duration;
         return true;
     } else {
         return false;
+    }
+}
+
+inline uint32_t MediaTimer::delay()
+{
+    if (time > 0) {
+        return 0;
+    } else {
+        return duration - time; 
     }
 }
 
@@ -500,7 +504,7 @@ class MediaState {
             int w = 800,
             int h = 600,
             int max_fps = 60,
-            const char *window_name = "Game",
+            const char *window_name = "MediaEngine",
             const char *font_path = "assets/font.otb"
         );
         ~MediaState();
@@ -647,6 +651,8 @@ class MediaGraphics {
         void text(MediaObjectRef k, const char *str);
         void text(MediaObjectRef k, std::string str, MediaColor c);
         void text(MediaObjectRef k, std::string str);
+
+        void image(MediaObjectRef k, std::string filepath);
 };
 
 inline void MediaGraphics::paint(const MediaObjectRef k, const MediaRect &src, const MediaRect &dest)

@@ -26,6 +26,9 @@ class GameScene : public Scene {
         MediaRect enemy = {0, 0, 20, 20};
         MediaRect bullet_dims = {0, 0, 10, 10};
 
+        MediaSample shoot_snd;
+        MediaMusic song;
+
         int xvel = 0, yvel = 0;
         int xpvel = 0, ypvel = 0;
         int xaccn = 0;
@@ -40,7 +43,9 @@ class GameScene : public Scene {
 
     public:
         GameScene(MediaState &m, MediaGraphics &g, SceneState &s):
-            m(m), g(g), s(s), timer(1000), motion_timer(10), bullet_timer(100),
+            m(m), g(g), s(s), timer(1000), motion_timer(10), bullet_timer(50),
+            shoot_snd("assets/shoot.wav"),
+            song("assets/song.xm"),
             ui(m, g, "top", 0, (MediaRect) {0, 0, 800, 600}) {}
         ~GameScene() {};
         void init();
@@ -61,6 +66,8 @@ void GameScene::init()
     info    = &c.add<UILabel>("");
     info2    = &c.add<UILabel>("");
     ui.refresh();
+    song.play();
+    song.set_volume(64);
     init_flag = true;
 }
 
@@ -165,7 +172,9 @@ void GameScene::update()
                     "Py: "   + std::to_string(player.y));
     info2->set_label("M: " + std::to_string(motion) + " Bs: " + std::to_string(bullets.size()));
 
-    if (motion_timer.done()) {
+    uint32_t x;
+
+    if ((x = motion_timer.delay()) > 0) {
         if ((abs(xvel) < cap))
             xvel += xaccn;
         if ((abs(yvel) < cap))
@@ -190,6 +199,7 @@ void GameScene::update()
     if (firing && num_bullets < 20 && bullet_timer.done()) {
         num_bullets++;
         bullets.push_back(MediaUtil::rect_align(player, bullet_dims, CENTER, 0, 0));
+        shoot_snd.play(0);
     }
     
     for (auto &i: bullets) {

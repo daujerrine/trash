@@ -370,7 +370,7 @@ void MediaGraphics::text(MediaObjectRef k, const char *str, MediaColor c)
     //printf("LABELMAKE\n");
     //PRINTRECT(dims);
     k.set_rect(dims);
-    SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
+    MediaTexture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
     SDL_FreeSurface(t);
     k.set(ttx);
 }
@@ -388,6 +388,19 @@ void MediaGraphics::text(MediaObjectRef k, std::string str, MediaColor c)
 void MediaGraphics::text(MediaObjectRef k, std::string str)
 {
     this->text(k, str, (SDL_Color) {255, 255, 255, 255});
+}
+
+void MediaGraphics::image(MediaObjectRef k, std::string filepath)
+{
+    SDL_Surface *t = IMG_Load(filepath.c_str());
+    SDL_Texture *ttx = SDL_CreateTextureFromSurface(m.r, t);
+    MediaRect dims;
+    
+    SDL_GetClipRect(t, &dims);
+    k.set_rect(dims);
+    k.set(ttx);
+
+    SDL_FreeSurface(t);
 }
 
 /*

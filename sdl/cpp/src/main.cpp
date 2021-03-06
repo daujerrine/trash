@@ -54,9 +54,10 @@ int media_main() {
                 break;
             }
 
-            if (!quitmode)
+            if (!quitmode) {
                 scene_list[s]->event();
-            else {
+                quit_scene.event();
+            } else {
                 quit_scene.event();
                 if (quit_scene.quitmode == false) {
                     quitmode = false;
