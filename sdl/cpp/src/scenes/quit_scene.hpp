@@ -36,6 +36,15 @@ void QuitScene::init()
     f->geo.add(1, 2);
     yes = &f->add<UIButton>("yes");
     no = &f->add<UIButton>("no");
+    f->geo.add(1, 6);
+    f->add<UIButton>("vUp");
+    f->add<UIButton>("vDn");
+    f->add<UIButton>("vLf");
+    f->add<UIButton>("x");
+    f->add<UIButton>("y");
+    f->add<UIButton>("z");
+    f->add<UIButton>("z");
+    f->add<UIButton>("z");
     ui.refresh();
     init_flag = true;
 }

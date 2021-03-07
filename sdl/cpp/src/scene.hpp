@@ -27,6 +27,9 @@ class Scene {
         virtual void event()  = 0;
         virtual void update() = 0;
 
+        // virtual void activate() = 0;
+        // virtual void deactivate() = 0;
+
         virtual inline bool initialized()
         {
             return init_flag;

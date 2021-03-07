@@ -61,13 +61,13 @@ bool UILabel::event()
 
 bool UILabel::update()
 {
-    return false;
+    return true;
 }
 
 void UILabel::refresh()
 {
     o_label.overflow_x(dims);
-    o_label.align(dims);
+    o_label.align(dims, properties.content_align);
 }
 
 void UILabel::set_label(std::string label)
@@ -154,13 +154,14 @@ bool UIButton::event()
 
 bool UIButton::update()
 {
-    return false;
+    //return false;
+    return true;
 }
 
 void UIButton::refresh()
 {
     o_label.overflow_x(dims);
-    o_label.align(dims);
+    o_label.align(dims, RIGHT, properties.padding, properties.padding);
 }
 
 /*

@@ -91,7 +91,7 @@ typedef enum MediaGravity {
 } MediaGravity;
 
 
-struct MediaDims {
+struct MediaSize {
     int w;
     int h;
 };
@@ -131,7 +131,7 @@ static inline MediaRect rect_align(MediaRect out, MediaRect in, MediaGravity g, 
         return (MediaRect) { out.x + out.w - in.w - hpad, out.y + vpad, in.w, in.h};
 
     case RIGHT:
-        return (MediaRect) { out.x + out.w - in.w - hpad, out.y / 2 - in.h / 2, in.w, in.h };
+        return (MediaRect) { out.x + out.w - in.w - hpad, out.y + out.h / 2 - in.h / 2, in.w, in.h };
 
     case BOTTOMRIGHT:
         return (MediaRect) { out.x + out.w - in.w - hpad, out.y + out.h - in.h - vpad, in.w, in.h };
@@ -312,7 +312,7 @@ struct MediaObject {
 
     inline void align(MediaRect k, MediaGravity g = CENTER, int hpad = 0, int vpad = 0);
     inline void scale(int sw, int sh);
-    inline MediaDims tx_dims();
+    inline MediaSize tx_dims();
     inline void set_size(int w, int h);
     inline void set_rect(MediaRect k);
     
@@ -327,9 +327,10 @@ struct MediaObject {
 
 inline void MediaObject::align(MediaRect k, MediaGravity g, int hpad, int vpad)
 {
-    // PRINTRECT(dest_rect);
-    // PRINTRECT(k);
-    // PRINTRECT(Util::rect_align(k, dest_rect, g, hpad, vpad));
+    printf("Align\n");
+    PRINTRECT(dest_rect);
+    PRINTRECT(k);
+    PRINTRECT(MediaUtil::rect_align(k, dest_rect, g, hpad, vpad));
     dest_rect = MediaUtil::rect_align(k, dest_rect, g, hpad, vpad);
 }
 
@@ -339,9 +340,9 @@ inline void MediaObject::scale(int sw, int sh)
     dest_rect.h *= sh;
 }
 
-inline MediaDims MediaObject::tx_dims()
+inline MediaSize MediaObject::tx_dims()
 {
-    MediaDims k;
+    MediaSize k;
     SDL_QueryTexture(texture, nullptr, nullptr, &k.w, &k.h);
     return k;
 }
@@ -460,7 +461,7 @@ inline void MediaClipObject::clip_clear_src()
 inline void MediaClipObject::clip_clear()
 {
     src_rect_ptr = nullptr;
-    MediaDims k = tx_dims();
+    MediaSize k = tx_dims();
     dest_rect.w = k.w;
     dest_rect.h = k.h;
 }

@@ -66,8 +66,8 @@ void GameScene::init()
     info    = &c.add<UILabel>("");
     info2    = &c.add<UILabel>("");
     ui.refresh();
-    song.play();
-    song.set_volume(64);
+    song.set_volume(40);
+    // song.play();
     init_flag = true;
 }
 

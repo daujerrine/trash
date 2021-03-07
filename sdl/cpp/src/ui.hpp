@@ -19,9 +19,11 @@
 
 
 enum UIOptions {
-    UIOPT_WIDGET_NOCLIP  = UI_OPTION_DEF_PARENT(0),
-    UIOPT_WIDGET_STRETCH = UI_OPTION_DEF_PARENT(1),
-    UIOPT_WIDGET_FIXED   = UI_OPTION_DEF_PARENT(2)
+    UIOPT_WIDGET_NOCLIP    = UI_OPTION_DEF_PARENT(0),
+    UIOPT_WIDGET_STRETCH   = UI_OPTION_DEF_PARENT(1),
+    UIOPT_WIDGET_FIXED     = UI_OPTION_DEF_PARENT(2),
+    /// Have properties been set?
+    UIOPT_WIDGET_PROPS_SET = UI_OPTION_DEF(0),
 };
 
 enum UIWidgetState {
@@ -50,12 +52,6 @@ static inline bool clicked(MediaState &k, MediaRect b, UIWidgetState &b)
     return false;
 }
 */
-};
-
-
-struct UIWidgetProperties {
-    UIGravity text_align;
-    int scale;
 };
 
 class UIWidget;
@@ -112,6 +108,31 @@ inline int UIDefaultPrimitives::line(UIWidget &u, int x1, int y1, int x2, int y2
     return g.line(x1, y1, x2, y2);
 }
 
+struct UIWidgetProperties {
+    std::string tooltip;
+    // UIPrimitives *style;
+    UIGravity content_align = LEFT;
+    MediaSize min_size      = { 0, 0 };
+    MediaSize max_size      = { 100000, 100000 };
+    MediaColor bg_color     = { 110, 110, 110  };
+    MediaColor fg_color     = { 255, 255, 255, };
+    int padding             = UI_DEFAULT_PADDING;
+    int margin              = UI_DEFAULT_MARGIN;
+    int scale               = 1;
+};
+
+/*
+UIWidgetProperties ui_default_properties = (UIWidgetProperties) {
+    .content_align = CENTER,
+    .min_size      = { 0, 0 },
+    .max_size      = { 100000, 100000 },
+    .bg_color      = { 110, 110, 110  },
+    .fg_color      = { 255, 255, 255, },
+    .padding       = UI_DEFAULT_PADDING,
+    .margin        = UI_DEFAULT_MARGIN,
+    .scale         = 1
+};
+*/
 
 /*
  * =============================================================================
@@ -143,6 +164,7 @@ class UIWidget {
         static constexpr char const *name = "generic widget";
         MediaState &m;
         MediaGraphics &g;
+        // UIPrimitives &p;
 
         /**
          * Several Drawing options.
@@ -154,6 +176,8 @@ class UIWidget {
         uint32_t options;
 
     public:
+        UIWidgetProperties properties;
+
         /// "Ideal" dimensions of the given widget.
         /// First set by the widget itself and then handled by the geometry
         /// manager on invoking calculation.
@@ -163,7 +187,7 @@ class UIWidget {
         bool show = true;
         
         UIWidget(MediaState &m, MediaGraphics &g, std::string label, int options):
-            m(m), g(g), label(label), options(options) {};
+            m(m), g(g), label(label), options(options) {}
 
         virtual ~UIWidget() {};
 
@@ -207,9 +231,13 @@ typedef std::vector<std::unique_ptr<UIWidget>> UIWidgetList;
 class UIGeometry {
     protected:
         UIWidgetList &widgets;
+        UIWidgetProperties &properties;
 
     public:
-        UIGeometry (std::vector<std::unique_ptr<UIWidget>> &widgets): widgets(widgets) {}
+        UIGeometry (
+            UIWidgetList &widgets,
+            UIWidgetProperties &properties
+        ): widgets(widgets), properties(properties) {}
         MediaRect container_dim  = {0, 0, 0, 0};
 
         virtual MediaRect calculate_all(MediaRect dims) = 0;
@@ -238,7 +266,10 @@ class UIGridGeometry : public UIGeometry {
 
     public:
         static constexpr const GridEntry default_grid = { 0, 1, 1, 0 };
-        UIGridGeometry(std::vector<std::unique_ptr<UIWidget>> &widgets): UIGeometry(widgets) {}
+        UIGridGeometry(
+            UIWidgetList &widgets,
+            UIWidgetProperties &properties
+        ): UIGeometry(widgets, properties) {}
         std::vector<GridEntry> grid_list;
         int grid_index;
         bool initial_refresh = true;
@@ -285,6 +316,7 @@ inline MediaRect UIGridGeometry::calculate_all(MediaRect new_dim)
     int row_start;
     grid_index = 0;
     MediaRect current_dim = new_dim;
+    current_dim.y += properties.padding;
 
     for (int i = 0; i < widgets.size();) {
         // PRINT_LINE
@@ -293,32 +325,55 @@ inline MediaRect UIGridGeometry::calculate_all(MediaRect new_dim)
         row_start = i;
 
         for (int j = 0; j < curr_grid->rows; j++) {
-            // PRINT_LINE
+            int padding = widgets[i]->properties.padding;
+            int margin  = widgets[i]->properties.margin;
             current_dim.x = new_dim.x;
             min_grid_height = 0;
 
             for (int k = 0; k < curr_grid->cols; k++) {
-                // PRINT_LINE
-                // printf("current height %d\n", widgets[i]->dims.h);
                 if (min_grid_height < widgets[i]->dims.h) {
                     set_row_height(i, row_start, widgets[i]->dims.h);
                     min_grid_height = widgets[i]->dims.h;
                 }
-                // printf("1>>"); PRINTRECT(widgets[i]->dims);
-                widgets[i]->dims.x = UI_DEFAULT_MARGIN + current_dim.x;
-                widgets[i]->dims.y = current_dim.y + UI_DEFAULT_MARGIN;
-                widgets[i]->dims.w = current_dim.w - 2 * UI_DEFAULT_MARGIN;
+
+                widgets[i]->dims.x = current_dim.x;
+                widgets[i]->dims.y = current_dim.y;
+
+                if (k == 0) {
+                    widgets[i]->dims.x += margin;
+                    printf(":: %d\n", margin);
+                } else {
+                    widgets[i]->dims.x += margin - margin / 2;
+                    printf(":: %d\n", margin - margin / 2);
+                }
+
+                if ((k == (curr_grid->cols - 1)) && (k == 0)) {
+                    widgets[i]->dims.w = current_dim.w - margin * 2;
+                    // printf("Only element\n");
+                } else if ((k == (curr_grid->cols - 1))) {
+                    widgets[i]->dims.w = new_dim.w - (widgets[i]->dims.x - new_dim.x) - margin;
+                    PRINTRECT(current_dim);
+                    // printf("j = %d k = %d last newdim.w = %d, w = %d x = %d\n",
+                    //        j,  k, new_dim.w, widgets[i]->dims.w, widgets[i]->dims.x);
+                } else if ((k == 0)) {
+                    widgets[i]->dims.w = current_dim.w - margin / 2 - margin;
+                    //     printf("j = %d k = %d first newdim.w = %d, w = %d x = %d\n",
+                    //        j,  k, new_dim.w, widgets[i]->dims.w, widgets[i]->dims.x);
+                } else {
+                    widgets[i]->dims.w = current_dim.w - margin;
+                    // printf("j = %d k = %d Middle newdim.w = %d, w = %d x = %d\n",
+                    //        j,  k, new_dim.w, widgets[i]->dims.w, widgets[i]->dims.x);
+                }
+
                 widgets[i]->dims.h = min_grid_height;
-                // printf("2>>"); PRINTRECT(widgets[i]->dims);
+
                 current_dim.x += current_dim.w;
 
                 i++;
-                //printf(">>>>\n");
-                //PRINTRECT(current_dim);
                 if (i >= widgets.size())
                     goto end;
             }
-            current_dim.y += min_grid_height + UI_DEFAULT_MARGIN;
+            current_dim.y += min_grid_height + margin;
         }
     }
 
@@ -384,7 +439,10 @@ class UIRelativeGeometry : public UIGeometry {
 
     public:
         static constexpr const GravityEntry default_grav = {0, CENTER, 0, 0};
-        UIRelativeGeometry(std::vector<std::unique_ptr<UIWidget>> &widgets): UIGeometry(widgets) {}
+        UIRelativeGeometry(
+            std::vector<std::unique_ptr<UIWidget>> &widgets,
+            UIWidgetProperties &properties
+        ): UIGeometry(widgets, properties) {}
         std::vector<GravityEntry> grav_list;
         int grav_index;
 
@@ -451,7 +509,7 @@ class UILabel : public UIWidget {
             UIWidget(m, g, label, options)
         {
             g.text(o_label, label);
-            printf("LABELINIT::: "); PRINTRECT(o_label.dest_rect);
+            // printf("LABELINIT::: "); PRINTRECT(o_label.dest_rect);
             dims = o_label.dest_rect;
             dims.h += 2 * UI_DEFAULT_PADDING; /// @todo remove this
             PRINT_LINE
@@ -542,8 +600,10 @@ class UIContainer : public UIWidget {
             std::string label,
             int options = 0,
             MediaRect dims = {0, 0, 0, 0}
-        ): UIWidget(m, g, label, options), geo(widgets)
+        ): UIWidget(m, g, label, options), geo(widgets, properties)
         {
+            PRINT_LINE
+            printf("Initialiser called.\n");
             this->dims = dims;
             // this->dims = geo.update_container_dim(dims);
             // refresh();
