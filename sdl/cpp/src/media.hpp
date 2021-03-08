@@ -327,10 +327,10 @@ struct MediaObject {
 
 inline void MediaObject::align(MediaRect k, MediaGravity g, int hpad, int vpad)
 {
-    printf("Align\n");
-    PRINTRECT(dest_rect);
-    PRINTRECT(k);
-    PRINTRECT(MediaUtil::rect_align(k, dest_rect, g, hpad, vpad));
+    // printf("Align\n");
+    // PRINTRECT(dest_rect);
+    // PRINTRECT(k);
+    // PRINTRECT(MediaUtil::rect_align(k, dest_rect, g, hpad, vpad));
     dest_rect = MediaUtil::rect_align(k, dest_rect, g, hpad, vpad);
 }
 
@@ -349,7 +349,7 @@ inline MediaSize MediaObject::tx_dims()
 
 inline void MediaObject::set_size(int w, int h)
 {
-    printf("Setting rectangle: %d %d\n", w, h);
+    // printf("Setting rectangle: %d %d\n", w, h);
     dest_rect.w = w;
     dest_rect.h = h;
 }

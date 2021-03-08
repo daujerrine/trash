@@ -14,6 +14,7 @@ class GameScene : public Scene {
         MediaState &m;
         MediaGraphics &g;
         UITopLevel ui;
+        UIFrame *c;
         SceneState &s;
         UILabel *counter;
         UILabel *info, *info2;
@@ -60,12 +61,13 @@ void GameScene::init()
 {
     srand(time(nullptr));
     ui.geo.add(BOTTOMRIGHT, 0, 0);
-    UIFrame &c = ui.add<UIFrame>("Menu", 0, (MediaRect) {0, 0, 400, 100});
-    c.add<UILabel>("Game Scene");
-    counter = &c.add<UILabel>("0");
-    info    = &c.add<UILabel>("");
-    info2    = &c.add<UILabel>("");
+    c = &ui.add<UIFrame>("Menu", 0, (MediaRect) {0, 0, 400, 100});
+    c->add<UILabel>("Game Scene");
+    counter = &c->add<UILabel>("0");
+    info    = &c->add<UILabel>("");
+    info2    = &c->add<UILabel>("");
     ui.refresh();
+    c->hide();
     song.set_volume(40);
     // song.play();
     init_flag = true;
@@ -111,11 +113,17 @@ void GameScene::event()
             case SDLK_SPACE:
                 firing = false;
                 break;
+
+            case SDLK_m:
+                if (c->shown())
+                    c->hide();
+                else
+                    c->show();
+                break;
             }
             break;
 
         case SDL_KEYDOWN:
-            printf("%d\n", m.e.key.keysym.sym);
             switch (m.e.key.keysym.sym) {
             case SDLK_RIGHT:
                 xaccn += 2;

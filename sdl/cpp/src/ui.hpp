@@ -73,8 +73,8 @@ class UIPrimitives {
 
     public:
         UIPrimitives(MediaGraphics &g): g(g) {};
-        virtual inline int box(UIWidget &u, MediaRect k) = 0;
-        virtual inline int fbox(UIWidget &u, MediaRect k) = 0;
+        virtual inline int box(MediaRect k) = 0;
+        virtual inline int fbox(MediaRect k) = 0;
         virtual inline int line(UIWidget &u, int x1, int x2, int y1, int y2) = 0;
 };
 
@@ -87,19 +87,21 @@ class UIDefaultPrimitives : public UIPrimitives {
 
     public:
         UIDefaultPrimitives(MediaGraphics &g): UIPrimitives(g) {}
-        inline int box(UIWidget &u, MediaRect k);
-        inline int fbox(UIWidget &u, MediaRect k);
+        inline int box(MediaRect k);
+        inline int fbox(MediaRect k);
         inline int line(UIWidget &u, int x1, int x2, int y1, int y2);
 };
 
-inline int UIDefaultPrimitives::box(UIWidget &u, MediaRect k)
+inline int UIDefaultPrimitives::box(MediaRect k)
 {
     return g.rect(k);
 }
 
-inline int UIDefaultPrimitives::fbox(UIWidget &u, MediaRect k)
+inline int UIDefaultPrimitives::fbox(MediaRect k)
 {
-    return g.frect(k);
+    g.set_color(128, 128, 128, 255);
+    g.frect(k);
+    g.set_color(255, 255, 255, 255);
     return g.rect(k);
 }
 
@@ -111,7 +113,7 @@ inline int UIDefaultPrimitives::line(UIWidget &u, int x1, int y1, int x2, int y2
 struct UIWidgetProperties {
     std::string tooltip;
     // UIPrimitives *style;
-    UIGravity content_align = LEFT;
+    UIGravity content_align = CENTER;
     MediaSize min_size      = { 0, 0 };
     MediaSize max_size      = { 100000, 100000 };
     MediaColor bg_color     = { 110, 110, 110  };
@@ -160,11 +162,11 @@ struct UIState {
 /// Default Abstract widget class
 class UIWidget {
     protected:
-        std::string label; /// In-System Name
-        static constexpr char const *name = "generic widget";
+        std::string label; /// Display Name
+        static constexpr char const *name = "generic widget"; /// Class Name
         MediaState &m;
         MediaGraphics &g;
-        // UIPrimitives &p;
+        UIDefaultPrimitives p{g};
 
         /**
          * Several Drawing options.
@@ -172,19 +174,32 @@ class UIWidget {
          * options itself. The last 2 bytes are reserved for the parent widget.
          *
          * Parent - Parent - Self - Self
+         *
+         * The parent component can hold flags that are specific to itself, i.e.
+         * declare flags local to itself and its geometry manager.
          */
         uint32_t options;
 
+        /// Storage flag for whether a refresh request has been made or not.
+        bool no_refresh_flag = true;
+
+        /// Should the widget be drawn to the screen?
+        bool show_flag = true;
+
+        /// Sets the refresh flag
+        inline void request_refresh()
+        {
+            no_refresh_flag = false;
+        }
+
     public:
         UIWidgetProperties properties;
-
-        /// "Ideal" dimensions of the given widget.
-        /// First set by the widget itself and then handled by the geometry
-        /// manager on invoking calculation.
+        /**
+         * "Ideal" dimensions of the given widget.
+         * First set by the widget itself and then handled by the geometry
+         * manager on invoking calculation.
+         */
         MediaRect dims;
-
-        /// Should the widget be drawn to the screen
-        bool show = true;
         
         UIWidget(MediaState &m, MediaGraphics &g, std::string label, int options):
             m(m), g(g), label(label), options(options) {}
@@ -204,6 +219,31 @@ class UIWidget {
         /// Updates the widget.
         /// @return false if refresh() needs to be invoked by the parent widget. True otherwise.
         virtual bool update() = 0;
+
+        /**
+         * Gets the request and resets it afterwards.
+         */
+        inline bool get_refresh_request()
+        {
+            bool ret = no_refresh_flag;
+            no_refresh_flag = false;
+            return ret;
+        }
+
+        inline bool shown()
+        {
+            return show_flag;
+        }
+        
+        inline void show()
+        {
+            show_flag = true;
+        }
+
+        inline void hide()
+        {
+            show_flag = false;
+        }
 
         virtual inline bool is_down() = 0;
         virtual inline bool is_changed() = 0;
@@ -341,10 +381,10 @@ inline MediaRect UIGridGeometry::calculate_all(MediaRect new_dim)
 
                 if (k == 0) {
                     widgets[i]->dims.x += margin;
-                    printf(":: %d\n", margin);
+                    // printf(":: %d\n", margin);
                 } else {
                     widgets[i]->dims.x += margin - margin / 2;
-                    printf(":: %d\n", margin - margin / 2);
+                    // printf(":: %d\n", margin - margin / 2);
                 }
 
                 if ((k == (curr_grid->cols - 1)) && (k == 0)) {
@@ -352,7 +392,7 @@ inline MediaRect UIGridGeometry::calculate_all(MediaRect new_dim)
                     // printf("Only element\n");
                 } else if ((k == (curr_grid->cols - 1))) {
                     widgets[i]->dims.w = new_dim.w - (widgets[i]->dims.x - new_dim.x) - margin;
-                    PRINTRECT(current_dim);
+                    // PRINTRECT(current_dim);
                     // printf("j = %d k = %d last newdim.w = %d, w = %d x = %d\n",
                     //        j,  k, new_dim.w, widgets[i]->dims.w, widgets[i]->dims.x);
                 } else if ((k == 0)) {
@@ -658,17 +698,21 @@ void UIContainer<Geometry>::resize(MediaRect dims)
 template <typename Geometry>
 void UIContainer<Geometry>::draw()
 {
-    for (auto &i: widgets)
-        i->draw();
+    for (auto &i: widgets) {
+        if (i->shown())
+            i->draw();
+    }
 }
 
 template <typename Geometry>
 bool UIContainer<Geometry>::event()
 {
     bool no_refresh = true;
-    for (auto &i: widgets)
+    for (auto &i: widgets) {
         // Order important for optimisation
-        no_refresh = i->event() && no_refresh;
+        if (i->shown())
+            no_refresh = i->event() && no_refresh;
+    }
 
     if (!no_refresh) {
         refresh();
@@ -682,9 +726,11 @@ bool UIContainer<Geometry>::update()
 {
     bool no_refresh = true;
 
-    for (auto &i: widgets)
+    for (auto &i: widgets) {
         // Order important for optimisation
-        no_refresh = i->update() && no_refresh;
+        if (i->shown())
+            no_refresh = i->update() && no_refresh;
+    }
 
     if (!no_refresh) {
         refresh();

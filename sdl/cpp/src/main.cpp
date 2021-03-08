@@ -21,6 +21,7 @@ int media_main() {
 
     MediaState m;
     MediaGraphics g(m);
+    UIDefaultPrimitives p(g);
 
     TitleScene title_scene(m, g, s);
     GameScene  game_scene(m, g, s);
@@ -32,6 +33,11 @@ int media_main() {
 
     scene_list[SCENE_GAME] = &game_scene;
     scene_list[SCENE_TITLE] = &title_scene;
+
+    SDL_StartTextInput();
+    MediaRect c = {0, 0, 200, 200};
+    SDL_SetTextInputRect(&c);
+    std::string textbuf;
 
     while (m.active) {
         m.loop_start();
@@ -52,6 +58,16 @@ int media_main() {
                     break;
                 }
                 break;
+
+            case SDL_TEXTINPUT:
+                textbuf += m.e.text.text;
+                std::cout << textbuf << std::endl;
+                break;
+
+            case SDL_TEXTEDITING:
+                std::cout << "comp: " << m.e.edit.text << std::endl
+                          << "cursor: " << m.e.edit.start << std::endl
+                          << "sel: " << m.e.edit.length << std::endl;
             }
 
             if (!quitmode) {

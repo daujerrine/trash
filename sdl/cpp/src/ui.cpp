@@ -87,16 +87,12 @@ void UIButton::draw()
 {
     switch (state) {
     case UI_WIDGET_NORMAL:
-        g.set_color(255, 255, 255, 255);
-        g.rect(dims);
+        p.box(dims);
         g.paint(o_label);
         break;
 
     case UI_WIDGET_ACTIVE:
-        g.set_color(80, 80, 80, 255);
-        g.frect(dims);
-        g.set_color(255, 255, 255, 255);
-        g.rect(dims);
+        p.fbox(dims);
         g.paint(o_label);
         break;
 
@@ -161,8 +157,14 @@ bool UIButton::update()
 void UIButton::refresh()
 {
     o_label.overflow_x(dims);
-    o_label.align(dims, RIGHT, properties.padding, properties.padding);
+    o_label.align(dims, properties.content_align, properties.padding, properties.padding);
 }
+
+/*
+ * -----------------------------------------------------------------------------
+ * UITextInput
+ * -----------------------------------------------------------------------------
+ */
 
 /*
  * =============================================================================
