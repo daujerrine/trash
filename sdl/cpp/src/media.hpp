@@ -497,9 +497,9 @@ class MediaState {
         int main_h;          /// Main window height
         uint32_t delta;      /// Delta Time
 
-#if GAME_DEBUG_BUILD
+// #if GAME_DEBUG_BUILD
         std::map<std::string, std::string> debug_keys;
-#endif
+// #endif
 
         MediaState(
             int w = 800,

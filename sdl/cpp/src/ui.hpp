@@ -166,7 +166,7 @@ class UIWidget {
         static constexpr char const *name = "generic widget"; /// Class Name
         MediaState &m;
         MediaGraphics &g;
-        UIDefaultPrimitives p{g};
+        UIPrimitives &p;
 
         /**
          * Several Drawing options.
@@ -201,8 +201,8 @@ class UIWidget {
          */
         MediaRect dims;
         
-        UIWidget(MediaState &m, MediaGraphics &g, std::string label, int options):
-            m(m), g(g), label(label), options(options) {}
+        UIWidget(MediaState &m, MediaGraphics &g, UIPrimitives &p, std::string label, int options):
+            m(m), g(g), p(p), label(label), options(options) {}
 
         virtual ~UIWidget() {};
 
@@ -630,6 +630,7 @@ class UIContainer : public UIWidget {
         static constexpr char const *name = "container";
         // UIDefaultPrimitives &p;
         UIWidgetList widgets;
+        UIDefaultPrimitives p;
         
     public:
         Geometry geo;
@@ -640,7 +641,7 @@ class UIContainer : public UIWidget {
             std::string label,
             int options = 0,
             MediaRect dims = {0, 0, 0, 0}
-        ): UIWidget(m, g, label, options), geo(widgets, properties)
+        ): UIWidget(m, g, label, options), geo(widgets, properties), p(g)
         {
             PRINT_LINE
             printf("Initialiser called.\n");

@@ -93,7 +93,7 @@ void GameScene::event()
     if (m.e.key.repeat == 0) {
         switch (m.e.type) {
         case SDL_KEYUP:
-            printf("%d\n", m.e.key.keysym.sym);
+            // printf("%d\n", m.e.key.keysym.sym);
             switch (m.e.key.keysym.sym) {
             case SDLK_RIGHT:
                 xaccn -= 2;

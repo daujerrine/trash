@@ -4,6 +4,6 @@
 #define GAME_VERSION_MAJOR 0
 #define GAME_VERSION_MINOR 0
 #define GAME_VERSION_PATCH 1
-#define GAME_DEBUG_MOGE    
+#define GAME_DEBUG_BUILD    1
 
 #endif

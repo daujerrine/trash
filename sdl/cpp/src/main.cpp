@@ -19,6 +19,8 @@ int media_main() {
     SceneState s = SCENE_TITLE;
     bool quitmode = false;
 
+    MediaObject debug;
+
     MediaState m;
     MediaGraphics g(m);
     UIDefaultPrimitives p(g);
@@ -89,8 +91,16 @@ int media_main() {
 
         g.clear();
         scene_list[s]->draw();
-        g.set_color(255, 255, 255, 255);
-        g.rect({200, 200, 200, 200});
+
+        std::string p;
+        m.debug_keys["fps"] = "0";
+        for (auto &i :m.debug_keys) {
+            p += i.first + ":" + i.second + " ";
+        }
+
+        g.text(debug, p);
+
+        g.paint(debug);
 
         if (quitmode)
             quit_scene.draw();
