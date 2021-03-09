@@ -1,0 +1,5216 @@
+{
+    "A": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u0391"
+        },
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0410"
+        },
+        {
+            "score": 0,
+            "script": "Cherokee",
+            "value": "\u13aa"
+        },
+        {
+            "score": 0,
+            "script": "Miao",
+            "value": "\ud81b\udf40"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d00"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d2c"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uab7a"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff21"
+        },
+        {
+            "score": 4,
+            "script": "U+102A0 (Carian)",
+            "value": "\ud800\udea0"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd10"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd30"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd50"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd70"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc00"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc34"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc68"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udc9c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcd0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd04"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd38"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd6c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\udda0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddd4"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude08"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude3c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude70"
+        }
+    ],
+    "B": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u0392"
+        },
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0412"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4d0"
+        },
+        {
+            "score": 0,
+            "script": "Pau Chin Hau",
+            "value": "\ud806\udec4"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d03"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d2e"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff22"
+        },
+        {
+            "score": 4,
+            "script": "U+10280 (Lycian)",
+            "value": "\ud800\ude82"
+        },
+        {
+            "score": 4,
+            "script": "U+102A0 (Carian)",
+            "value": "\ud800\udea1"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd11"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd31"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd51"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd71"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc01"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc35"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc69"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcd1"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd05"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd39"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd6d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\udda1"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddd5"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude09"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude3d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude71"
+        }
+    ],
+    "C": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u03f9"
+        },
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0421"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4da"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d04"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u2102"
+        },
+        {
+            "score": 0,
+            "script": "U+217C (Roman Numerals)",
+            "value": "\u216d"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uabaf"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff23"
+        },
+        {
+            "score": 4,
+            "script": "U+102A0 (Carian)",
+            "value": "\ud800\udea2"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd12"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd32"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd52"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd72"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc02"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc36"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc6a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udc9e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcd2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd6e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\udda2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddd6"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude0a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude3e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude72"
+        }
+    ],
+    "D": [
+        {
+            "score": 0,
+            "script": "Cherokee",
+            "value": "\u13a0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d05"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d30"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u2145"
+        },
+        {
+            "score": 0,
+            "script": "U+217C (Roman Numerals)",
+            "value": "\u216e"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uab70"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff24"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd13"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd33"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd53"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd73"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc03"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc37"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc6b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udc9f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcd3"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd07"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd3b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd6f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\udda3"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddd7"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude0b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude3f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude73"
+        }
+    ],
+    "E": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u0395"
+        },
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0415"
+        },
+        {
+            "score": 0,
+            "script": "Cherokee",
+            "value": "\u13ac"
+        },
+        {
+            "score": 0,
+            "script": "Tifinagh",
+            "value": "\u2d39"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4f0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d07"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d31"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uab7c"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff25"
+        },
+        {
+            "score": 4,
+            "script": "U+10280 (Lycian)",
+            "value": "\ud800\ude86"
+        },
+        {
+            "score": 4,
+            "script": "U+102A0 (Carian)",
+            "value": "\ud800\udea4"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd14"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd34"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd54"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd74"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc04"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc38"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc6c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcd4"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd08"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd3c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd70"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\udda4"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddd8"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude0c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude40"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude74"
+        }
+    ],
+    "F": [
+        {
+            "score": 1,
+            "script": "Greek",
+            "value": "\u03dc"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4dd"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u2131"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff26"
+        },
+        {
+            "score": 4,
+            "script": "U+10280 (Lycian)",
+            "value": "\ud800\ude87"
+        },
+        {
+            "score": 4,
+            "script": "U+102A0 (Carian)",
+            "value": "\ud800\udea5"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd15"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd35"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd55"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd75"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc05"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc39"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc6d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcd5"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd09"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd3d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd71"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\udda5"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddd9"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude0d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude41"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude75"
+        }
+    ],
+    "G": [
+        {
+            "score": 0,
+            "script": "Cherokee",
+            "value": "\u13c0"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4d6"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d33"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff27"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd16"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd36"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd56"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd76"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc06"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc3a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc6e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udca2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcd6"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd0a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd3e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd72"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\udda6"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddda"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude0e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude42"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude76"
+        }
+    ],
+    "H": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u0397"
+        },
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u041d"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4e7"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d34"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u210d"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uab8b"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff28"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd17"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd37"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd57"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd77"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc07"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc3b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc6f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcd7"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd73"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\udda7"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udddb"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude0f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude43"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude77"
+        }
+    ],
+    "I": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u0399"
+        },
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0406"
+        },
+        {
+            "score": 0,
+            "script": "Tifinagh",
+            "value": "\u2d4f"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4f2"
+        },
+        {
+            "score": 0,
+            "script": "Miao",
+            "value": "\ud81b\udf28"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d35"
+        },
+        {
+            "score": 0,
+            "script": "U+217C (Roman Numerals)",
+            "value": "\u2160"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff29"
+        },
+        {
+            "score": 4,
+            "script": "U+10280 (Lycian)",
+            "value": "\ud800\ude88"
+        },
+        {
+            "score": 4,
+            "script": "U+102A0 (Carian)",
+            "value": "\ud800\udea6"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd18"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd38"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd58"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd78"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc08"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc3c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc70"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcd8"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd40"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd74"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\udda8"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udddc"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude10"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude44"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude78"
+        }
+    ],
+    "J": [
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0408"
+        },
+        {
+            "score": 0,
+            "script": "Cherokee",
+            "value": "\u13ab"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d0a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d36"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u2110"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uab7b"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff2a"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd19"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd39"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd59"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd79"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc09"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc3d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc71"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udca5"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcd9"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd0d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd41"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd75"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\udda9"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udddd"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude11"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude45"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude79"
+        }
+    ],
+    "K": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u039a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d0b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d37"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uabb6"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff2b"
+        },
+        {
+            "score": 4,
+            "script": "U+10280 (Lycian)",
+            "value": "\ud800\ude8b"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd1a"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd3a"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd5a"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd7a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc0a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc3e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc72"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udca6"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcda"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd0e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd42"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd76"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddaa"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddde"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude12"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude46"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude7a"
+        }
+    ],
+    "L": [
+        {
+            "score": 0,
+            "script": "Armenian",
+            "value": "\u053c"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4e1"
+        },
+        {
+            "score": 0,
+            "script": "Pau Chin Hau",
+            "value": "\ud806\udece"
+        },
+        {
+            "score": 0,
+            "script": "Miao",
+            "value": "\ud81b\udf16"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d0c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d38"
+        },
+        {
+            "score": 4,
+            "script": "U+1D9C",
+            "value": "\u1dab"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u2112"
+        },
+        {
+            "score": 0,
+            "script": "U+217C (Roman Numerals)",
+            "value": "\u216c"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff2c"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd1b"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd3b"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd5b"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd7b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc0b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc3f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc73"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcdb"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd0f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd43"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd77"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddab"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udddf"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude13"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude47"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude7b"
+        }
+    ],
+    "M": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u039c"
+        },
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u041c"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4df"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d0d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d39"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u2133"
+        },
+        {
+            "score": 0,
+            "script": "U+217C (Roman Numerals)",
+            "value": "\u216f"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff2d"
+        },
+        {
+            "score": 4,
+            "script": "U+102A0 (Carian)",
+            "value": "\ud800\udeb0"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd1c"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd3c"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd5c"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd7c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc0c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc40"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc74"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcdc"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd10"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd44"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd78"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddac"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udde0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude14"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude48"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude7c"
+        }
+    ],
+    "N": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u039d"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4e0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d3a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D9C",
+            "value": "\u1db0"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u2115"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uab87"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff2e"
+        },
+        {
+            "score": 4,
+            "script": "U+102A0 (Carian)",
+            "value": "\ud800\udeaa"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd1d"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd3d"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd5d"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd7d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc0d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc41"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc75"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udca9"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcdd"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd11"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd79"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddad"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udde1"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude15"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude49"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude7d"
+        }
+    ],
+    "O": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u039f"
+        },
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u041e"
+        },
+        {
+            "score": 0,
+            "script": "Armenian",
+            "value": "\u0555"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4f3"
+        },
+        {
+            "score": 0,
+            "script": "Pau Chin Hau",
+            "value": "\ud806\udee4"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d3c"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff2f"
+        },
+        {
+            "score": 4,
+            "script": "U+10280 (Lycian)",
+            "value": "\ud800\ude92"
+        },
+        {
+            "score": 4,
+            "script": "U+102A0 (Carian)",
+            "value": "\ud800\udeab"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd1e"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd3e"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd5e"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd7e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc0e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc42"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc76"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcaa"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcde"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd12"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd46"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd7a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddae"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udde2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude16"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude4a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude7e"
+        }
+    ],
+    "P": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u03a1"
+        },
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0420"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4d1"
+        },
+        {
+            "score": 0,
+            "script": "Pau Chin Hau",
+            "value": "\ud806\udee2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d18"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d3e"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u2119"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uabb2"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff30"
+        },
+        {
+            "score": 4,
+            "script": "U+10280 (Lycian)",
+            "value": "\ud800\ude95"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd1f"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd3f"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd5f"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd7f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc0f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc43"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc77"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcab"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcdf"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd13"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd7b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddaf"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udde3"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude17"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude4b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude7f"
+        }
+    ],
+    "Q": [
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u051a"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u211a"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff31"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd20"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd40"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd60"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd80"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc10"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc44"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc78"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcac"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udce0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd14"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd7c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddb0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udde4"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude18"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude4c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude80"
+        }
+    ],
+    "R": [
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4e3"
+        },
+        {
+            "score": 0,
+            "script": "Miao",
+            "value": "\ud81b\udf35"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d3f"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u211d"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff32"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd21"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd41"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd61"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd81"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc11"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc45"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc79"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udce1"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd7d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddb1"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udde5"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude19"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude4d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude81"
+        }
+    ],
+    "S": [
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0405"
+        },
+        {
+            "score": 0,
+            "script": "Armenian",
+            "value": "\u054f"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4e2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d40"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uabaa"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff33"
+        },
+        {
+            "score": 4,
+            "script": "U+10280 (Lycian)",
+            "value": "\ud800\ude96"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd22"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd42"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd62"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd82"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc12"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc46"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc7a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcae"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udce2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd16"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd4a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd7e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddb2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udde6"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude1a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude4e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude82"
+        }
+    ],
+    "T": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u03a4"
+        },
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0422"
+        },
+        {
+            "score": 0,
+            "script": "Cherokee",
+            "value": "\u13a2"
+        },
+        {
+            "score": 0,
+            "script": "Pau Chin Hau",
+            "value": "\ud806\udedd"
+        },
+        {
+            "score": 0,
+            "script": "Miao",
+            "value": "\ud81b\udf0a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d41"
+        },
+        {
+            "score": 4,
+            "script": "U+1D9C",
+            "value": "\u1db8"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uab72"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff34"
+        },
+        {
+            "score": 4,
+            "script": "U+10280 (Lycian)",
+            "value": "\ud800\ude97"
+        },
+        {
+            "score": 4,
+            "script": "U+102A0 (Carian)",
+            "value": "\ud800\udeb1"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd23"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd43"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd63"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd83"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc13"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc47"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc7b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcaf"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udce3"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd17"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd4b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd7f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddb3"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udde7"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude1b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude4f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude83"
+        }
+    ],
+    "U": [
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4f4"
+        },
+        {
+            "score": 0,
+            "script": "Miao",
+            "value": "\ud81b\udf42"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff35"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd24"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd44"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd64"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd84"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc14"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc48"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc7c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcb0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udce4"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd18"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd4c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd80"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddb4"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udde8"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude1c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude50"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude84"
+        }
+    ],
+    "V": [
+        {
+            "score": 0,
+            "script": "Pau Chin Hau",
+            "value": "\ud806\udedf"
+        },
+        {
+            "score": 0,
+            "script": "Miao",
+            "value": "\ud81b\udf08"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d20"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d42"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uaba9"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff36"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd25"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd45"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd65"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd85"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc15"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc49"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc7d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcb1"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udce5"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd19"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd4d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd81"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddb5"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udde9"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude1d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude51"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude85"
+        }
+    ],
+    "W": [
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u051c"
+        },
+        {
+            "score": 0,
+            "script": "Cherokee",
+            "value": "\u13b3"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d21"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uab83"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff37"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd26"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd46"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd66"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd86"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc16"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc4a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc7e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcb2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udce6"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd1a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd4e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd82"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddb6"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddea"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude1e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude52"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude86"
+        }
+    ],
+    "X": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u03a7"
+        },
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0425"
+        },
+        {
+            "score": 0,
+            "script": "Tifinagh",
+            "value": "\u2d5d"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff38"
+        },
+        {
+            "score": 4,
+            "script": "U+10280 (Lycian)",
+            "value": "\ud800\ude90"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd27"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd47"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd67"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd87"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc17"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc4b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc7f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcb3"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udce7"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd1b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd4f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd83"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddb7"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddeb"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude1f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude53"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude87"
+        }
+    ],
+    "Y": [
+        {
+            "score": 0,
+            "script": "Miao",
+            "value": "\ud81b\udf43"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff39"
+        },
+        {
+            "score": 4,
+            "script": "U+102A0 (Carian)",
+            "value": "\ud800\udeb2"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd28"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd48"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd68"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd88"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc18"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc4c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc80"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcb4"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udce8"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd1c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd50"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd84"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddb8"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddec"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude20"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude54"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude88"
+        }
+    ],
+    "Z": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u0396"
+        },
+        {
+            "score": 0,
+            "script": "Cherokee",
+            "value": "\u13c3"
+        },
+        {
+            "score": 0,
+            "script": "Pau Chin Hau",
+            "value": "\ud806\uded1"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d22"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u2124"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff3a"
+        },
+        {
+            "score": 6,
+            "script": "U+1FF10",
+            "value": "\ud83c\udd29"
+        },
+        {
+            "score": 6,
+            "script": "U+1F130",
+            "value": "\ud83c\udd49"
+        },
+        {
+            "score": 6,
+            "script": "U+1F150",
+            "value": "\ud83c\udd69"
+        },
+        {
+            "score": 6,
+            "script": "U+1F170",
+            "value": "\ud83c\udd89"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc19"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc4d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc81"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcb5"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udce9"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd85"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddb9"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\udded"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude21"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude55"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude89"
+        }
+    ],
+    "a": [
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0430"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d43"
+        },
+        {
+            "score": 4,
+            "script": "U+2090",
+            "value": "\u2090"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff41"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc1a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc4e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc82"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcb6"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcea"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd1e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd52"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd86"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddba"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddee"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude22"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude56"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude8a"
+        }
+    ],
+    "b": [
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d47"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff42"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc1b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc4f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc83"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcb7"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udceb"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd1f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd53"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd87"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddbb"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddef"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude23"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude57"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude8b"
+        }
+    ],
+    "c": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u03f2"
+        },
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0441"
+        },
+        {
+            "score": 4,
+            "script": "U+1D9C",
+            "value": "\u1d9c"
+        },
+        {
+            "score": 0,
+            "script": "U+217C (Roman Numerals)",
+            "value": "\u217d"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff43"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc1c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc50"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc84"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcb8"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcec"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd20"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd54"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd88"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddbc"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddf0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude24"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude58"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude8c"
+        }
+    ],
+    "d": [
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d48"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u2146"
+        },
+        {
+            "score": 0,
+            "script": "U+217C (Roman Numerals)",
+            "value": "\u217e"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff44"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc1d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc51"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc85"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcb9"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udced"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd21"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd55"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd89"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddbd"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddf1"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude25"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude59"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude8d"
+        }
+    ],
+    "e": [
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0435"
+        },
+        {
+            "score": 4,
+            "script": "U+1D43",
+            "value": "\u1d49"
+        },
+        {
+            "score": 4,
+            "script": "U+2090",
+            "value": "\u2091"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u2147"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff45"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc1e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc52"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc86"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcee"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd22"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd56"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd8a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddbe"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddf2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude26"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude5a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude8e"
+        }
+    ],
+    "f": [
+        {
+            "score": 4,
+            "script": "U+1D9C",
+            "value": "\u1da0"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff46"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc1f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc53"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc87"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcbb"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcef"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd23"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd57"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd8b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddbf"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddf3"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude27"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude5b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude8f"
+        }
+    ],
+    "g": [
+        {
+            "score": 0,
+            "script": "Armenian",
+            "value": "\u0581"
+        },
+        {
+            "score": 4,
+            "script": "U+1D9C",
+            "value": "\u1da2"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff47"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc20"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc54"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc88"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcf0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd24"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd58"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd8c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddc0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddf4"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude28"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude5c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude90"
+        }
+    ],
+    "h": [
+        {
+            "score": 2,
+            "script": "Cherokee",
+            "value": "\u13c2"
+        },
+        {
+            "score": 4,
+            "script": "U+2090",
+            "value": "\u2095"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff48"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc21"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc89"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcbd"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcf1"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd25"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd59"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd8d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddc1"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddf5"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude29"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude5d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude91"
+        }
+    ],
+    "i": [
+        {
+            "score": 1,
+            "script": "Cyrillic",
+            "value": "\u0456"
+        },
+        {
+            "score": 0,
+            "script": "Cherokee",
+            "value": "\u13a5"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d62"
+        },
+        {
+            "score": 4,
+            "script": "U+1D9C",
+            "value": "\u1da4"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u2148"
+        },
+        {
+            "score": 0,
+            "script": "U+217C (Roman Numerals)",
+            "value": "\u2170"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uab75"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff49"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc22"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc56"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc8a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcbe"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcf2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd26"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd5a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd8e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddc2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddf6"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude2a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude5e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude92"
+        }
+    ],
+    "j": [
+        {
+            "score": 0,
+            "script": "Greek",
+            "value": "\u03f3"
+        },
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0458"
+        },
+        {
+            "score": 4,
+            "script": "U+2102 (Letter like Symbols)",
+            "value": "\u2149"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff4a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc23"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc57"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc8b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcbf"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcf3"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd27"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd5b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd8f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddc3"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddf7"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude2b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude5f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude93"
+        }
+    ],
+    "k": [
+        {
+            "score": 4,
+            "script": "U+2090",
+            "value": "\u2096"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff4b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc24"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc58"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc8c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcc0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcf4"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd28"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd5c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd90"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddc4"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddf8"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude2c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude60"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude94"
+        }
+    ],
+    "l": [
+        {
+            "score": 4,
+            "script": "U+2090",
+            "value": "\u2097"
+        },
+        {
+            "score": 0,
+            "script": "U+217C (Roman Numerals)",
+            "value": "\u217c"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff4c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc25"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc59"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc8d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcf5"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd29"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd5d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd91"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddc5"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddf9"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude2d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude61"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude95"
+        }
+    ],
+    "m": [
+        {
+            "score": 4,
+            "script": "U+2090",
+            "value": "\u2098"
+        },
+        {
+            "score": 0,
+            "script": "U+217C (Roman Numerals)",
+            "value": "\u217f"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff4d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc26"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc5a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc8e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcc2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcf6"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd2a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd5e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd92"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddc6"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddfa"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude2e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude62"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude96"
+        }
+    ],
+    "n": [
+        {
+            "score": 4,
+            "script": "U+2090",
+            "value": "\u2099"
+        },
+        {
+            "score": 4,
+            "script": "U+207F",
+            "value": "\u207f"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff4e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc27"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc5b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc8f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcc3"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcf7"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd2b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd5f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd93"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddc7"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddfb"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude2f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude63"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude97"
+        }
+    ],
+    "o": [
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u043e"
+        },
+        {
+            "score": 0,
+            "script": "Armenian",
+            "value": "\u0585"
+        },
+        {
+            "score": 0,
+            "script": "U+1D00",
+            "value": "\u1d0f"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff4f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc28"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc5c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc90"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcf8"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd2c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd60"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd94"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddc8"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddfc"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude30"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude64"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude98"
+        }
+    ],
+    "p": [
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0440"
+        },
+        {
+            "score": 4,
+            "script": "U+2090",
+            "value": "\u209a"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff50"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc29"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc5d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc91"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcc5"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcf9"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd2d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd61"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd95"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddc9"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddfd"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude31"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude65"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude99"
+        }
+    ],
+    "q": [
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff51"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc2a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc5e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc92"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcc6"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcfa"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd2e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd62"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd96"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddca"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddfe"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude32"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude66"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude9a"
+        }
+    ],
+    "r": [
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d63"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff52"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc2b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc5f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc93"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcc7"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcfb"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd2f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd63"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd97"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddcb"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\uddff"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude33"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude67"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude9b"
+        }
+    ],
+    "s": [
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0455"
+        },
+        {
+            "score": 4,
+            "script": "U+2090",
+            "value": "\u209b"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff53"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc2c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc60"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc94"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcc8"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcfc"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd30"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd64"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd98"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddcc"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\ude00"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude34"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude68"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude9c"
+        }
+    ],
+    "t": [
+        {
+            "score": 4,
+            "script": "U+2090",
+            "value": "\u209c"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff54"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc2d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc61"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc95"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcc9"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcfd"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd31"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd65"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd99"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddcd"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\ude01"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude35"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude69"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude9d"
+        }
+    ],
+    "u": [
+        {
+            "score": 0,
+            "script": "Armenian",
+            "value": "\u057d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D2C",
+            "value": "\u1d64"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff55"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc2e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc62"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc96"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcca"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcfe"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd32"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd66"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd9a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddce"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\ude02"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude36"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude6a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude9e"
+        }
+    ],
+    "v": [
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff56"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc2f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc63"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc97"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udccb"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udcff"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd33"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd67"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd9b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddcf"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\ude03"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude37"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude6b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\ude9f"
+        }
+    ],
+    "w": [
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u051d"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff57"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc30"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc64"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc98"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udccc"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udd00"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd34"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd68"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd9c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddd0"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\ude04"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude38"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude6c"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\udea0"
+        }
+    ],
+    "x": [
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0445"
+        },
+        {
+            "score": 4,
+            "script": "U+2090",
+            "value": "\u2093"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff58"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc31"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc65"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc99"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udccd"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udd01"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd35"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd69"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd9d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddd1"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\ude05"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude39"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude6d"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\udea1"
+        }
+    ],
+    "y": [
+        {
+            "score": 0,
+            "script": "Cyrillic",
+            "value": "\u0443"
+        },
+        {
+            "score": 4,
+            "script": "U+AB70 (Cherokee Supplement)",
+            "value": "\uab79"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff59"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc32"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc66"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc9a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udcce"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udd02"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd36"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd6a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd9e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddd2"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\ude06"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude3a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude6e"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\udea2"
+        }
+    ],
+    "z": [
+        {
+            "score": 0,
+            "script": "U+1D00",
+            "value": "\u1d22"
+        },
+        {
+            "score": 0,
+            "script": "Lisu",
+            "value": "\ua4dc"
+        },
+        {
+            "score": 4,
+            "script": "U+1D9C",
+            "value": "\u1dbb"
+        },
+        {
+            "score": 4,
+            "script": "U+FF21 (Fullwidth Forms)",
+            "value": "\uff5a"
+        },
+        {
+            "score": 4,
+            "script": "U+1D400",
+            "value": "\ud835\udc33"
+        },
+        {
+            "score": 4,
+            "script": "U+1D434",
+            "value": "\ud835\udc67"
+        },
+        {
+            "score": 4,
+            "script": "U+1D468",
+            "value": "\ud835\udc9b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D49C",
+            "value": "\ud835\udccf"
+        },
+        {
+            "score": 4,
+            "script": "U+1D4D0",
+            "value": "\ud835\udd03"
+        },
+        {
+            "score": 4,
+            "script": "U+1D504",
+            "value": "\ud835\udd37"
+        },
+        {
+            "score": 4,
+            "script": "U+1D538",
+            "value": "\ud835\udd6b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D56C",
+            "value": "\ud835\udd9f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5A0",
+            "value": "\ud835\uddd3"
+        },
+        {
+            "score": 4,
+            "script": "U+1D5D4",
+            "value": "\ud835\ude07"
+        },
+        {
+            "score": 4,
+            "script": "U+1D608",
+            "value": "\ud835\ude3b"
+        },
+        {
+            "score": 4,
+            "script": "U+1D63C",
+            "value": "\ud835\ude6f"
+        },
+        {
+            "score": 4,
+            "script": "U+1D670",
+            "value": "\ud835\udea3"
+        }
+    ]
+}
