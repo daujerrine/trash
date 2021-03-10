@@ -23,42 +23,42 @@ int MediaSample::fade_in(int duration, int channel, int loops)
     return Mix_FadeInChannel(channel, data, loops, duration);
 }
 
-void MediaSample::pause(int channel)
+void MediaSampleControl::pause(int channel)
 {
     Mix_Pause(channel);
 }
 
-void MediaSample::resume(int channel)
+void MediaSampleControl::resume(int channel)
 {
     Mix_Resume(channel);
 }
 
-void MediaSample::stop(int channel)
+void MediaSampleControl::stop(int channel)
 {
     Mix_HaltChannel(channel);
 }
 
-void MediaSample::expire(int channel, int ticks)
+void MediaSampleControl::expire(int channel, int ticks)
 {
     Mix_ExpireChannel(channel, ticks);
 }
 
-void MediaSample::finished(void (*callback)(int channel))
+void MediaSampleControl::finished(void (*callback)(int channel))
 {
     Mix_ChannelFinished(callback);
 }
 
-int MediaSample::paused(int channel)
+int MediaSampleControl::paused(int channel)
 {
     return Mix_Paused(channel);
 }
 
-int MediaSample::playing(int channel)
+int MediaSampleControl::playing(int channel)
 {
     return Mix_Playing(channel);
 }
 
-int MediaSample::fade_out(int duration, int channel)
+int MediaSampleControl::fade_out(int duration, int channel)
 {
     return Mix_FadeOutChannel(channel, duration);
 }
@@ -68,11 +68,6 @@ int MediaSample::fade_out(int duration, int channel)
  * MediaMusic
  * =============================================================================
  */
-
-int MediaMusic::set_volume(int volume)
-{
-    return Mix_VolumeMusic(volume);
-}
 
 int MediaMusic::play(int loops)
 {
@@ -86,47 +81,57 @@ int MediaMusic::fade_in(int duration, int loops)
     return Mix_FadeInMusic(data, loops, duration);
 }
 
-int MediaMusic::seek_to(double pos)
+/*
+ * =============================================================================
+ * MediaMusicControl
+ * =============================================================================
+ */
+
+
+int MediaMusicControl::seek_to(double pos)
 {
     return Mix_SetMusicPosition(pos);
 }
 
-void rewind()
+int MediaMusicControl::set_volume(int volume)
+{
+    return Mix_VolumeMusic(volume);
+}
+ 
+void MediaMusicControl::rewind()
 {
     Mix_RewindMusic();
 }
 
-void MediaMusic::pause()
+void MediaMusicControl::pause()
 {
     Mix_PauseMusic();
 }
 
-void MediaMusic::stop()
+void MediaMusicControl::stop()
 {
     Mix_HaltMusic();
 }
 
-void MediaMusic::finished(void (*callback)())
+void MediaMusicControl::finished(void (*callback)())
 {
     Mix_HookMusicFinished(callback);
 }
 
-int MediaMusic::paused()
+int MediaMusicControl::paused()
 {
     return Mix_PausedMusic();
 }
 
-int MediaMusic::playing()
+int MediaMusicControl::playing()
 {
     return Mix_PlayingMusic();
 }
 
-int MediaMusic::fade_out(int duration)
+int MediaMusicControl::fade_out(int duration)
 {
     return Mix_FadeOutMusic(duration);
 }
-
-
 
 /*
  * =============================================================================
@@ -170,23 +175,31 @@ void MediaText::text(MediaObjectRef k, const char *str, MediaColor c)
     MediaRect dims;
     SDL_Surface *t;
 
+    printf("><><><><><>Rendering text %s\n", str);
     // Empty strings are undefined behaviour.
     if (!str || *str == '\0') {
-        t = TTF_RenderText_Solid(this->m.font, " ", c);
+        t = TTF_RenderText_Solid(font, " ", c);
     } else {
-        t = TTF_RenderText_Solid(this->m.font, str, c);
+        printf("Normal\n");
+        t = TTF_RenderText_Solid(font, str, c);
     }
+
+    printf("%d %d %d %d\n", c.r, c.g, c.b, c.a);
     
     SDL_GetClipRect(t, &dims);
-    k.set_size(dims.w, dims.h);
-    SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
+    PRINTRECT(dims);
+    k.set_rect(dims);
+    MediaTexture *ttx = SDL_CreateTextureFromSurface(m.r, t);
+    int a,b;
+    SDL_QueryTexture(ttx, nullptr, nullptr, &a, &b);
+    printf("(((((( %d %d\n", a, b);
     SDL_FreeSurface(t);
-    k.texture = ttx;
+    k.set(ttx);
 }
 
 void MediaText::text(MediaObjectRef k, const char *str)
 {
-    this->text(k, str, {255, 255, 255, 255});
+    this->text(k, str, (MediaColor) {255, 255, 255, 255});
 }
 
 void MediaText::text(MediaObjectRef k, std::string str, MediaColor c)
@@ -212,7 +225,7 @@ void MediaText::wrap_text(MediaObjectRef k, const char *str, MediaColor c, Media
     }
     
     SDL_GetClipRect(t, &dims);
-    k.set_size(dims.w, dims.h);
+    k.set_rect(dims);
     SDL_Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
     SDL_FreeSurface(t);
     k.texture = ttx;

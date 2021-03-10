@@ -166,7 +166,7 @@ class UIWidget {
         static constexpr char const *name = "generic widget"; /// Class Name
         MediaState &m;
         MediaGraphics &g;
-        UIPrimitives &p;
+        UIDefaultPrimitives p;
 
         /**
          * Several Drawing options.
@@ -201,8 +201,8 @@ class UIWidget {
          */
         MediaRect dims;
         
-        UIWidget(MediaState &m, MediaGraphics &g, UIPrimitives &p, std::string label, int options):
-            m(m), g(g), p(p), label(label), options(options) {}
+        UIWidget(MediaState &m, MediaGraphics &g, std::string label, int options):
+            m(m), g(g), p(g), label(label), options(options) {}
 
         virtual ~UIWidget() {};
 

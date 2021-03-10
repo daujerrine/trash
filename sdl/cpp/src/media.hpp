@@ -12,6 +12,8 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 
+#include "config.h"
+
 #define PRINT_LINE printf("At: %s, %d, %s\n", __PRETTY_FUNCTION__, __LINE__, __FILE__);
 #define PRINTRECT(_r) (printf("rect(%d, %d, %d, %d)\n", _r.x, _r.y, _r.w, _r.h))
 
@@ -176,6 +178,41 @@ class MediaAudio {
         };
 };
 
+/**
+ * Encapsulation structure for most sdl_mixer commands for audio samples.
+ * Most of these functions are not specific to a sample instance, hence a
+ * separate class has been created to make these functions accessible.
+ */
+struct MediaSampleControl {
+    static int fade_out(int duration, int channel = -1);
+    static void pause(int channel = -1);
+    static void resume(int channel = -1);
+    static void stop(int channel = -1);
+    static void expire(int ticks, int channel = -1);
+
+    static void finished(void (*callback)(int channel));
+    static int paused(int channel);
+    static int playing(int channel);
+};
+
+/**
+ * Encapsulation structure for most sdl_mixer commands for music.
+ * Most of these functions are not specific to a music instance, hence a
+ * separate class has been created to make these functions accessible.
+ */
+struct MediaMusicControl {
+    static int set_volume(int volume);
+    static int fade_out(int duration);
+    static int seek_to(double pos);
+    static void rewind();
+    static void pause();
+    static void resume();
+    static void stop();
+
+    static void finished(void (*callback)());
+    static int paused();
+    static int playing();
+};
 
 class MediaSample : public MediaAudio {
     private:
@@ -198,15 +235,16 @@ class MediaSample : public MediaAudio {
         int play(int channel = -1, int loops = LOOP_ONCE);
         int fade_in(int duration, int channel = -1, int loops = LOOP_ONCE);
 
-        static int fade_out(int duration, int channel = -1);
-        static void pause(int channel = -1);
-        static void resume(int channel = -1);
-        static void stop(int channel = -1);
-        static void expire(int ticks, int channel = -1);
+        using m = MediaSampleControl;
 
-        static void finished(void (*callback)(int channel));
-        static int paused(int channel);
-        static int playing(int channel);
+        int fade_out(int duration, int channel = -1) { return m::fade_out(duration, channel); }
+        void pause(int channel = -1)                 { m::pause(channel); }
+        void resume(int channel = -1)                { m::resume(channel); }
+        void stop(int channel = -1)                  { m::stop(channel); }
+        void expire(int ticks, int channel = -1)     { m::expire(ticks, channel); }
+
+        int paused(int channel = -1)                 { return m::paused(channel); }
+        int playing(int channel = -1)                { return m::playing(channel); }
 };
 
 class MediaMusic : public MediaAudio {
@@ -226,20 +264,21 @@ class MediaMusic : public MediaAudio {
 
         bool fail() { return data == nullptr; }
 
-        int set_volume(int volume);
+        using m = MediaMusicControl;
+
+        int set_volume(int volume) { return m::set_volume(volume); }
         int play(int loops = LOOP_ONCE);
         int fade_in(int duration, int loops = LOOP_ONCE);
 
-        static int fade_out(int duration);
-        static int seek_to(double pos);
-        static void rewind();
-        static void pause();
-        static void resume();
-        static void stop();
-
-        static void finished(void (*callback)());
-        static int paused();
-        static int playing();
+        int fade_out(int duration) { return m::fade_out(duration); }
+        int seek_to(double pos)    { return m::seek_to(pos); }
+        void rewind()              { m::rewind(); }
+        void pause()               { m::pause(); }
+        void resume()              { m::resume(); }
+        void stop()                { m::stop(); }
+    
+        int paused()               { return m::paused(); }
+        int playing()              { return m::playing(); }
 };
 
 
@@ -497,9 +536,9 @@ class MediaState {
         int main_h;          /// Main window height
         uint32_t delta;      /// Delta Time
 
-// #if GAME_DEBUG_BUILD
+#if GAME_DEBUG_BUILD
         std::map<std::string, std::string> debug_keys;
-// #endif
+#endif
 
         MediaState(
             int w = 800,
@@ -556,7 +595,7 @@ inline float MediaState::get_fps()
 
 class MediaText {
     public:
-        enum FontDataType {
+        enum class FontDataType {
             FONT_DATA_STANDARD,
             FONT_DATA_IMAGE
         };
@@ -575,8 +614,18 @@ class MediaText {
     public:
         void init(FontDataType ft, char *font_path);
 
-        MediaText(MediaState &m, FontDataType ft, std::string font_path): m(m) {}
-        ~MediaText() {}
+        MediaText(MediaState &m, FontDataType ft, std::string font_path): m(m)
+        {
+            font = TTF_OpenFont(font_path.c_str(), 16);
+            if (!font) {
+                printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>> Font null\n");
+            }
+        }
+
+        ~MediaText()
+        {
+            TTF_CloseFont(font);
+        }
 
         void set_glyph_spacing(int spacing) {}
         void set_line_spacing(int spacing) {}

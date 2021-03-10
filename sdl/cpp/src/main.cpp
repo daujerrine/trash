@@ -29,6 +29,10 @@ int media_main() {
     GameScene  game_scene(m, g, s);
     QuitScene  quit_scene(m, g, s);
 
+    MediaText txt(m, MediaText::FontDataType::FONT_DATA_STANDARD, "assets/font.otb");
+    MediaObject text;
+    txt.text(text, "HelloHi");
+
     game_scene.init();
     title_scene.init();
     quit_scene.init();
@@ -101,6 +105,7 @@ int media_main() {
         g.text(debug, p);
 
         g.paint(debug);
+        g.paint(text);
 
         if (quitmode)
             quit_scene.draw();
