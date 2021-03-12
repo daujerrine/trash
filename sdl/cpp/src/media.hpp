@@ -29,16 +29,19 @@
         PRINT_LINE \
     }
 
-typedef SDL_Rect MediaRect;
-typedef SDL_Point MediaPoint;
-typedef SDL_Color MediaColor;
-typedef SDL_Texture MediaTexture;
+namespace media {
 
-typedef Mix_Music MediaMusicData;
-typedef Mix_Chunk MediaSampleData;
+typedef SDL_Rect Rect;
+typedef SDL_Point Point;
+typedef SDL_Color Color;
+typedef SDL_Texture Texture;
+typedef SDL_Surface Surface;
+
+typedef Mix_Music MusicData;
+typedef Mix_Chunk SampleData;
 
 
-struct MediaException {
+struct Exception {
     enum ExceptionType {
         SUBSYSTEM_SDL,
         SUBSYSTEM_TTF,
@@ -50,9 +53,9 @@ struct MediaException {
     const char *msg;
     int err_code;
     
-    MediaException(char *msg, int err_code = -1): msg(msg), err_code(err_code) {}
+    Exception(char *msg, int err_code = -1): msg(msg), err_code(err_code) {}
 
-    MediaException(ExceptionType s, int err_code = -1): err_code(err_code)
+    Exception(ExceptionType s, int err_code = -1): err_code(err_code)
     {
         switch (s) {
         case SUBSYSTEM_SDL:
@@ -80,7 +83,7 @@ struct MediaException {
 };
 
 /// Widget Gravity
-typedef enum MediaGravity {
+typedef enum Gravity {
     CENTER,
     TOPLEFT,
     TOP,
@@ -90,15 +93,15 @@ typedef enum MediaGravity {
     BOTTOM,
     BOTTOMLEFT,
     LEFT
-} MediaGravity;
+} Gravity;
 
 
-struct MediaSize {
+struct Size {
     int w;
     int h;
 };
 
-struct MediaFPSCounter {
+struct FPSCounter {
     uint64_t start;
     uint64_t end;
     uint64_t elapsed;
@@ -114,49 +117,49 @@ struct MediaFPSCounter {
 /**
  * Generic Utility functions go here.
  */
-namespace MediaUtil {
+namespace Util {
 
 /**
  * Aligns an outer rectangle with an inner one.
  */
 
-static inline MediaRect rect_align(MediaRect out, MediaRect in, MediaGravity g, int hpad, int vpad)
+static inline Rect rect_align(Rect out, Rect in, Gravity g, int hpad, int vpad)
 {
     switch (g) {
     case TOPLEFT:
-        return (MediaRect) { out.x + hpad, out.y + vpad, in.w, in.h };
+        return (Rect) { out.x + hpad, out.y + vpad, in.w, in.h };
 
     case TOP:
-        return (MediaRect) { out.x + out.w / 2 - in.w / 2, out.y + vpad, in.w, in.h };
+        return (Rect) { out.x + out.w / 2 - in.w / 2, out.y + vpad, in.w, in.h };
 
     case TOPRIGHT:
-        return (MediaRect) { out.x + out.w - in.w - hpad, out.y + vpad, in.w, in.h};
+        return (Rect) { out.x + out.w - in.w - hpad, out.y + vpad, in.w, in.h};
 
     case RIGHT:
-        return (MediaRect) { out.x + out.w - in.w - hpad, out.y + out.h / 2 - in.h / 2, in.w, in.h };
+        return (Rect) { out.x + out.w - in.w - hpad, out.y + out.h / 2 - in.h / 2, in.w, in.h };
 
     case BOTTOMRIGHT:
-        return (MediaRect) { out.x + out.w - in.w - hpad, out.y + out.h - in.h - vpad, in.w, in.h };
+        return (Rect) { out.x + out.w - in.w - hpad, out.y + out.h - in.h - vpad, in.w, in.h };
 
     case BOTTOM:
-        return (MediaRect) { out.x + out.w / 2 - in.w / 2, out.y + out.h - in.h - hpad, in.w, in.h };
+        return (Rect) { out.x + out.w / 2 - in.w / 2, out.y + out.h - in.h - hpad, in.w, in.h };
 
     case BOTTOMLEFT:
-        return (MediaRect) { out.x + hpad, out.y + out.h - in.h - hpad, in.w, in.h };
+        return (Rect) { out.x + hpad, out.y + out.h - in.h - hpad, in.w, in.h };
 
     case LEFT:
-        return (MediaRect) { out.x + hpad, out.y + out.h / 2 - in.h / 2, in.w, in.h };
+        return (Rect) { out.x + hpad, out.y + out.h / 2 - in.h / 2, in.w, in.h };
 
     case CENTER:
-        return (MediaRect) { out.x + out.w / 2 - in.w / 2, out.y + out.h / 2 - 1 - in.h / 2, in.w, in.h };
+        return (Rect) { out.x + out.w / 2 - in.w / 2, out.y + out.h / 2 - 1 - in.h / 2, in.w, in.h };
 
     default:
-        return (MediaRect) {0, 0, 0, 0};
+        return (Rect) {0, 0, 0, 0};
     }
 }
 
 
-static inline bool point_in_rect(int x, int y, MediaRect rect)
+static inline bool point_in_rect(int x, int y, Rect rect)
 {
     return ((x) >= (rect).x && (y) >= (rect).y &&
             (x) <= (rect).x + (rect).w && (y) <= (rect).y + (rect).h);
@@ -166,11 +169,11 @@ static inline bool point_in_rect(int x, int y, MediaRect rect)
 
 /*
  * =============================================================================
- * MediaSound
+ * Sound
  * =============================================================================
  */
 
-class MediaAudio {
+class Audio {
     public:
         enum Loops {
             LOOP_FOREVER = 0,
@@ -183,7 +186,7 @@ class MediaAudio {
  * Most of these functions are not specific to a sample instance, hence a
  * separate class has been created to make these functions accessible.
  */
-struct MediaSampleControl {
+struct SampleControl {
     static int fade_out(int duration, int channel = -1);
     static void pause(int channel = -1);
     static void resume(int channel = -1);
@@ -200,7 +203,7 @@ struct MediaSampleControl {
  * Most of these functions are not specific to a music instance, hence a
  * separate class has been created to make these functions accessible.
  */
-struct MediaMusicControl {
+struct MusicControl {
     static int set_volume(int volume);
     static int fade_out(int duration);
     static int seek_to(double pos);
@@ -214,17 +217,17 @@ struct MediaMusicControl {
     static int playing();
 };
 
-class MediaSample : public MediaAudio {
+class Sample : public Audio {
     private:
-        MediaSampleData *data;
+        SampleData *data;
 
     public:
-        MediaSample(std::string filepath)
+        Sample(std::string filepath)
         {
             data = Mix_LoadWAV(filepath.c_str());
         }
 
-        ~MediaSample()
+        ~Sample()
         {
             Mix_FreeChunk(data);
         }
@@ -235,7 +238,7 @@ class MediaSample : public MediaAudio {
         int play(int channel = -1, int loops = LOOP_ONCE);
         int fade_in(int duration, int channel = -1, int loops = LOOP_ONCE);
 
-        using m = MediaSampleControl;
+        using m = SampleControl;
 
         int fade_out(int duration, int channel = -1) { return m::fade_out(duration, channel); }
         void pause(int channel = -1)                 { m::pause(channel); }
@@ -247,24 +250,24 @@ class MediaSample : public MediaAudio {
         int playing(int channel = -1)                { return m::playing(channel); }
 };
 
-class MediaMusic : public MediaAudio {
+class Music : public Audio {
     private:
-        MediaMusicData *data = nullptr;
+        MusicData *data = nullptr;
 
     public:
-        MediaMusic(std::string filepath)
+        Music(std::string filepath)
         {
             data = Mix_LoadMUS(filepath.c_str());
         }
 
-        ~MediaMusic()
+        ~Music()
         {
             Mix_FreeMusic(data);
         }
 
         bool fail() { return data == nullptr; }
 
-        using m = MediaMusicControl;
+        using m = MusicControl;
 
         int set_volume(int volume) { return m::set_volume(volume); }
         int play(int loops = LOOP_ONCE);
@@ -284,29 +287,29 @@ class MediaMusic : public MediaAudio {
 
 /*
  * =============================================================================
- * MediaTimer
+ * Timer
  * =============================================================================
  */
 
 /**
  * Used for timing operations.
  */
-struct MediaTimer {
+struct Timer {
     int64_t time;
     uint32_t duration;
 
-    MediaTimer(uint32_t duration);
+    Timer(uint32_t duration);
     inline void update(uint32_t delta);
     inline bool done();
     inline uint32_t delay();
 };
 
-inline void MediaTimer::update(uint32_t delta)
+inline void Timer::update(uint32_t delta)
 {
     time -= delta;
 }
 
-inline bool MediaTimer::done()
+inline bool Timer::done()
 {
     if (time <= 0) {
         time = duration;
@@ -316,7 +319,7 @@ inline bool MediaTimer::done()
     }
 }
 
-inline uint32_t MediaTimer::delay()
+inline uint32_t Timer::delay()
 {
     if (time > 0) {
         return 0;
@@ -327,20 +330,20 @@ inline uint32_t MediaTimer::delay()
 
 /*
  * =============================================================================
- * MediaObject
+ * Object
  * =============================================================================
  */
 
 /**
  * Used in place of Surfaces and textures.
  * 
- * @note ALWAYS pass REFERENCES to MediaObjects in functions, else they will be
+ * @note ALWAYS pass REFERENCES to Objects in functions, else they will be
  * destructed by the function call copying over the values.
  */
 
-struct MediaObject {
-    MediaTexture *texture;
-    MediaRect dest_rect;
+struct Object {
+    Texture *texture;
+    Rect dest_rect;
 
     /// Explicitly used to reassign textures. Automatically frees an existing
     /// allocated texture if it exists.
@@ -349,58 +352,58 @@ struct MediaObject {
     /// Frees the texture,
     void free();
 
-    inline void align(MediaRect k, MediaGravity g = CENTER, int hpad = 0, int vpad = 0);
+    inline void align(Rect k, Gravity g = CENTER, int hpad = 0, int vpad = 0);
     inline void scale(int sw, int sh);
-    inline MediaSize tx_dims();
+    inline Size tx_dims();
     inline void set_size(int w, int h);
-    inline void set_rect(MediaRect k);
+    inline void set_rect(Rect k);
     
     // The texture must be null by default.
-    MediaObject(): texture(nullptr) {}
+    Object(): texture(nullptr) {}
 
-    virtual ~MediaObject() {
+    virtual ~Object() {
         this->free();
         this->texture = nullptr;
     }
 };
 
-inline void MediaObject::align(MediaRect k, MediaGravity g, int hpad, int vpad)
+inline void Object::align(Rect k, Gravity g, int hpad, int vpad)
 {
     // printf("Align\n");
     // PRINTRECT(dest_rect);
     // PRINTRECT(k);
-    // PRINTRECT(MediaUtil::rect_align(k, dest_rect, g, hpad, vpad));
-    dest_rect = MediaUtil::rect_align(k, dest_rect, g, hpad, vpad);
+    // PRINTRECT(Util::rect_align(k, dest_rect, g, hpad, vpad));
+    dest_rect = Util::rect_align(k, dest_rect, g, hpad, vpad);
 }
 
-inline void MediaObject::scale(int sw, int sh)
+inline void Object::scale(int sw, int sh)
 {
     dest_rect.w *= sw;
     dest_rect.h *= sh;
 }
 
-inline MediaSize MediaObject::tx_dims()
+inline Size Object::tx_dims()
 {
-    MediaSize k;
+    Size k;
     SDL_QueryTexture(texture, nullptr, nullptr, &k.w, &k.h);
     return k;
 }
 
-inline void MediaObject::set_size(int w, int h)
+inline void Object::set_size(int w, int h)
 {
     // printf("Setting rectangle: %d %d\n", w, h);
     dest_rect.w = w;
     dest_rect.h = h;
 }
 
-inline void MediaObject::set_rect(MediaRect k)
+inline void Object::set_rect(Rect k)
 {
     dest_rect = k;
 }
 
 /*
  * -----------------------------------------------------------------------------
- * MediaClipObject
+ * ClipObject
  * -----------------------------------------------------------------------------
  */
 
@@ -409,10 +412,10 @@ inline void MediaObject::set_rect(MediaRect k)
  * Used for objects that may be clipped alongside being scaled.
  */
 
-struct MediaClipObject : MediaObject {
+struct ClipObject : Object {
 
-    MediaRect src_rect;
-    MediaRect *src_rect_ptr = nullptr;
+    Rect src_rect;
+    Rect *src_rect_ptr = nullptr;
 
     int w;
     int h;
@@ -423,24 +426,24 @@ struct MediaClipObject : MediaObject {
     /// Clips the src rect and the width and height of the dest rect.
     inline void clip(int w, int h);
     inline void clip(int w);
-    inline void clip(MediaRect k);
+    inline void clip(Rect k);
 
     /// Clips only the src rect
     inline void clip_src(int w, int h);
     inline void clip_src(int w);
-    inline void clip_src(MediaRect k);
+    inline void clip_src(Rect k);
 
     /// Clears clipping of src rect and dest rect.
     inline void clip_clear();
     inline void clip_clear_src();
 
     /// Used to control element overflow in things like GUI elements.
-    inline void overflow_x(MediaRect bounds);
+    inline void overflow_x(Rect bounds);
 
-    ~MediaClipObject() {}
+    ~ClipObject() {}
 };
 
-inline void MediaClipObject::clip_src(int w, int h)
+inline void ClipObject::clip_src(int w, int h)
 {
     src_rect_ptr = &src_rect;
     src_rect.x = 0;
@@ -449,7 +452,7 @@ inline void MediaClipObject::clip_src(int w, int h)
     src_rect.h = h;
 }
 
-inline void MediaClipObject::clip_src(int w)
+inline void ClipObject::clip_src(int w)
 {
     src_rect_ptr = &src_rect;
     src_rect.x = 0;
@@ -458,26 +461,26 @@ inline void MediaClipObject::clip_src(int w)
 }
 
 
-inline void MediaClipObject::clip_src(MediaRect k)
+inline void ClipObject::clip_src(Rect k)
 {
     src_rect_ptr = &src_rect;
     src_rect = k;
 }
 
-inline void MediaClipObject::clip(int w, int h)
+inline void ClipObject::clip(int w, int h)
 {
     clip_src(w, h);
     dest_rect.w = w;
     dest_rect.h = h;
 }
 
-inline void MediaClipObject::clip(int w)
+inline void ClipObject::clip(int w)
 {
     clip_src(w);
     dest_rect.w = w;
 }
 
-inline void MediaClipObject::overflow_x(MediaRect bounds)
+inline void ClipObject::overflow_x(Rect bounds)
 {
     if (  dest_rect.w > bounds.w ||
         ((src_rect_ptr != nullptr) && (src_rect.w < w))) {
@@ -485,38 +488,38 @@ inline void MediaClipObject::overflow_x(MediaRect bounds)
     }
 }
 
-inline void MediaClipObject::clip(MediaRect k)
+inline void ClipObject::clip(Rect k)
 {
     clip_src(k);
     dest_rect.w = k.w;
     dest_rect.h = k.h;
 }
 
-inline void MediaClipObject::clip_clear_src()
+inline void ClipObject::clip_clear_src()
 {
     src_rect_ptr = nullptr;
 }
 
-inline void MediaClipObject::clip_clear()
+inline void ClipObject::clip_clear()
 {
     src_rect_ptr = nullptr;
-    MediaSize k = tx_dims();
+    Size k = tx_dims();
     dest_rect.w = k.w;
     dest_rect.h = k.h;
 }
 
-/// Typedef used for function arguments to pass a MediaObject.
-typedef MediaObject & MediaObjectRef;
-typedef MediaClipObject & MediaClipObjectRef;
+/// Typedef used for function arguments to pass a Object.
+typedef Object & ObjectRef;
+typedef ClipObject & ClipObjectRef;
 
 /*
  * =============================================================================
- * MediaState
+ * State
  * =============================================================================
  */
 
-/// Driver class for the Media
-class MediaState {
+/// Driver class for the 
+class State {
     protected:
         static const size_t   ERROR_MESSAGE_SIZE          = 1024 * 8;
         static constexpr char err_msg[ERROR_MESSAGE_SIZE] = "";
@@ -529,7 +532,7 @@ class MediaState {
         SDL_Renderer *r;     /// Default Renderer
         SDL_Event e;         /// Events
         TTF_Font *font;      /// Default Font
-        MediaFPSCounter fps; /// FPS tracker
+        FPSCounter fps; /// FPS tracker
         bool active;         /// Is frame loop active?
         int max_fps;         /// Maximum FPS of game
         int main_w;          /// Main window width
@@ -540,14 +543,14 @@ class MediaState {
         std::map<std::string, std::string> debug_keys;
 #endif
 
-        MediaState(
+        State(
             int w = 800,
             int h = 600,
             int max_fps = 60,
-            const char *window_name = "MediaEngine",
+            const char *window_name = "Engine",
             const char *font_path = "assets/font.otb"
         );
-        ~MediaState();
+        ~State();
 
         const char *get_err();
         bool fail();
@@ -559,12 +562,12 @@ class MediaState {
         inline float get_fps();
 };
 
-inline void MediaState::loop_start()
+inline void State::loop_start()
 {
     this->fps.start = SDL_GetTicks();
 }
 
-inline void MediaState::loop_end()
+inline void State::loop_end()
 {
     this->fps.end = SDL_GetTicks();
     this->fps.elapsed = this->fps.end - this->fps.start;
@@ -578,14 +581,14 @@ inline void MediaState::loop_end()
     this->fps.value = 1000 / (float) this->delta;
 }
 
-inline float MediaState::get_fps()
+inline float State::get_fps()
 {
     return this->fps.value;
 }
 
 /*
  * =============================================================================
- * MediaText
+ * Text
  * =============================================================================
  */
 
@@ -593,7 +596,7 @@ inline float MediaState::get_fps()
  * Caching monospace TTF/Bitmap font renderer.
  */
 
-class MediaText {
+class Text {
     public:
         enum class FontDataType {
             FONT_DATA_STANDARD,
@@ -601,20 +604,20 @@ class MediaText {
         };
 
     protected:
-        MediaState &m;
+        State &m;
         // We cache any glyphs we use.
         TTF_Font *font;
-        MediaTexture *glyph_tx;
-        MediaRect std_glyph_offsets[128]; // Usually we don't really access glyphs
+        Texture *glyph_tx;
+        Rect std_glyph_offsets[128]; // Usually we don't really access glyphs
                                           // above 128
-        std::map<uint32_t, MediaTexture *> ext_glyphs; // Any extra glyphs we need
+        std::map<uint32_t, Texture *> ext_glyphs; // Any extra glyphs we need
 
-        inline MediaTexture *get_glyph(uint32_t glyph);
+        inline Texture *get_glyph(uint32_t glyph);
 
     public:
         void init(FontDataType ft, char *font_path);
 
-        MediaText(MediaState &m, FontDataType ft, std::string font_path): m(m)
+        Text(State &m, FontDataType ft, std::string font_path): m(m)
         {
             font = TTF_OpenFont(font_path.c_str(), 16);
             if (!font) {
@@ -622,7 +625,7 @@ class MediaText {
             }
         }
 
-        ~MediaText()
+        ~Text()
         {
             TTF_CloseFont(font);
         }
@@ -630,26 +633,26 @@ class MediaText {
         void set_glyph_spacing(int spacing) {}
         void set_line_spacing(int spacing) {}
 
-        void text(MediaObjectRef k, const char *str, MediaColor c);
-        void text(MediaObjectRef k, const char *str);
-        void text(MediaObjectRef k, std::string str, MediaColor c);
-        void text(MediaObjectRef k, std::string str);
+        void text(ObjectRef k, const char *str, Color c);
+        void text(ObjectRef k, const char *str);
+        void text(ObjectRef k, std::string str, Color c);
+        void text(ObjectRef k, std::string str);
 
-        void wrap_text(MediaObjectRef k, const char *str, MediaColor c, MediaRect wrap_rect);
-        void wrap_text(MediaObjectRef k, const char *str, MediaRect wrap_rect);
-        void wrap_text(MediaObjectRef k, std::string str, MediaColor c, MediaRect wrap_rect);
-        void wrap_text(MediaObjectRef k, std::string str, MediaRect wrap_rect);
+        void wrap_text(ObjectRef k, const char *str, Color c, Rect wrap_rect);
+        void wrap_text(ObjectRef k, const char *str, Rect wrap_rect);
+        void wrap_text(ObjectRef k, std::string str, Color c, Rect wrap_rect);
+        void wrap_text(ObjectRef k, std::string str, Rect wrap_rect);
 };
 
 /*
  * =============================================================================
- * MediaGraphics
+ * Graphics
  * =============================================================================
  */
 
-class MediaGraphics {
+class Graphics {
     protected:
-        MediaState &m;
+        State &m;
 
     public:
         /*
@@ -660,69 +663,69 @@ class MediaGraphics {
 
         // Basic
 
-        MediaGraphics(MediaState &m): m(m) {};
+        Graphics(State &m): m(m) {};
 
-        inline void paint(const MediaObjectRef k, const MediaRect &src, const MediaRect &dest);
-        inline void paint(const MediaObjectRef k, const MediaRect &src);
-        inline void paint(const MediaObjectRef k);
-        inline void paint(const MediaClipObjectRef k);
+        inline void paint(const ObjectRef k, const Rect &src, const Rect &dest);
+        inline void paint(const ObjectRef k, const Rect &src);
+        inline void paint(const ObjectRef k);
+        inline void paint(const ClipObjectRef k);
 
-        inline void paint_clip(const MediaObjectRef k, const MediaRect &src);
+        inline void paint_clip(const ObjectRef k, const Rect &src);
 
         inline int set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
-        inline int set_color(MediaColor c);
+        inline int set_color(Color c);
 
-        inline int set_paint_target(const MediaObjectRef k); /// Set render target
+        inline int set_paint_target(const ObjectRef k); /// Set render target
         inline void clear();   /// Called at start of draw loop
         inline void present(); /// Called at end of draw loop
 
         // Graphics Primitives
 
         inline int point(int x, int y);
-        inline int points(const MediaPoint *points, int count);
-        inline int points(const std::vector<MediaPoint> &points);
+        inline int points(const Point *points, int count);
+        inline int points(const std::vector<Point> &points);
 
         inline int line(int x1, int x2, int y1, int y2);
-        inline int line(const MediaRect dims);
-        inline int lines(const MediaPoint *points, int count);
-        inline int lines(const std::vector<MediaPoint> &points);
+        inline int line(const Rect dims);
+        inline int lines(const Point *points, int count);
+        inline int lines(const std::vector<Point> &points);
 
-        inline int rect(const MediaRect &rect);
-        inline int rects(const MediaRect *rects, int count);
-        inline int rects(const std::vector<MediaRect> &rects);
-        inline int frect(const MediaRect &rect);
-        inline int frects(const MediaRect *rects, int count);
-        inline int frects(const std::vector<MediaRect> &rects);
+        inline int rect(const Rect &rect);
+        inline int rects(const Rect *rects, int count);
+        inline int rects(const std::vector<Rect> &rects);
+        inline int frect(const Rect &rect);
+        inline int frects(const Rect *rects, int count);
+        inline int frects(const std::vector<Rect> &rects);
 
         // Text and Images
         /// @note Object Makers will always set the dest rectangle to object dims
 
-        void text(MediaObjectRef k, const char *str, MediaColor c);
-        void text(MediaObjectRef k, const char *str);
-        void text(MediaObjectRef k, std::string str, MediaColor c);
-        void text(MediaObjectRef k, std::string str);
+        void text(ObjectRef k, const char *str, Color c);
+        void text(ObjectRef k, const char *str);
+        void text(ObjectRef k, std::string str, Color c);
+        void text(ObjectRef k, std::string str);
 
-        void image(MediaObjectRef k, std::string filepath);
+        void image(ObjectRef k, std::string filepath);
 };
 
-inline void MediaGraphics::paint(const MediaObjectRef k, const MediaRect &src, const MediaRect &dest)
+inline void Graphics::paint(const ObjectRef k, const Rect &src, const Rect &dest)
 {
     SDL_RenderCopy(m.r, k.texture, &src, &dest);
 }
 
-inline void MediaGraphics::paint(const MediaObjectRef k, const MediaRect &src)
+inline void Graphics::paint(const ObjectRef k, const Rect &src)
 {
     SDL_RenderCopy(m.r, k.texture, &src, &k.dest_rect);
 }
 
-inline void MediaGraphics::paint(const MediaObjectRef k)
+inline void Graphics::paint(const ObjectRef k)
 {
     // PRINT_LINE
     // printf("** %lx\n", (unsigned long int) k.texture);
     SDL_RenderCopy(m.r, k.texture, nullptr, &k.dest_rect);
 }
 
-inline void MediaGraphics::paint(const MediaClipObjectRef k)
+inline void Graphics::paint(const ClipObjectRef k)
 {
     // PRINT_LINE
     // printf("** %lx\n", (unsigned long int) k.texture);
@@ -730,101 +733,103 @@ inline void MediaGraphics::paint(const MediaClipObjectRef k)
 }
 
 /// Clip the object to the bounding rectangle's dimensions.
-inline void MediaGraphics::paint_clip(const MediaObjectRef k, const MediaRect &src)
+inline void Graphics::paint_clip(const ObjectRef k, const Rect &src)
 {
-    MediaRect self_clip = { 0, 0, src.w, src.h }; 
+    Rect self_clip = { 0, 0, src.w, src.h }; 
     SDL_RenderCopy(m.r, k.texture, &self_clip, &k.dest_rect);
 }
 
-inline int MediaGraphics::set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+inline int Graphics::set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     return SDL_SetRenderDrawColor(m.r, r, g, b, a);
 }
 
-inline int MediaGraphics::set_color(MediaColor c)
+inline int Graphics::set_color(Color c)
 {
     return SDL_SetRenderDrawColor(m.r, c.r, c.g, c.b, c.a);
 }
 
-inline int MediaGraphics::set_paint_target(const MediaObjectRef k)
+inline int Graphics::set_paint_target(const ObjectRef k)
 {
     return SDL_SetRenderTarget(m.r, k.texture);
 }
 
-inline void MediaGraphics::clear()
+inline void Graphics::clear()
 {
     set_color(0, 0, 0, 255);
     SDL_RenderClear(m.r);
 }
 
-inline void MediaGraphics::present()
+inline void Graphics::present()
 {
     SDL_RenderPresent(m.r);
 }
 
-inline int MediaGraphics::point(int x, int y)
+inline int Graphics::point(int x, int y)
 {
     return SDL_RenderDrawPoint(m.r, x, y);
 }
 
-inline int MediaGraphics::points(const MediaPoint *points, int count)
+inline int Graphics::points(const Point *points, int count)
 {
     return SDL_RenderDrawPoints(m.r, points, count);
 }
 
-inline int MediaGraphics::points(const std::vector<MediaPoint> &points)
+inline int Graphics::points(const std::vector<Point> &points)
 {
     return SDL_RenderDrawLines(m.r, points.data(), points.size());
 }
 
-inline int MediaGraphics::line(int x1, int x2, int y1, int y2)
+inline int Graphics::line(int x1, int x2, int y1, int y2)
 {
     return SDL_RenderDrawLine(m.r, x1, x1, y1, y2);
 }
 
-inline int MediaGraphics::line(MediaRect k)
+inline int Graphics::line(Rect k)
 {
     return SDL_RenderDrawLine(m.r, k.x, k.y, k.x + k.w, k.y + k.h);
 }
 
-inline int MediaGraphics::lines(const MediaPoint *points, int count)
+inline int Graphics::lines(const Point *points, int count)
 {
     return SDL_RenderDrawLines(m.r, points, count);
 }
 
-inline int MediaGraphics::lines(const std::vector<MediaPoint> &points)
+inline int Graphics::lines(const std::vector<Point> &points)
 {
     return SDL_RenderDrawLines(m.r, points.data(), points.size());
 }
 
-inline int MediaGraphics::rect(const MediaRect &rect)
+inline int Graphics::rect(const Rect &rect)
 {
     return SDL_RenderDrawRect(m.r, &rect);
 }
 
-inline int MediaGraphics::rects(const MediaRect *rects, int count)
+inline int Graphics::rects(const Rect *rects, int count)
 {
     return SDL_RenderDrawRects(m.r, rects, count);
 }
 
-inline int MediaGraphics::rects(const std::vector<MediaRect> &rects)
+inline int Graphics::rects(const std::vector<Rect> &rects)
 {
     return SDL_RenderDrawRects(m.r, rects.data(), rects.size());
 }
 
-inline int MediaGraphics::frect(const MediaRect &rect)
+inline int Graphics::frect(const Rect &rect)
 {
     return SDL_RenderFillRect(m.r, &rect);
 }
 
-inline int MediaGraphics::frects(const MediaRect *rects, int count)
+inline int Graphics::frects(const Rect *rects, int count)
 {
     return SDL_RenderFillRects(m.r, rects, count);
 }
 
-inline int MediaGraphics::frects(const std::vector<MediaRect> &rects)
+inline int Graphics::frects(const std::vector<Rect> &rects)
 {
     return SDL_RenderFillRects(m.r, rects.data(), rects.size());
 }
+
+};
 
 #endif

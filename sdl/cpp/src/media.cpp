@@ -1,81 +1,83 @@
 #include "media.hpp"
 
+namespace media {
+
 /*
  * =============================================================================
- * MediaSample
+ * Sample
  * =============================================================================
  */
 
-int MediaSample::set_volume(int volume)
+int Sample::set_volume(int volume)
 {
     return Mix_VolumeChunk(data, volume);
 }
 
-int MediaSample::play(int channel, int loops)
+int Sample::play(int channel, int loops)
 {
     loops -= 1;
     return Mix_PlayChannel(channel, data, loops);
 }
 
-int MediaSample::fade_in(int duration, int channel, int loops)
+int Sample::fade_in(int duration, int channel, int loops)
 {
     loops -= 1;
     return Mix_FadeInChannel(channel, data, loops, duration);
 }
 
-void MediaSampleControl::pause(int channel)
+void SampleControl::pause(int channel)
 {
     Mix_Pause(channel);
 }
 
-void MediaSampleControl::resume(int channel)
+void SampleControl::resume(int channel)
 {
     Mix_Resume(channel);
 }
 
-void MediaSampleControl::stop(int channel)
+void SampleControl::stop(int channel)
 {
     Mix_HaltChannel(channel);
 }
 
-void MediaSampleControl::expire(int channel, int ticks)
+void SampleControl::expire(int channel, int ticks)
 {
     Mix_ExpireChannel(channel, ticks);
 }
 
-void MediaSampleControl::finished(void (*callback)(int channel))
+void SampleControl::finished(void (*callback)(int channel))
 {
     Mix_ChannelFinished(callback);
 }
 
-int MediaSampleControl::paused(int channel)
+int SampleControl::paused(int channel)
 {
     return Mix_Paused(channel);
 }
 
-int MediaSampleControl::playing(int channel)
+int SampleControl::playing(int channel)
 {
     return Mix_Playing(channel);
 }
 
-int MediaSampleControl::fade_out(int duration, int channel)
+int SampleControl::fade_out(int duration, int channel)
 {
     return Mix_FadeOutChannel(channel, duration);
 }
 
 /*
  * =============================================================================
- * MediaMusic
+ * Music
  * =============================================================================
  */
 
-int MediaMusic::play(int loops)
+int Music::play(int loops)
 {
     loops -= 1;
     return Mix_PlayMusic(data, loops);
 }
 
-int MediaMusic::fade_in(int duration, int loops)
+int Music::fade_in(int duration, int loops)
 {
     loops -= 1;
     return Mix_FadeInMusic(data, loops, duration);
@@ -83,80 +85,80 @@ int MediaMusic::fade_in(int duration, int loops)
 
 /*
  * =============================================================================
- * MediaMusicControl
+ * MusicControl
  * =============================================================================
  */
 
 
-int MediaMusicControl::seek_to(double pos)
+int MusicControl::seek_to(double pos)
 {
     return Mix_SetMusicPosition(pos);
 }
 
-int MediaMusicControl::set_volume(int volume)
+int MusicControl::set_volume(int volume)
 {
     return Mix_VolumeMusic(volume);
 }
  
-void MediaMusicControl::rewind()
+void MusicControl::rewind()
 {
     Mix_RewindMusic();
 }
 
-void MediaMusicControl::pause()
+void MusicControl::pause()
 {
     Mix_PauseMusic();
 }
 
-void MediaMusicControl::stop()
+void MusicControl::stop()
 {
     Mix_HaltMusic();
 }
 
-void MediaMusicControl::finished(void (*callback)())
+void MusicControl::finished(void (*callback)())
 {
     Mix_HookMusicFinished(callback);
 }
 
-int MediaMusicControl::paused()
+int MusicControl::paused()
 {
     return Mix_PausedMusic();
 }
 
-int MediaMusicControl::playing()
+int MusicControl::playing()
 {
     return Mix_PlayingMusic();
 }
 
-int MediaMusicControl::fade_out(int duration)
+int MusicControl::fade_out(int duration)
 {
     return Mix_FadeOutMusic(duration);
 }
 
 /*
  * =============================================================================
- * MediaObject
+ * Object
  * =============================================================================
  */
  
-void MediaObject::set(SDL_Texture *texture) {
+void Object::set(SDL_Texture *texture) {
     if (this->texture != nullptr) {
         this->free();
     }
     this->texture = texture;
 }
 
-void MediaObject::free() {
+void Object::free() {
     SDL_DestroyTexture(this->texture);
 }
 
 /*
  * =============================================================================
- * MediaClipObject
+ * ClipObject
  * =============================================================================
  */
 
-void MediaClipObject::set(SDL_Texture *texture) {
+void ClipObject::set(SDL_Texture *texture) {
     if (this->texture != nullptr) {
         this->free();
     }
@@ -166,13 +168,13 @@ void MediaClipObject::set(SDL_Texture *texture) {
 
 /*
  * =============================================================================
- * MediaText
+ * Text
  * =============================================================================
  */
 
-void MediaText::text(MediaObjectRef k, const char *str, MediaColor c)
+void Text::text(ObjectRef k, const char *str, Color c)
 {
-    MediaRect dims;
+    Rect dims;
     SDL_Surface *t;
 
     printf("><><><><><>Rendering text %s\n", str);
@@ -189,7 +191,7 @@ void MediaText::text(MediaObjectRef k, const char *str, MediaColor c)
     SDL_GetClipRect(t, &dims);
     PRINTRECT(dims);
     k.set_rect(dims);
-    MediaTexture *ttx = SDL_CreateTextureFromSurface(m.r, t);
+    Texture *ttx = SDL_CreateTextureFromSurface(m.r, t);
     int a,b;
     SDL_QueryTexture(ttx, nullptr, nullptr, &a, &b);
     printf("(((((( %d %d\n", a, b);
@@ -197,24 +199,24 @@ void MediaText::text(MediaObjectRef k, const char *str, MediaColor c)
     k.set(ttx);
 }
 
-void MediaText::text(MediaObjectRef k, const char *str)
+void Text::text(ObjectRef k, const char *str)
 {
-    this->text(k, str, (MediaColor) {255, 255, 255, 255});
+    this->text(k, str, (Color) {255, 255, 255, 255});
 }
 
-void MediaText::text(MediaObjectRef k, std::string str, MediaColor c)
+void Text::text(ObjectRef k, std::string str, Color c)
 {
     this->text(k, str.c_str(), c);
 }
 
-void MediaText::text(MediaObjectRef k, std::string str)
+void Text::text(ObjectRef k, std::string str)
 {
     this->text(k, str.c_str());
 }
 
-void MediaText::wrap_text(MediaObjectRef k, const char *str, MediaColor c, MediaRect wrap_rect)
+void Text::wrap_text(ObjectRef k, const char *str, Color c, Rect wrap_rect)
 {
-    MediaRect dims;
+    Rect dims;
     SDL_Surface *t;
 
     // Empty strings are undefined behaviour.
@@ -231,28 +233,28 @@ void MediaText::wrap_text(MediaObjectRef k, const char *str, MediaColor c, Media
     k.texture = ttx;
 }
 
-void MediaText::wrap_text(MediaObjectRef k, const char *str, MediaRect wrap_rect)
+void Text::wrap_text(ObjectRef k, const char *str, Rect wrap_rect)
 {
     this->wrap_text(k, str, {255, 255, 255, 255}, wrap_rect);
 }
 
-void MediaText::wrap_text(MediaObjectRef k, std::string str, MediaColor c, MediaRect wrap_rect)
+void Text::wrap_text(ObjectRef k, std::string str, Color c, Rect wrap_rect)
 {
     this->wrap_text(k, str.c_str(), c, wrap_rect);
 }
 
-void MediaText::wrap_text(MediaObjectRef k, std::string str, MediaRect wrap_rect)
+void Text::wrap_text(ObjectRef k, std::string str, Rect wrap_rect)
 {
     this->wrap_text(k, str.c_str(), {255, 255, 255, 255}, wrap_rect);
 }
 
 /*
  * =============================================================================
- * MediaState
+ * State
  * =============================================================================
  */
 
-MediaState::MediaState(
+State::State(
     int w,
     int h,
     int max_fps,
@@ -329,32 +331,33 @@ MediaState::MediaState(
     this->active = true;
 }
 
-MediaState::~MediaState()
+State::~State()
 {
     SDL_DestroyRenderer(this->r);
     SDL_DestroyWindow(this->w);
     TTF_CloseFont(this->font);
+    Mix_CloseAudio();
     SDL_Quit();
 }
 
-const char *MediaState::get_err()
+const char *State::get_err()
 {
     return sdl_err_msg;
 }
 
-bool MediaState::fail()
+bool State::fail()
 {
     return fail_flag;
 }
 
-void MediaState::print_err()
+void State::print_err()
 {
     fputs("[SDL] ", stderr);
     fputs(sdl_err_msg, stderr);
     fputc('\n', stderr);
 }
 
-void MediaState::display_err()
+void State::display_err()
 {
     print_err();
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", sdl_err_msg, nullptr);
@@ -362,13 +365,13 @@ void MediaState::display_err()
 
 /*
  * =============================================================================
- * MediaGraphics
+ * Graphics
  * =============================================================================
  */
 
-void MediaGraphics::text(MediaObjectRef k, const char *str, MediaColor c)
+void Graphics::text(ObjectRef k, const char *str, Color c)
 {
-    MediaRect dims;
+    Rect dims;
     SDL_Surface *t;
 
     // Empty strings are undefined behaviour.
@@ -383,31 +386,31 @@ void MediaGraphics::text(MediaObjectRef k, const char *str, MediaColor c)
     //printf("LABELMAKE\n");
     //PRINTRECT(dims);
     k.set_rect(dims);
-    MediaTexture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
+    Texture *ttx = SDL_CreateTextureFromSurface(this->m.r, t);
     SDL_FreeSurface(t);
     k.set(ttx);
 }
 
-void MediaGraphics::text(MediaObjectRef k, const char *str)
+void Graphics::text(ObjectRef k, const char *str)
 {
     this->text(k, str, (SDL_Color) {255, 255, 255, 255});
 }
 
-void MediaGraphics::text(MediaObjectRef k, std::string str, MediaColor c)
+void Graphics::text(ObjectRef k, std::string str, Color c)
 {
     text(k, str.c_str(), c);
 }
 
-void MediaGraphics::text(MediaObjectRef k, std::string str)
+void Graphics::text(ObjectRef k, std::string str)
 {
     this->text(k, str, (SDL_Color) {255, 255, 255, 255});
 }
 
-void MediaGraphics::image(MediaObjectRef k, std::string filepath)
+void Graphics::image(ObjectRef k, std::string filepath)
 {
     SDL_Surface *t = IMG_Load(filepath.c_str());
     SDL_Texture *ttx = SDL_CreateTextureFromSurface(m.r, t);
-    MediaRect dims;
+    Rect dims;
     
     SDL_GetClipRect(t, &dims);
     k.set_rect(dims);
@@ -418,12 +421,14 @@ void MediaGraphics::image(MediaObjectRef k, std::string filepath)
 
 /*
  * =============================================================================
- * MediaTimer
+ * Timer
  * =============================================================================
  */
 
-MediaTimer::MediaTimer(uint32_t duration)
+Timer::Timer(uint32_t duration)
 {
     this->duration = duration;
     this->time = duration;
 }
+
+};

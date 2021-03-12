@@ -1,25 +1,27 @@
-#ifndef SCENE_QUIT_H
-#define SCENE_QUIT_H
+#ifndef SCENE_QT_H
+#define SCENE_QT_H
 
 #include "scene.hpp"
 #include "media.hpp"
 #include "ui.hpp"
 
+using namespace media;
+
 class QuitScene : public Scene {
     private:
-        MediaState &m;
-        MediaGraphics &g;
+        State &m;
+        Graphics &g;
         SceneState &s;
-        UITopLevel ui;
-        UIFrame *f;
-        UIButton *yes;
-        UIButton *no;
+        ui::TopLevel w;
+        ui::Frame *f;
+        ui::Button *yes;
+        ui::Button *no;
 
     public:
         bool quitmode = true;
-        QuitScene(MediaState &m, MediaGraphics &g, SceneState &s):
+        QuitScene(State &m, Graphics &g, SceneState &s):
             m(m), g(g), s(s),
-            ui(m, g, "top", 0, (MediaRect) {0, 0, 800, 600}) {}
+            w(m, g, "top", 0, (Rect) {0, 0, 800, 600}) {}
         ~QuitScene() {};
         void init();
         void draw();
@@ -30,35 +32,35 @@ class QuitScene : public Scene {
 
 void QuitScene::init()
 {
-    ui.geo.add(CENTER, 0, 0);
-    f = &ui.add<UIFrame>("asd", 0, (MediaRect) {0, 0, 400, 100});
-    f->add<UILabel>("Are you sure you want to quit?");
+    w.geo.add(CENTER, 0, 0);
+    f = &w.add<ui::Frame>("asd", 0, (Rect) {0, 0, 400, 100});
+    f->add<ui::Label>("Are you sure you want to quit?");
     f->geo.add(1, 2);
-    yes = &f->add<UIButton>("yes");
-    no = &f->add<UIButton>("no");
+    yes = &f->add<ui::Button>("yes");
+    no = &f->add<ui::Button>("no");
     f->geo.add(1, 6);
-    f->add<UIButton>("vUp");
-    f->add<UIButton>("vDn");
-    f->add<UIButton>("vLf");
-    f->add<UIButton>("x");
-    f->add<UIButton>("y");
-    f->add<UIButton>("z");
-    f->add<UIButton>("z");
-    f->add<UIButton>("z");
-    ui.refresh();
+    f->add<ui::Button>("vUp");
+    f->add<ui::Button>("vDn");
+    f->add<ui::Button>("vLf");
+    f->add<ui::Button>("x");
+    f->add<ui::Button>("y");
+    f->add<ui::Button>("z");
+    f->add<ui::Button>("z");
+    f->add<ui::Button>("z");
+    w.refresh();
     init_flag = true;
 }
 
 
 void QuitScene::draw()
 {
-    ui.draw();
+    w.draw();
 }
 
 
 void QuitScene::event()
 {
-    ui.event();
+    w.event();
 
     if (yes->is_down()) {
         m.active = false;
@@ -71,7 +73,7 @@ void QuitScene::event()
 
 void QuitScene::update()
 {
-    ui.update();
+    w.update();
 }
 
 void QuitScene::close()

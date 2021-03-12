@@ -1,28 +1,32 @@
 #include "ui.hpp"
 
+namespace media {
+
+namespace ui {
+
+using Util::point_in_rect;
+
 // --- Weird compiler obligations. Fixed in C++17.
 
-constexpr const UIGridGeometry::GridEntry UIGridGeometry::default_grid;
-constexpr const UIRelativeGeometry::GravityEntry UIRelativeGeometry::default_grav;
+constexpr const GridGeometry::GridEntry GridGeometry::default_grid;
+constexpr const RelativeGeometry::GravityEntry RelativeGeometry::default_grav;
 
 // --- End Weird compiler obligations.
 
-using MediaUtil::point_in_rect;
-
 /*
  * =============================================================================
- * UIWidgets
+ * Widgets
  * =============================================================================
  */
 
 
 /*
  * -----------------------------------------------------------------------------
- * UILabel
+ * Label
  * -----------------------------------------------------------------------------
  */
 
-inline MediaRect smaller(MediaRect in, MediaRect out)
+inline Rect smaller(Rect in, Rect out)
 {
     if (in.w > out.w)
         return {0, 0, out.w, out.h};
@@ -32,7 +36,7 @@ inline MediaRect smaller(MediaRect in, MediaRect out)
         return {0, 0, in.w, in.h};
 }
 
-inline MediaRect smaller_dest(MediaRect in, MediaRect out)
+inline Rect smaller_dest(Rect in, Rect out)
 {
     if (in.w > out.w)
         return out;
@@ -42,7 +46,7 @@ inline MediaRect smaller_dest(MediaRect in, MediaRect out)
         return in;
 }
 
-void UILabel::draw()
+void Label::draw()
 {
     /*printf("***\n");
     PRINTRECT(o_label.src_rect);
@@ -54,23 +58,23 @@ void UILabel::draw()
     g.paint(o_label);
 }
 
-bool UILabel::event()
+bool Label::event()
 {
     return true;
 }
 
-bool UILabel::update()
+bool Label::update()
 {
     return true;
 }
 
-void UILabel::refresh()
+void Label::refresh()
 {
     o_label.overflow_x(dims);
     o_label.align(dims, properties.content_align);
 }
 
-void UILabel::set_label(std::string label)
+void Label::set_label(std::string label)
 {
     this->label = label;
     g.text(o_label, label);
@@ -79,11 +83,11 @@ void UILabel::set_label(std::string label)
 
 /*
  * -----------------------------------------------------------------------------
- * UIButton
+ * Button
  * -----------------------------------------------------------------------------
  */
 
-void UIButton::draw()
+void Button::draw()
 {
     switch (state) {
     case UI_WIDGET_NORMAL:
@@ -108,7 +112,7 @@ void UIButton::draw()
     }
 }
 
-bool UIButton::event()
+bool Button::event()
 {
     if (clicked_flag == true)
         clicked_flag = false;
@@ -148,13 +152,13 @@ bool UIButton::event()
     return true;
 }
 
-bool UIButton::update()
+bool Button::update()
 {
     //return false;
     return true;
 }
 
-void UIButton::refresh()
+void Button::refresh()
 {
     o_label.overflow_x(dims);
     o_label.align(dims, properties.content_align, properties.padding, properties.padding);
@@ -162,17 +166,17 @@ void UIButton::refresh()
 
 /*
  * -----------------------------------------------------------------------------
- * UITextInput
+ * TextInput
  * -----------------------------------------------------------------------------
  */
 
 /*
  * =============================================================================
- * UITopLevel
+ * TopLevel
  * =============================================================================
  */
 
-bool UITopLevel::event()
+bool TopLevel::event()
 {
     bool no_refresh;
 
@@ -187,10 +191,10 @@ bool UITopLevel::event()
         break;
     }
 
-    return UIContainer::event();
+    return Container::event();
 }
 
-void UIFrame::draw()
+void Frame::draw()
 {
     g.set_color(40, 40, 40, 255);
     g.frect(dims);
@@ -199,3 +203,7 @@ void UIFrame::draw()
     for (auto &i: widgets)
         i->draw();
 }
+
+};
+
+};

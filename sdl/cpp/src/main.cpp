@@ -11,6 +11,7 @@
 #include "scenes/game_scene.hpp"
 #include "scenes/quit_scene.hpp"
 
+using namespace media;
 using std::to_string;
 
 Scene *scene_list[3];
@@ -19,18 +20,17 @@ int media_main() {
     SceneState s = SCENE_TITLE;
     bool quitmode = false;
 
-    MediaObject debug;
+    Object debug;
 
-    MediaState m;
-    MediaGraphics g(m);
-    UIDefaultPrimitives p(g);
+    State m;
+    Graphics g(m);
 
     TitleScene title_scene(m, g, s);
     GameScene  game_scene(m, g, s);
     QuitScene  quit_scene(m, g, s);
 
-    MediaText txt(m, MediaText::FontDataType::FONT_DATA_STANDARD, "assets/font.otb");
-    MediaObject text;
+    Text txt(m, Text::FontDataType::FONT_DATA_STANDARD, "assets/font.otb");
+    Object text;
     txt.text(text, "HelloHi");
 
     game_scene.init();
@@ -41,7 +41,7 @@ int media_main() {
     scene_list[SCENE_TITLE] = &title_scene;
 
     SDL_StartTextInput();
-    MediaRect c = {0, 0, 200, 200};
+    Rect c = {0, 0, 200, 200};
     SDL_SetTextInputRect(&c);
     std::string textbuf;
 

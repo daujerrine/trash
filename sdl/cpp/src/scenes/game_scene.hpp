@@ -9,26 +9,28 @@
 #include <stdlib.h>
 #include <time.h>
 
+using namespace media;
+
 class GameScene : public Scene {
     private:
-        MediaState &m;
-        MediaGraphics &g;
-        UITopLevel ui;
-        UIFrame *c;
+        State &m;
+        Graphics &g;
+        ui::TopLevel w;
+        ui::Frame *c;
         SceneState &s;
-        UILabel *counter;
-        UILabel *info, *info2;
+        ui::Label *counter;
+        ui::Label *info, *info2;
         int counter_val = 0;
-        MediaTimer timer;
-        MediaTimer motion_timer;
-        MediaTimer bullet_timer;
+        Timer timer;
+        Timer motion_timer;
+        Timer bullet_timer;
 
-        MediaRect player = {0, 0, 40, 40};
-        MediaRect enemy = {0, 0, 20, 20};
-        MediaRect bullet_dims = {0, 0, 10, 10};
+        Rect player = {0, 0, 40, 40};
+        Rect enemy = {0, 0, 20, 20};
+        Rect bullet_dims = {0, 0, 10, 10};
 
-        MediaSample shoot_snd;
-        MediaMusic song;
+        Sample shoot_snd;
+        Music song;
 
         int xvel = 0, yvel = 0;
         int xpvel = 0, ypvel = 0;
@@ -36,18 +38,18 @@ class GameScene : public Scene {
         int yaccn = 0;
         int cap = 10;
         int friction = 1;
-        std::deque<MediaRect> bullets;
+        std::deque<Rect> bullets;
         int num_bullets = 0;
         bool firing = false;
         bool motion = false;
         bool enemy_in = false;
 
     public:
-        GameScene(MediaState &m, MediaGraphics &g, SceneState &s):
+        GameScene(State &m, Graphics &g, SceneState &s):
             m(m), g(g), s(s), timer(1000), motion_timer(10), bullet_timer(50),
             shoot_snd("assets/shoot.wav"),
             song("assets/song.xm"),
-            ui(m, g, "top", 0, (MediaRect) {0, 0, 800, 600}) {}
+            w(m, g, "top", 0, (Rect) {0, 0, 800, 600}) {}
         ~GameScene() {};
         void init();
         void draw();
@@ -60,13 +62,13 @@ class GameScene : public Scene {
 void GameScene::init()
 {
     srand(time(nullptr));
-    ui.geo.add(BOTTOMRIGHT, 0, 0);
-    c = &ui.add<UIFrame>("Menu", 0, (MediaRect) {0, 0, 400, 100});
-    c->add<UILabel>("Game Scene");
-    counter = &c->add<UILabel>("0");
-    info    = &c->add<UILabel>("");
-    info2    = &c->add<UILabel>("");
-    ui.refresh();
+    w.geo.add(BOTTOMRIGHT, 0, 0);
+    c = &w.add<ui::Frame>("Menu", 0, (Rect) {0, 0, 400, 100});
+    c->add<ui::Label>("Game Scene");
+    counter = &c->add<ui::Label>("0");
+    info    = &c->add<ui::Label>("");
+    info2    = &c->add<ui::Label>("");
+    w.refresh();
     c->hide();
     song.set_volume(40);
     // song.play();
@@ -75,7 +77,7 @@ void GameScene::init()
 
 void GameScene::draw()
 {
-    ui.draw();
+    w.draw();
     g.set_color(255, 255, 255, 255);
     g.rect(player);
     g.set_color(255, 128, 0, 255);
@@ -156,7 +158,7 @@ void GameScene::event()
         }
     }
 
-    ui.event();
+    w.event();
 }
 
 void GameScene::update()
@@ -206,7 +208,7 @@ void GameScene::update()
 
     if (firing && num_bullets < 20 && bullet_timer.done()) {
         num_bullets++;
-        bullets.push_back(MediaUtil::rect_align(player, bullet_dims, CENTER, 0, 0));
+        bullets.push_back(Util::rect_align(player, bullet_dims, CENTER, 0, 0));
         shoot_snd.play(0);
     }
     
@@ -229,7 +231,7 @@ void GameScene::update()
         }
     }
 
-    ui.update();
+    w.update();
 }
 
 void GameScene::close()

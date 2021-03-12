@@ -1,5 +1,5 @@
-#ifndef UI_H
-#define UI_H
+#ifndef _H
+#define _H
 
 #include "media.hpp"
 
@@ -18,15 +18,19 @@
 #define UI_OPTION_DEF_PARENT(x) (UI_OPTION_DEF(x) << UI_OPTION_DEF_MAX)
 
 
-enum UIOptions {
-    UIOPT_WIDGET_NOCLIP    = UI_OPTION_DEF_PARENT(0),
-    UIOPT_WIDGET_STRETCH   = UI_OPTION_DEF_PARENT(1),
-    UIOPT_WIDGET_FIXED     = UI_OPTION_DEF_PARENT(2),
+namespace media {
+
+namespace ui {
+
+enum Options {
+    OPT_WIDGET_NOCLIP    = UI_OPTION_DEF_PARENT(0),
+    OPT_WIDGET_STRETCH   = UI_OPTION_DEF_PARENT(1),
+    OPT_WIDGET_FIXED     = UI_OPTION_DEF_PARENT(2),
     /// Have properties been set?
-    UIOPT_WIDGET_PROPS_SET = UI_OPTION_DEF(0),
+    OPT_WIDGET_PROPS_SET = UI_OPTION_DEF(0),
 };
 
-enum UIWidgetState {
+enum WidgetState {
     UI_WIDGET_NORMAL,
     UI_WIDGET_ACTIVE,
     UI_WIDGET_DOWN,
@@ -34,12 +38,12 @@ enum UIWidgetState {
     UI_WIDGET_DISABLED
 };
 
-enum UIEventID {
+enum EventID {
     UI_BUTTON_CLICKED
 };
 
 /// Widget Gravity
-typedef MediaGravity UIGravity;
+typedef Gravity Gravity;
 
 /**
  * Generic Event handlers
@@ -47,38 +51,38 @@ typedef MediaGravity UIGravity;
 
 namespace Behaviour {
 /*
-static inline bool clicked(MediaState &k, MediaRect b, UIWidgetState &b)
+static inline bool clicked(State &k, Rect b, WidgetState &b)
 {
     return false;
 }
 */
 };
 
-class UIWidget;
+class Widget;
 
 /*
  * =============================================================================
- * UIPrimitives
+ * Primitives
  * =============================================================================
  */
 
-/// Primitives used for drawing the GUI components.
-class UIPrimitives {
+/// Primitives used for drawing the G components.
+class Primitives {
     protected:
-        MediaGraphics &g;
+        Graphics &g;
         int padding;
         int margin;
         int min_height;
         int min_width;
 
     public:
-        UIPrimitives(MediaGraphics &g): g(g) {};
-        virtual inline int box(MediaRect k) = 0;
-        virtual inline int fbox(MediaRect k) = 0;
-        virtual inline int line(UIWidget &u, int x1, int x2, int y1, int y2) = 0;
+        Primitives(Graphics &g): g(g) {};
+        virtual inline int box(Rect k) = 0;
+        virtual inline int fbox(Rect k) = 0;
+        virtual inline int line(Widget &u, int x1, int x2, int y1, int y2) = 0;
 };
 
-class UIDefaultPrimitives : public UIPrimitives {
+class DefaultPrimitives : public Primitives {
     protected:
         int padding    = UI_DEFAULT_PADDING;
         int margin     = UI_DEFAULT_MARGIN;
@@ -86,18 +90,18 @@ class UIDefaultPrimitives : public UIPrimitives {
         int min_width  = UI_DEFAULT_MIN_WIDTH;
 
     public:
-        UIDefaultPrimitives(MediaGraphics &g): UIPrimitives(g) {}
-        inline int box(MediaRect k);
-        inline int fbox(MediaRect k);
-        inline int line(UIWidget &u, int x1, int x2, int y1, int y2);
+        DefaultPrimitives(Graphics &g): Primitives(g) {}
+        inline int box(Rect k);
+        inline int fbox(Rect k);
+        inline int line(Widget &u, int x1, int x2, int y1, int y2);
 };
 
-inline int UIDefaultPrimitives::box(MediaRect k)
+inline int DefaultPrimitives::box(Rect k)
 {
     return g.rect(k);
 }
 
-inline int UIDefaultPrimitives::fbox(MediaRect k)
+inline int DefaultPrimitives::fbox(Rect k)
 {
     g.set_color(128, 128, 128, 255);
     g.frect(k);
@@ -105,40 +109,40 @@ inline int UIDefaultPrimitives::fbox(MediaRect k)
     return g.rect(k);
 }
 
-inline int UIDefaultPrimitives::line(UIWidget &u, int x1, int y1, int x2, int y2)
+inline int DefaultPrimitives::line(Widget &u, int x1, int y1, int x2, int y2)
 {
     return g.line(x1, y1, x2, y2);
 }
 
-struct UIWidgetProperties {
+struct WidgetProperties {
     std::string tooltip;
-    // UIPrimitives *style;
-    UIGravity content_align = CENTER;
-    MediaSize min_size      = { 0, 0 };
-    MediaSize max_size      = { 100000, 100000 };
-    MediaColor bg_color     = { 110, 110, 110  };
-    MediaColor fg_color     = { 255, 255, 255, };
+    // Primitives *style;
+    Gravity content_align = CENTER;
+    Size min_size      = { 0, 0 };
+    Size max_size      = { 100000, 100000 };
+    Color bg_color     = { 110, 110, 110  };
+    Color fg_color     = { 255, 255, 255, };
     int padding             = UI_DEFAULT_PADDING;
     int margin              = UI_DEFAULT_MARGIN;
     int scale               = 1;
 };
 
 /*
-UIWidgetProperties ui_default_properties = (UIWidgetProperties) {
+WidgetProperties ui_default_properties = (WidgetProperties) {
     .content_align = CENTER,
     .min_size      = { 0, 0 },
     .max_size      = { 100000, 100000 },
     .bg_color      = { 110, 110, 110  },
     .fg_color      = { 255, 255, 255, },
-    .padding       = UI_DEFAULT_PADDING,
-    .margin        = UI_DEFAULT_MARGIN,
+    .padding       = _DEFAULT_PADDING,
+    .margin        = _DEFAULT_MARGIN,
     .scale         = 1
 };
 */
 
 /*
  * =============================================================================
- * UIState
+ * State
  * =============================================================================
  */
 
@@ -146,27 +150,29 @@ UIWidgetProperties ui_default_properties = (UIWidgetProperties) {
  * Context variables included in every widget
  * @todo Pass as argument instead?
  */
-struct UIState {
-    MediaState    &m;
-    MediaGraphics &g;
-    UIPrimitives  &p;
-    UIState(MediaState &m, MediaGraphics &g, UIPrimitives &p): m(m), g(g), p(p) {}
+/*
+struct State {
+    State    &m;
+    Graphics &g;
+    Primitives  &p;
+    State(State &m, Graphics &g, Primitives &p): m(m), g(g), p(p) {}
 };
+*/
 
 /*
  * =============================================================================
- * UIWidget
+ * Widget
  * =============================================================================
  */
 
 /// Default Abstract widget class
-class UIWidget {
+class Widget {
     protected:
         std::string label; /// Display Name
         static constexpr char const *name = "generic widget"; /// Class Name
-        MediaState &m;
-        MediaGraphics &g;
-        UIDefaultPrimitives p;
+        State &m;
+        Graphics &g;
+        DefaultPrimitives p;
 
         /**
          * Several Drawing options.
@@ -193,18 +199,18 @@ class UIWidget {
         }
 
     public:
-        UIWidgetProperties properties;
+        WidgetProperties properties;
         /**
          * "Ideal" dimensions of the given widget.
          * First set by the widget itself and then handled by the geometry
          * manager on invoking calculation.
          */
-        MediaRect dims;
+        Rect dims;
         
-        UIWidget(MediaState &m, MediaGraphics &g, std::string label, int options):
+        Widget(State &m, Graphics &g, std::string label, int options):
             m(m), g(g), p(g), label(label), options(options) {}
 
-        virtual ~UIWidget() {};
+        virtual ~Widget() {};
 
         /// Recalculates widget geometry.
         virtual void refresh() = 0;
@@ -260,7 +266,7 @@ class UIWidget {
 };
 
 /// Widget list alias
-typedef std::vector<std::unique_ptr<UIWidget>> UIWidgetList;
+typedef std::vector<std::unique_ptr<Widget>> WidgetList;
 
 /*
  * =============================================================================
@@ -268,20 +274,20 @@ typedef std::vector<std::unique_ptr<UIWidget>> UIWidgetList;
  * =============================================================================
  */
 
-class UIGeometry {
+class Geometry {
     protected:
-        UIWidgetList &widgets;
-        UIWidgetProperties &properties;
+        WidgetList &widgets;
+        WidgetProperties &properties;
 
     public:
-        UIGeometry (
-            UIWidgetList &widgets,
-            UIWidgetProperties &properties
+        Geometry (
+            WidgetList &widgets,
+            WidgetProperties &properties
         ): widgets(widgets), properties(properties) {}
-        MediaRect container_dim  = {0, 0, 0, 0};
+        Rect container_dim  = {0, 0, 0, 0};
 
-        virtual MediaRect calculate_all(MediaRect dims) = 0;
-        virtual MediaRect update_container_dim(MediaRect dims) = 0;
+        virtual Rect calculate_all(Rect dims) = 0;
+        virtual Rect update_container_dim(Rect dims) = 0;
 };
 
 /*
@@ -290,7 +296,7 @@ class UIGeometry {
  * -----------------------------------------------------------------------------
  */
 
-class UIGridGeometry : public UIGeometry {
+class GridGeometry : public Geometry {
     public:
         struct GridEntry {
             size_t widget_offset;
@@ -306,37 +312,37 @@ class UIGridGeometry : public UIGeometry {
 
     public:
         static constexpr const GridEntry default_grid = { 0, 1, 1, 0 };
-        UIGridGeometry(
-            UIWidgetList &widgets,
-            UIWidgetProperties &properties
-        ): UIGeometry(widgets, properties) {}
+        GridGeometry(
+            WidgetList &widgets,
+            WidgetProperties &properties
+        ): Geometry(widgets, properties) {}
         std::vector<GridEntry> grid_list;
         int grid_index;
         bool initial_refresh = true;
-        MediaRect c = {0, 0, 0, 0};
+        Rect c = {0, 0, 0, 0};
 
         inline void add(int rows, int cols, int repeat_till = 1);
         inline void set_row_height(int widget_index, int row_start, int h);
 
-        inline MediaRect calculate_all(MediaRect dims);
-        inline MediaRect translate_all(MediaPoint pos);
-        inline MediaRect update_container_dim(MediaRect dims);
+        inline Rect calculate_all(Rect dims);
+        inline Rect translate_all(Point pos);
+        inline Rect update_container_dim(Rect dims);
 };
 
-inline void UIGridGeometry::add(int rows, int cols, int repeat_till)
+inline void GridGeometry::add(int rows, int cols, int repeat_till)
 {
     //printf("new grid: %ld %d %d %d\n", widgets.size(), rows, cols, repeat_till);
     grid_list.emplace_back((GridEntry) { widgets.size(), rows, cols, repeat_till });
 }
 
-inline void UIGridGeometry::set_row_height(int widget_index, int row_start, int h)
+inline void GridGeometry::set_row_height(int widget_index, int row_start, int h)
 {
     for (int i = row_start; i <= widget_index; i++) {
         widgets[i]->dims.h = h;
     }
 }
 
-inline UIGridGeometry::GridEntry const *UIGridGeometry::iter(int widget_index)
+inline GridGeometry::GridEntry const *GridGeometry::iter(int widget_index)
 {
     if (grid_list.size() == 0          ||
         grid_index >= grid_list.size() ||
@@ -349,13 +355,13 @@ inline UIGridGeometry::GridEntry const *UIGridGeometry::iter(int widget_index)
     return &grid_list[grid_index++];
 }
 
-inline MediaRect UIGridGeometry::calculate_all(MediaRect new_dim)
+inline Rect GridGeometry::calculate_all(Rect new_dim)
 {
     GridEntry const *curr_grid;
     int min_grid_height;
     int row_start;
     grid_index = 0;
-    MediaRect current_dim = new_dim;
+    Rect current_dim = new_dim;
     current_dim.y += properties.padding;
 
     for (int i = 0; i < widgets.size();) {
@@ -426,7 +432,7 @@ end:
     return container_dim;
 }
 
-inline MediaRect UIGridGeometry::translate_all(MediaPoint dims)
+inline Rect GridGeometry::translate_all(Point dims)
 {
     int diffx = dims.x - container_dim.x;
     int diffy = dims.y - container_dim.y;
@@ -448,7 +454,7 @@ inline MediaRect UIGridGeometry::translate_all(MediaPoint dims)
  *       one point to another or not. If so, we simply translate all the
  *       container's coordinates.
  */
-inline MediaRect UIGridGeometry::update_container_dim(MediaRect new_dim)
+inline Rect GridGeometry::update_container_dim(Rect new_dim)
 {
     if (container_dim.w == new_dim.w && container_dim.h == new_dim.h) {
         //printf(">>>>>>>> translate\n");
@@ -465,11 +471,11 @@ inline MediaRect UIGridGeometry::update_container_dim(MediaRect new_dim)
  * -----------------------------------------------------------------------------
  */
 
-class UIRelativeGeometry : public UIGeometry {
+class RelativeGeometry : public Geometry {
     public:
         struct GravityEntry {
             size_t widget_offset;
-            UIGravity gravity;
+            Gravity gravity;
             int hpad;
             int vpad;
         };
@@ -479,24 +485,24 @@ class UIRelativeGeometry : public UIGeometry {
 
     public:
         static constexpr const GravityEntry default_grav = {0, CENTER, 0, 0};
-        UIRelativeGeometry(
-            std::vector<std::unique_ptr<UIWidget>> &widgets,
-            UIWidgetProperties &properties
-        ): UIGeometry(widgets, properties) {}
+        RelativeGeometry(
+            std::vector<std::unique_ptr<Widget>> &widgets,
+            WidgetProperties &properties
+        ): Geometry(widgets, properties) {}
         std::vector<GravityEntry> grav_list;
         int grav_index;
 
-        inline void add(UIGravity grav, int hpad, int vpad);
-        inline MediaRect calculate_all(MediaRect new_dim);
-        inline MediaRect update_container_dim(MediaRect new_dim);
+        inline void add(Gravity grav, int hpad, int vpad);
+        inline Rect calculate_all(Rect new_dim);
+        inline Rect update_container_dim(Rect new_dim);
 };
 
-inline void UIRelativeGeometry::add(UIGravity grav, int hpad, int vpad)
+inline void RelativeGeometry::add(Gravity grav, int hpad, int vpad)
 {
     grav_list.emplace_back((GravityEntry) { widgets.size(), grav, hpad, vpad });
 }
 
-inline UIRelativeGeometry::GravityEntry const *UIRelativeGeometry::iter(int widget_index)
+inline RelativeGeometry::GravityEntry const *RelativeGeometry::iter(int widget_index)
 {
     if (grav_list.size() == 0            ||
         grav_index >= grav_list.size()   ||
@@ -509,7 +515,7 @@ inline UIRelativeGeometry::GravityEntry const *UIRelativeGeometry::iter(int widg
     return &grav_list[grav_index++];
 }
 
-inline MediaRect UIRelativeGeometry::calculate_all(MediaRect new_dim)
+inline Rect RelativeGeometry::calculate_all(Rect new_dim)
 {
     GravityEntry const *current_grav;
     grav_index = 0;
@@ -518,7 +524,7 @@ inline MediaRect UIRelativeGeometry::calculate_all(MediaRect new_dim)
     container_dim = new_dim;
     for (int i = 0; i < widgets.size(); i++) {
         current_grav = iter(i);
-        widgets[i]->dims = MediaUtil::rect_align(
+        widgets[i]->dims = Util::rect_align(
             container_dim, widgets[i]->dims, current_grav->gravity,
             current_grav->hpad, current_grav->vpad);
             //PRINTRECT(widgets[i]->dims);
@@ -527,7 +533,7 @@ inline MediaRect UIRelativeGeometry::calculate_all(MediaRect new_dim)
     return container_dim;
 }
 
-inline MediaRect UIRelativeGeometry::update_container_dim(MediaRect new_dim)
+inline Rect RelativeGeometry::update_container_dim(Rect new_dim)
 {
     return calculate_all(new_dim);
 }
@@ -539,14 +545,14 @@ inline MediaRect UIRelativeGeometry::update_container_dim(MediaRect new_dim)
  * =============================================================================
  */
 
-class UILabel : public UIWidget {
+class Label : public Widget {
     protected:
         static constexpr char const *name = "label";
-        MediaClipObject o_label;
+        ClipObject o_label;
 
     public:
-        UILabel(MediaState &m, MediaGraphics &g, std::string label, int options = 0):
-            UIWidget(m, g, label, options)
+        Label(State &m, Graphics &g, std::string label, int options = 0):
+            Widget(m, g, label, options)
         {
             g.text(o_label, label);
             // printf("LABELINIT::: "); PRINTRECT(o_label.dest_rect);
@@ -556,7 +562,7 @@ class UILabel : public UIWidget {
             PRINTRECT(dims);
         }
 
-        ~UILabel() {
+        ~Label() {
             // printf("Destructor called\n");
         }
 
@@ -578,17 +584,17 @@ class UILabel : public UIWidget {
         void set_label(std::string label);
 };
 
-class UIButton : public UIWidget {
+class Button : public Widget {
     protected:
         static constexpr char const *name = "button";
-        MediaClipObject o_label;
+        ClipObject o_label;
         bool clicked_flag = false;
 
     public:
-        UIWidgetState state = UI_WIDGET_NORMAL;
+        WidgetState state = UI_WIDGET_NORMAL;
 
-        UIButton(MediaState &m, MediaGraphics &g, std::string label, int options = 0):
-            UIWidget(m, g, label, options)
+        Button(State &m, Graphics &g, std::string label, int options = 0):
+            Widget(m, g, label, options)
         {
             g.text(o_label, label);
             dims = o_label.dest_rect;
@@ -597,7 +603,7 @@ class UIButton : public UIWidget {
             PRINTRECT(dims);
         }
 
-        ~UIButton() {
+        ~Button() {
             // printf("Destructor called\n");
         }
 
@@ -620,28 +626,28 @@ class UIButton : public UIWidget {
 
 /*
  * =============================================================================
- * UIContainer
+ * Container
  * =============================================================================
  */
 
-template <typename Geometry>
-class UIContainer : public UIWidget {
+template <typename GeometryT>
+class Container : public Widget {
     protected:
         static constexpr char const *name = "container";
-        // UIDefaultPrimitives &p;
-        UIWidgetList widgets;
-        UIDefaultPrimitives p;
+        // DefaultPrimitives &p;
+        WidgetList widgets;
+        DefaultPrimitives p;
         
     public:
-        Geometry geo;
+        GeometryT geo;
 
-        UIContainer(
-            MediaState &m,
-            MediaGraphics &g,
+        Container(
+            State &m,
+            Graphics &g,
             std::string label,
             int options = 0,
-            MediaRect dims = {0, 0, 0, 0}
-        ): UIWidget(m, g, label, options), geo(widgets, properties), p(g)
+            Rect dims = {0, 0, 0, 0}
+        ): Widget(m, g, label, options), geo(widgets, properties), p(g)
         {
             PRINT_LINE
             printf("Initialiser called.\n");
@@ -656,7 +662,7 @@ class UIContainer : public UIWidget {
         virtual bool event();
         virtual bool update();
         virtual void refresh();
-        virtual void resize(MediaRect dims);
+        virtual void resize(Rect dims);
 
         virtual inline bool is_down()
         {
@@ -679,25 +685,25 @@ class UIContainer : public UIWidget {
          * vector the widget is also destructed.
          */
 
-        template <typename Widget, typename ...Args>
-        Widget &add(std::string label, int options = 0, Args &&...args)
+        template <typename WidgetT, typename ...Args>
+        WidgetT &add(std::string label, int options = 0, Args &&...args)
         {
-            Widget *k = new Widget(m, g, label, options, args...);
-            std::unique_ptr<UIWidget> p(k);
+            WidgetT *k = new WidgetT(m, g, label, options, args...);
+            std::unique_ptr<WidgetT> p(k);
             widgets.push_back(std::move(p));
             return *k;
         }
 };
 
 template <typename Geometry>
-void UIContainer<Geometry>::resize(MediaRect dims)
+void Container<Geometry>::resize(Rect dims)
 {
     this->dims = geo.update_container_dim(dims);
     refresh();
 }
 
 template <typename Geometry>
-void UIContainer<Geometry>::draw()
+void Container<Geometry>::draw()
 {
     for (auto &i: widgets) {
         if (i->shown())
@@ -706,7 +712,7 @@ void UIContainer<Geometry>::draw()
 }
 
 template <typename Geometry>
-bool UIContainer<Geometry>::event()
+bool Container<Geometry>::event()
 {
     bool no_refresh = true;
     for (auto &i: widgets) {
@@ -723,7 +729,7 @@ bool UIContainer<Geometry>::event()
 }
 
 template <typename Geometry>
-bool UIContainer<Geometry>::update()
+bool Container<Geometry>::update()
 {
     bool no_refresh = true;
 
@@ -742,7 +748,7 @@ bool UIContainer<Geometry>::update()
 }
 
 template <typename Geometry>
-void UIContainer<Geometry>::refresh()
+void Container<Geometry>::refresh()
 {
     dims = geo.update_container_dim(dims);
     for (auto &i: widgets)
@@ -751,22 +757,22 @@ void UIContainer<Geometry>::refresh()
 
 /*
  * =============================================================================
- * UITopLevel
+ * TopLevel
  * =============================================================================
  */
 
-class UITopLevel : public UIContainer<UIRelativeGeometry> {
+class TopLevel : public Container<RelativeGeometry> {
     protected:
         static constexpr char const *name = "toplevel";
         
     public:
-        UITopLevel(
-            MediaState &m,
-            MediaGraphics &g,
+        TopLevel(
+            State &m,
+            Graphics &g,
             std::string label,
             int options = 0,
-            MediaRect dims = {0, 0, 0, 0}
-        ): UIContainer(m, g, label, options, dims) {}
+            Rect dims = {0, 0, 0, 0}
+        ): Container(m, g, label, options, dims) {}
         
         bool event();
 };
@@ -774,24 +780,28 @@ class UITopLevel : public UIContainer<UIRelativeGeometry> {
 
 /*
  * ============================================================================
- * UIFrame
+ * Frame
  * =============================================================================
  */
 
-class UIFrame : public UIContainer<UIGridGeometry> {
+class Frame : public Container<GridGeometry> {
     protected:
         static constexpr char const *name = "frame";
         
     public:
-        UIFrame(
-            MediaState &m,
-            MediaGraphics &g,
+        Frame(
+            State &m,
+            Graphics &g,
             std::string label,
             int options = 0,
-            MediaRect dims = {0, 0, 0, 0}
-        ): UIContainer(m, g, label, options, dims) {}
+            Rect dims = {0, 0, 0, 0}
+        ): Container(m, g, label, options, dims) {}
 
         void draw();
+};
+
+};
+
 };
 
 #endif

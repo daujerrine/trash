@@ -5,17 +5,19 @@
 #include "media.hpp"
 #include "ui.hpp"
 
+using namespace media;
+
 class TitleScene : public Scene {
     private:
-        MediaState &m;
-        MediaGraphics &g;
+        State &m;
+        Graphics &g;
         SceneState &s;
-        UITopLevel ui;
+        ui::TopLevel w;
 
     public:
-        TitleScene(MediaState &m, MediaGraphics &g, SceneState &s):
+        TitleScene(State &m, Graphics &g, SceneState &s):
             m(m), g(g), s(s),
-            ui(m, g, "top", 0, (MediaRect) {0, 0, 800, 600}) {}
+            w(m, g, "top", 0, (Rect) {0, 0, 800, 600}) {}
         ~TitleScene() {};
         void init();
         void draw();
@@ -26,16 +28,16 @@ class TitleScene : public Scene {
 
 void TitleScene::init()
 {
-    ui.geo.add(CENTER, 0, 0);
-    ui.add<UILabel>("Shoot Game");
-    ui.refresh();
+    w.geo.add(CENTER, 0, 0);
+    w.add<ui::Label>("Shoot Game");
+    w.refresh();
     init_flag = true;
 }
 
 
 void TitleScene::draw()
 {
-    ui.draw();
+    w.draw();
 }
 
 
@@ -49,12 +51,12 @@ void TitleScene::event()
         }
         break;
     }
-    ui.event();
+    w.event();
 }
 
 void TitleScene::update()
 {
-    ui.update();
+    w.update();
 }
 
 void TitleScene::close()
