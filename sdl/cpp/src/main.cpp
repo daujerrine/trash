@@ -4,8 +4,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
-#include "media.hpp"
-#include "ui.hpp"
+#include "media/media.hpp"
+#include "ui/ui.hpp"
 #include "scene.hpp"
 #include "scenes/title_scene.hpp"
 #include "scenes/game_scene.hpp"

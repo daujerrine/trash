@@ -22,23 +22,8 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 
-add_library( MediaLib
-    media/audio.cpp
-    media/graphics.cpp
-    media/state.cpp
-    media/text.cpp
-)
-
-add_library(UILib
-    ui/widget/button.cpp
-    ui/widget/container.cpp
-    ui/widget/label.cpp
-    ui/geometry/geometry.cpp
-)
-
-target_include_directories(UILib PUBLIC ${PROJECT_SOURCE_DIR})
-
-
+add_library(MediaLib media.cpp)
+add_library(UILib ui.cpp)
 #add_library(SceneLib scenes/main_scene.hpp)
 
 configure_file(config.h.in "${PROJECT_SOURCE_DIR}/config.h")

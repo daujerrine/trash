@@ -38,7 +38,7 @@ typedef SDL_Texture Texture;
 typedef SDL_Surface Surface;
 
 typedef Mix_Music MusicData;
-typedef Mix_Chunk SampleData;
+typedef Mix_Chunk SoundData;
 
 
 struct Exception {
@@ -186,7 +186,7 @@ class Audio {
  * Most of these functions are not specific to a sample instance, hence a
  * separate class has been created to make these functions accessible.
  */
-struct SampleControl {
+struct SoundControl {
     static int fade_out(int duration, int channel = -1);
     static void pause(int channel = -1);
     static void resume(int channel = -1);
@@ -217,17 +217,17 @@ struct MusicControl {
     static int playing();
 };
 
-class Sample : public Audio {
+class Sound : public Audio {
     private:
-        SampleData *data;
+        SoundData *data;
 
     public:
-        Sample(std::string filepath)
+        Sound(std::string filepath)
         {
             data = Mix_LoadWAV(filepath.c_str());
         }
 
-        ~Sample()
+        ~Sound()
         {
             Mix_FreeChunk(data);
         }
@@ -238,7 +238,7 @@ class Sample : public Audio {
         int play(int channel = -1, int loops = LOOP_ONCE);
         int fade_in(int duration, int channel = -1, int loops = LOOP_ONCE);
 
-        using m = SampleControl;
+        using m = SoundControl;
 
         int fade_out(int duration, int channel = -1) { return m::fade_out(duration, channel); }
         void pause(int channel = -1)                 { m::pause(channel); }
@@ -298,7 +298,12 @@ struct Timer {
     int64_t time;
     uint32_t duration;
 
-    Timer(uint32_t duration);
+    Timer(uint32_t duration)
+    {
+        this->duration = duration;
+        this->time = duration;
+    }
+
     inline void update(uint32_t delta);
     inline bool done();
     inline uint32_t delay();
@@ -518,7 +523,7 @@ typedef ClipObject & ClipObjectRef;
  * =============================================================================
  */
 
-/// Driver class for the 
+/// Driver class.
 class State {
     protected:
         static const size_t   ERROR_MESSAGE_SIZE          = 1024 * 8;

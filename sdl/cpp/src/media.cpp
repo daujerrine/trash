@@ -4,63 +4,63 @@ namespace media {
 
 /*
  * =============================================================================
- * Sample
+ * Sound
  * =============================================================================
  */
 
-int Sample::set_volume(int volume)
+int Sound::set_volume(int volume)
 {
     return Mix_VolumeChunk(data, volume);
 }
 
-int Sample::play(int channel, int loops)
+int Sound::play(int channel, int loops)
 {
     loops -= 1;
     return Mix_PlayChannel(channel, data, loops);
 }
 
-int Sample::fade_in(int duration, int channel, int loops)
+int Sound::fade_in(int duration, int channel, int loops)
 {
     loops -= 1;
     return Mix_FadeInChannel(channel, data, loops, duration);
 }
 
-void SampleControl::pause(int channel)
+void SoundControl::pause(int channel)
 {
     Mix_Pause(channel);
 }
 
-void SampleControl::resume(int channel)
+void SoundControl::resume(int channel)
 {
     Mix_Resume(channel);
 }
 
-void SampleControl::stop(int channel)
+void SoundControl::stop(int channel)
 {
     Mix_HaltChannel(channel);
 }
 
-void SampleControl::expire(int channel, int ticks)
+void SoundControl::expire(int channel, int ticks)
 {
     Mix_ExpireChannel(channel, ticks);
 }
 
-void SampleControl::finished(void (*callback)(int channel))
+void SoundControl::finished(void (*callback)(int channel))
 {
     Mix_ChannelFinished(callback);
 }
 
-int SampleControl::paused(int channel)
+int SoundControl::paused(int channel)
 {
     return Mix_Paused(channel);
 }
 
-int SampleControl::playing(int channel)
+int SoundControl::playing(int channel)
 {
     return Mix_Playing(channel);
 }
 
-int SampleControl::fade_out(int duration, int channel)
+int SoundControl::fade_out(int duration, int channel)
 {
     return Mix_FadeOutChannel(channel, duration);
 }
@@ -417,18 +417,6 @@ void Graphics::image(ObjectRef k, std::string filepath)
     k.set(ttx);
 
     SDL_FreeSurface(t);
-}
-
-/*
- * =============================================================================
- * Timer
- * =============================================================================
- */
-
-Timer::Timer(uint32_t duration)
-{
-    this->duration = duration;
-    this->time = duration;
 }
 
 };

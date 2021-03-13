@@ -11,6 +11,8 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "common.hpp"
+#include "object.hpp"
+#include "state.hpp"
 
 namespace media {
 

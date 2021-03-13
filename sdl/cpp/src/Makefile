@@ -176,59 +176,221 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/TankGame.dir/build.make CMakeFiles/TankGame.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-media.o: media.cpp.o
+media/audio.o: media/audio.cpp.o
 
-.PHONY : media.o
-
-# target to build an object file
-media.cpp.o:
-	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media.cpp.o
-.PHONY : media.cpp.o
-
-media.i: media.cpp.i
-
-.PHONY : media.i
-
-# target to preprocess a source file
-media.cpp.i:
-	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media.cpp.i
-.PHONY : media.cpp.i
-
-media.s: media.cpp.s
-
-.PHONY : media.s
-
-# target to generate assembly for a file
-media.cpp.s:
-	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media.cpp.s
-.PHONY : media.cpp.s
-
-ui.o: ui.cpp.o
-
-.PHONY : ui.o
+.PHONY : media/audio.o
 
 # target to build an object file
-ui.cpp.o:
-	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui.cpp.o
-.PHONY : ui.cpp.o
+media/audio.cpp.o:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/audio.cpp.o
+.PHONY : media/audio.cpp.o
 
-ui.i: ui.cpp.i
+media/audio.i: media/audio.cpp.i
 
-.PHONY : ui.i
+.PHONY : media/audio.i
 
 # target to preprocess a source file
-ui.cpp.i:
-	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui.cpp.i
-.PHONY : ui.cpp.i
+media/audio.cpp.i:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/audio.cpp.i
+.PHONY : media/audio.cpp.i
 
-ui.s: ui.cpp.s
+media/audio.s: media/audio.cpp.s
 
-.PHONY : ui.s
+.PHONY : media/audio.s
 
 # target to generate assembly for a file
-ui.cpp.s:
-	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui.cpp.s
-.PHONY : ui.cpp.s
+media/audio.cpp.s:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/audio.cpp.s
+.PHONY : media/audio.cpp.s
+
+media/graphics.o: media/graphics.cpp.o
+
+.PHONY : media/graphics.o
+
+# target to build an object file
+media/graphics.cpp.o:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/graphics.cpp.o
+.PHONY : media/graphics.cpp.o
+
+media/graphics.i: media/graphics.cpp.i
+
+.PHONY : media/graphics.i
+
+# target to preprocess a source file
+media/graphics.cpp.i:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/graphics.cpp.i
+.PHONY : media/graphics.cpp.i
+
+media/graphics.s: media/graphics.cpp.s
+
+.PHONY : media/graphics.s
+
+# target to generate assembly for a file
+media/graphics.cpp.s:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/graphics.cpp.s
+.PHONY : media/graphics.cpp.s
+
+media/state.o: media/state.cpp.o
+
+.PHONY : media/state.o
+
+# target to build an object file
+media/state.cpp.o:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/state.cpp.o
+.PHONY : media/state.cpp.o
+
+media/state.i: media/state.cpp.i
+
+.PHONY : media/state.i
+
+# target to preprocess a source file
+media/state.cpp.i:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/state.cpp.i
+.PHONY : media/state.cpp.i
+
+media/state.s: media/state.cpp.s
+
+.PHONY : media/state.s
+
+# target to generate assembly for a file
+media/state.cpp.s:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/state.cpp.s
+.PHONY : media/state.cpp.s
+
+media/text.o: media/text.cpp.o
+
+.PHONY : media/text.o
+
+# target to build an object file
+media/text.cpp.o:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/text.cpp.o
+.PHONY : media/text.cpp.o
+
+media/text.i: media/text.cpp.i
+
+.PHONY : media/text.i
+
+# target to preprocess a source file
+media/text.cpp.i:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/text.cpp.i
+.PHONY : media/text.cpp.i
+
+media/text.s: media/text.cpp.s
+
+.PHONY : media/text.s
+
+# target to generate assembly for a file
+media/text.cpp.s:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/text.cpp.s
+.PHONY : media/text.cpp.s
+
+ui/geometry/geometry.o: ui/geometry/geometry.cpp.o
+
+.PHONY : ui/geometry/geometry.o
+
+# target to build an object file
+ui/geometry/geometry.cpp.o:
+	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui/geometry/geometry.cpp.o
+.PHONY : ui/geometry/geometry.cpp.o
+
+ui/geometry/geometry.i: ui/geometry/geometry.cpp.i
+
+.PHONY : ui/geometry/geometry.i
+
+# target to preprocess a source file
+ui/geometry/geometry.cpp.i:
+	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui/geometry/geometry.cpp.i
+.PHONY : ui/geometry/geometry.cpp.i
+
+ui/geometry/geometry.s: ui/geometry/geometry.cpp.s
+
+.PHONY : ui/geometry/geometry.s
+
+# target to generate assembly for a file
+ui/geometry/geometry.cpp.s:
+	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui/geometry/geometry.cpp.s
+.PHONY : ui/geometry/geometry.cpp.s
+
+ui/widget/button.o: ui/widget/button.cpp.o
+
+.PHONY : ui/widget/button.o
+
+# target to build an object file
+ui/widget/button.cpp.o:
+	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui/widget/button.cpp.o
+.PHONY : ui/widget/button.cpp.o
+
+ui/widget/button.i: ui/widget/button.cpp.i
+
+.PHONY : ui/widget/button.i
+
+# target to preprocess a source file
+ui/widget/button.cpp.i:
+	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui/widget/button.cpp.i
+.PHONY : ui/widget/button.cpp.i
+
+ui/widget/button.s: ui/widget/button.cpp.s
+
+.PHONY : ui/widget/button.s
+
+# target to generate assembly for a file
+ui/widget/button.cpp.s:
+	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui/widget/button.cpp.s
+.PHONY : ui/widget/button.cpp.s
+
+ui/widget/container.o: ui/widget/container.cpp.o
+
+.PHONY : ui/widget/container.o
+
+# target to build an object file
+ui/widget/container.cpp.o:
+	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui/widget/container.cpp.o
+.PHONY : ui/widget/container.cpp.o
+
+ui/widget/container.i: ui/widget/container.cpp.i
+
+.PHONY : ui/widget/container.i
+
+# target to preprocess a source file
+ui/widget/container.cpp.i:
+	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui/widget/container.cpp.i
+.PHONY : ui/widget/container.cpp.i
+
+ui/widget/container.s: ui/widget/container.cpp.s
+
+.PHONY : ui/widget/container.s
+
+# target to generate assembly for a file
+ui/widget/container.cpp.s:
+	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui/widget/container.cpp.s
+.PHONY : ui/widget/container.cpp.s
+
+ui/widget/label.o: ui/widget/label.cpp.o
+
+.PHONY : ui/widget/label.o
+
+# target to build an object file
+ui/widget/label.cpp.o:
+	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui/widget/label.cpp.o
+.PHONY : ui/widget/label.cpp.o
+
+ui/widget/label.i: ui/widget/label.cpp.i
+
+.PHONY : ui/widget/label.i
+
+# target to preprocess a source file
+ui/widget/label.cpp.i:
+	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui/widget/label.cpp.i
+.PHONY : ui/widget/label.cpp.i
+
+ui/widget/label.s: ui/widget/label.cpp.s
+
+.PHONY : ui/widget/label.s
+
+# target to generate assembly for a file
+ui/widget/label.cpp.s:
+	$(MAKE) -f CMakeFiles/UILib.dir/build.make CMakeFiles/UILib.dir/ui/widget/label.cpp.s
+.PHONY : ui/widget/label.cpp.s
 
 # Help Target
 help:
@@ -244,12 +406,30 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... media.o"
-	@echo "... media.i"
-	@echo "... media.s"
-	@echo "... ui.o"
-	@echo "... ui.i"
-	@echo "... ui.s"
+	@echo "... media/audio.o"
+	@echo "... media/audio.i"
+	@echo "... media/audio.s"
+	@echo "... media/graphics.o"
+	@echo "... media/graphics.i"
+	@echo "... media/graphics.s"
+	@echo "... media/state.o"
+	@echo "... media/state.i"
+	@echo "... media/state.s"
+	@echo "... media/text.o"
+	@echo "... media/text.i"
+	@echo "... media/text.s"
+	@echo "... ui/geometry/geometry.o"
+	@echo "... ui/geometry/geometry.i"
+	@echo "... ui/geometry/geometry.s"
+	@echo "... ui/widget/button.o"
+	@echo "... ui/widget/button.i"
+	@echo "... ui/widget/button.s"
+	@echo "... ui/widget/container.o"
+	@echo "... ui/widget/container.i"
+	@echo "... ui/widget/container.s"
+	@echo "... ui/widget/label.o"
+	@echo "... ui/widget/label.i"
+	@echo "... ui/widget/label.s"
 .PHONY : help
 
 

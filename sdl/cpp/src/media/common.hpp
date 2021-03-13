@@ -98,5 +98,7 @@ struct Exception {
     }
 };
 
+class State;
+
 };
 #endif

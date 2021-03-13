@@ -5,6 +5,8 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "common.hpp"
+#include "media.hpp"
+#include "object.hpp"
 
 namespace media {
 
@@ -37,7 +39,7 @@ class Text {
         {
             font = TTF_OpenFont(font_path.c_str(), 16);
             if (!font) {
-                throw Exception(SUBSYSTEM_TTF);
+                printf("Font not loaded\n");
             }
         }
 

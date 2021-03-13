@@ -1,5 +1,5 @@
-#ifndef _H
-#define _H
+#ifndef UI_H
+#define UI_H
 
 #include "media.hpp"
 
@@ -42,9 +42,6 @@ enum EventID {
     UI_BUTTON_CLICKED
 };
 
-/// Widget Gravity
-typedef Gravity Gravity;
-
 /**
  * Generic Event handlers
  */
@@ -66,7 +63,7 @@ class Widget;
  * =============================================================================
  */
 
-/// Primitives used for drawing the G components.
+/// Primitives used for drawing the GUI components.
 class Primitives {
     protected:
         Graphics &g;
@@ -170,7 +167,7 @@ class Widget {
     protected:
         std::string label; /// Display Name
         static constexpr char const *name = "generic widget"; /// Class Name
-        State &m;
+        media::State &m;
         Graphics &g;
         DefaultPrimitives p;
 

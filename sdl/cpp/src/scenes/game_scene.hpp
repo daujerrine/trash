@@ -1,8 +1,10 @@
 #ifndef SCENE_GAME_H
 #define SCENE_GAME_H
+
 #include "scene.hpp"
-#include "media.hpp"
-#include "ui.hpp"
+#include "media/media.hpp"
+#include "ui/ui.hpp"
+
 #include <vector>
 #include <deque>
 #include <string>
@@ -29,7 +31,7 @@ class GameScene : public Scene {
         Rect enemy = {0, 0, 20, 20};
         Rect bullet_dims = {0, 0, 10, 10};
 
-        Sample shoot_snd;
+        Sound shoot_snd;
         Music song;
 
         int xvel = 0, yvel = 0;

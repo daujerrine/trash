@@ -1,5 +1,13 @@
-#ifndef MEDIA_UI_WIDGET_H
-#define MEDIA_UI_WIDGET_H
+#ifndef MEDIA_UI_WIDGET_COMMON_H
+#define MEDIA_UI_WIDGET_COMMON_H
+
+#include <memory>
+#include <vector>
+#include <string>
+
+#include "media/media.hpp"
+#include "ui/common.hpp"
+#include "ui/primitives.hpp"
 
 namespace media {
 

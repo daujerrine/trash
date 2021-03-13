@@ -3,7 +3,8 @@
 
 #include <SDL2/SDL.h>
 
-#include "common.h"
+#include "common.hpp"
+#include "util.hpp"
 
 namespace media {
 
@@ -53,7 +54,7 @@ inline void Object::align(Rect k, Gravity g, int hpad, int vpad)
     // PRINTRECT(dest_rect);
     // PRINTRECT(k);
     // PRINTRECT(Util::rect_align(k, dest_rect, g, hpad, vpad));
-    dest_rect = Util::rect_align(k, dest_rect, g, hpad, vpad);
+    dest_rect = util::rect_align(k, dest_rect, g, hpad, vpad);
 }
 
 inline void Object::scale(int sw, int sh)

@@ -2,8 +2,8 @@
 #define SCENE_TITLE_H
 
 #include "scene.hpp"
-#include "media.hpp"
-#include "ui.hpp"
+#include "media/media.hpp"
+#include "ui/ui.hpp"
 
 using namespace media;
 
