@@ -230,6 +230,33 @@ media/graphics.cpp.s:
 	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/graphics.cpp.s
 .PHONY : media/graphics.cpp.s
 
+media/object.o: media/object.cpp.o
+
+.PHONY : media/object.o
+
+# target to build an object file
+media/object.cpp.o:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/object.cpp.o
+.PHONY : media/object.cpp.o
+
+media/object.i: media/object.cpp.i
+
+.PHONY : media/object.i
+
+# target to preprocess a source file
+media/object.cpp.i:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/object.cpp.i
+.PHONY : media/object.cpp.i
+
+media/object.s: media/object.cpp.s
+
+.PHONY : media/object.s
+
+# target to generate assembly for a file
+media/object.cpp.s:
+	$(MAKE) -f CMakeFiles/MediaLib.dir/build.make CMakeFiles/MediaLib.dir/media/object.cpp.s
+.PHONY : media/object.cpp.s
+
 media/state.o: media/state.cpp.o
 
 .PHONY : media/state.o
@@ -412,6 +439,9 @@ help:
 	@echo "... media/graphics.o"
 	@echo "... media/graphics.i"
 	@echo "... media/graphics.s"
+	@echo "... media/object.o"
+	@echo "... media/object.i"
+	@echo "... media/object.s"
 	@echo "... media/state.o"
 	@echo "... media/state.i"
 	@echo "... media/state.s"

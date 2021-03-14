@@ -1,0 +1,530 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Audio	media/audio.hpp	/^class Audio {$/;"	c	namespace:media
+BOTTOM	media/common.hpp	/^    BOTTOM,$/;"	e	enum:media::Gravity
+BOTTOMLEFT	media/common.hpp	/^    BOTTOMLEFT,$/;"	e	enum:media::Gravity
+BOTTOMRIGHT	media/common.hpp	/^    BOTTOMRIGHT,$/;"	e	enum:media::Gravity
+Button	ui/widget/button.hpp	/^        Button(State &m, Graphics &g, std::string label, int options = 0):$/;"	f	class:media::ui::Button
+Button	ui/widget/button.hpp	/^class Button : public Widget {$/;"	c	namespace:media::ui
+CENTER	media/common.hpp	/^    CENTER,$/;"	e	enum:media::Gravity
+CMAKE_BINARY_DIR	Makefile	/^CMAKE_BINARY_DIR = \/home\/turpentine\/Documents\/projects\/sdl\/cpp\/src$/;"	m
+CMAKE_COMMAND	Makefile	/^CMAKE_COMMAND = \/usr\/bin\/cmake$/;"	m
+CMAKE_SOURCE_DIR	Makefile	/^CMAKE_SOURCE_DIR = \/home\/turpentine\/Documents\/projects\/sdl\/cpp\/src$/;"	m
+CONFIG_H	config.h	2;"	d
+ClipObject	media/object.hpp	/^struct ClipObject : Object {$/;"	s	namespace:media
+ClipObjectRef	media/object.hpp	/^typedef ClipObject & ClipObjectRef;$/;"	t	namespace:media
+Color	media/common.hpp	/^typedef SDL_Color Color;$/;"	t	namespace:media
+Container	ui/widget/container.hpp	/^        Container($/;"	f	class:media::ui::Container
+Container	ui/widget/container.hpp	/^class Container : public Widget {$/;"	c	namespace:media::ui
+DefaultPrimitives	ui/primitives.hpp	/^        DefaultPrimitives(Graphics &g): Primitives(g) {}$/;"	f	class:media::ui::DefaultPrimitives
+DefaultPrimitives	ui/primitives.hpp	/^class DefaultPrimitives : public Primitives {$/;"	c	namespace:media::ui
+EQUALS	Makefile	/^EQUALS = =$/;"	m
+ERROR_MESSAGE_SIZE	media/state.hpp	/^        static const size_t   ERROR_MESSAGE_SIZE          = 1024 * 8;$/;"	m	class:media::State
+EventID	ui/common.hpp	/^enum EventID {$/;"	g	namespace:media::ui
+Exception	media/common.hpp	/^    Exception(ExceptionType s, int err_code = -1): err_code(err_code)$/;"	f	struct:media::Exception
+Exception	media/common.hpp	/^    Exception(char *msg, int err_code = -1): msg(msg), err_code(err_code) {}$/;"	f	struct:media::Exception
+Exception	media/common.hpp	/^struct Exception {$/;"	s	namespace:media
+ExceptionType	media/common.hpp	/^    enum ExceptionType {$/;"	g	struct:media::Exception
+FONT_DATA_STANDARD	media/text.hpp	/^            FONT_DATA_STANDARD,$/;"	m	class:media::Text::FontDataType
+FPSCounter	media/state.hpp	/^struct FPSCounter {$/;"	s	namespace:media
+FontDataType	media/text.hpp	/^        enum class FontDataType {$/;"	c	class:media::Text
+Frame	ui/widget/container.hpp	/^        Frame($/;"	f	class:media::ui::Frame
+Frame	ui/widget/container.hpp	/^class Frame : public Container<GridGeometry> {$/;"	c	namespace:media::ui
+GAME_DEBUG_BUILD	config.h	7;"	d
+GAME_VERSION_MAJOR	config.h	4;"	d
+GAME_VERSION_MINOR	config.h	5;"	d
+GAME_VERSION_PATCH	config.h	6;"	d
+GameScene	scenes/game_scene.hpp	/^        GameScene(State &m, Graphics &g, SceneState &s):$/;"	f	class:GameScene
+GameScene	scenes/game_scene.hpp	/^class GameScene : public Scene {$/;"	c
+Geometry	ui/geometry/common.hpp	/^        Geometry ($/;"	f	class:media::ui::Geometry
+Geometry	ui/geometry/common.hpp	/^class Geometry {$/;"	c	namespace:media::ui
+Graphics	media/graphics.hpp	/^        Graphics(State &m): m(m) {};$/;"	f	class:media::Graphics
+Graphics	media/graphics.hpp	/^class Graphics {$/;"	c	namespace:media
+Gravity	media/common.hpp	/^typedef enum Gravity {$/;"	g	namespace:media
+Gravity	media/common.hpp	/^} Gravity;$/;"	t	namespace:media	typeref:enum:media::Gravity
+GravityEntry	ui/geometry/relative.hpp	/^        struct GravityEntry {$/;"	s	class:media::ui::RelativeGeometry
+GridEntry	ui/geometry/grid.hpp	/^        struct GridEntry {$/;"	s	class:media::ui::GridGeometry
+GridGeometry	ui/geometry/grid.hpp	/^        GridGeometry($/;"	f	class:media::ui::GridGeometry
+GridGeometry	ui/geometry/grid.hpp	/^class GridGeometry : public Geometry {$/;"	c	namespace:media::ui
+LEFT	media/common.hpp	/^    LEFT$/;"	e	enum:media::Gravity
+LOOP_FOREVER	media/audio.hpp	/^            LOOP_FOREVER = 0,$/;"	e	enum:media::Audio::Loops
+LOOP_ONCE	media/audio.hpp	/^            LOOP_ONCE = 1$/;"	e	enum:media::Audio::Loops
+LZCHECK	media/common.hpp	18;"	d
+Label	ui/widget/label.hpp	/^        Label(State &m, Graphics &g, std::string label, int options = 0):$/;"	f	class:media::ui::Label
+Label	ui/widget/label.hpp	/^class Label : public Widget {$/;"	c	namespace:media::ui
+Loops	media/audio.hpp	/^        enum Loops {$/;"	g	class:media::Audio
+MEDIA_AUDIO_H	media/audio.hpp	2;"	d
+MEDIA_COMMON_H	media/common.hpp	2;"	d
+MEDIA_GRAPHICS_H	media/graphics.hpp	2;"	d
+MEDIA_H	media/media.hpp	2;"	d
+MEDIA_LOG_H	media/log.hpp	2;"	d
+MEDIA_OBJECT_H	media/object.hpp	2;"	d
+MEDIA_STATE_H	media/state.hpp	2;"	d
+MEDIA_TEXT_H	media/text.hpp	2;"	d
+MEDIA_TIMER_H	media/timer.hpp	2;"	d
+MEDIA_UI_COMMON_H	ui/common.hpp	2;"	d
+MEDIA_UI_GEOMETRY_COMMON_H	ui/geometry/common.hpp	2;"	d
+MEDIA_UI_GEOMETRY_GRID_H	ui/geometry/grid.hpp	2;"	d
+MEDIA_UI_GEOMETRY_H	ui/geometry/geometry.hpp	2;"	d
+MEDIA_UI_GEOMETRY_RELATIVE_H	ui/geometry/relative.hpp	2;"	d
+MEDIA_UI_H	ui/ui.hpp	2;"	d
+MEDIA_UI_PRIMITIVES_H	ui/primitives.hpp	2;"	d
+MEDIA_UI_WIDGET_BUTTON_H	ui/widget/button.hpp	2;"	d
+MEDIA_UI_WIDGET_COMMON_H	ui/widget/common.hpp	2;"	d
+MEDIA_UI_WIDGET_CONTAINER_H	ui/widget/container.hpp	2;"	d
+MEDIA_UI_WIDGET_H	ui/widget/widget.hpp	2;"	d
+MEDIA_UI_WIDGET_LABEL_H	ui/widget/label.hpp	2;"	d
+MEDIA_UTIL_H	media/util.hpp	2;"	d
+Music	media/audio.hpp	/^        Music(std::string filepath)$/;"	f	class:media::Music
+Music	media/audio.hpp	/^class Music : public Audio {$/;"	c	namespace:media
+MusicControl	media/audio.hpp	/^struct MusicControl {$/;"	s	namespace:media
+MusicData	media/common.hpp	/^typedef Mix_Music MusicData;$/;"	t	namespace:media
+NULLCHECK	media/common.hpp	24;"	d
+OPT_WIDGET_FIXED	ui/common.hpp	/^    OPT_WIDGET_FIXED     = UI_OPTION_DEF_PARENT(2),$/;"	e	enum:media::ui::Options
+OPT_WIDGET_NOCLIP	ui/common.hpp	/^    OPT_WIDGET_NOCLIP    = UI_OPTION_DEF_PARENT(0),$/;"	e	enum:media::ui::Options
+OPT_WIDGET_PROPS_SET	ui/common.hpp	/^    OPT_WIDGET_PROPS_SET = UI_OPTION_DEF(0),$/;"	e	enum:media::ui::Options
+OPT_WIDGET_STRETCH	ui/common.hpp	/^    OPT_WIDGET_STRETCH   = UI_OPTION_DEF_PARENT(1),$/;"	e	enum:media::ui::Options
+Object	media/object.hpp	/^    Object(): texture(nullptr) {}$/;"	f	struct:media::Object
+Object	media/object.hpp	/^struct Object {$/;"	s	namespace:media
+ObjectRef	media/object.hpp	/^typedef Object & ObjectRef;$/;"	t	namespace:media
+Options	ui/common.hpp	/^enum Options {$/;"	g	namespace:media::ui
+PRINTRECT	media/common.hpp	16;"	d
+PRINT_LINE	media/common.hpp	15;"	d
+Point	media/common.hpp	/^typedef SDL_Point Point;$/;"	t	namespace:media
+Primitives	ui/primitives.hpp	/^        Primitives(Graphics &g): g(g) {};$/;"	f	class:media::ui::Primitives
+Primitives	ui/primitives.hpp	/^class Primitives {$/;"	c	namespace:media::ui
+QuitScene	scenes/quit_scene.hpp	/^        QuitScene(State &m, Graphics &g, SceneState &s):$/;"	f	class:QuitScene
+QuitScene	scenes/quit_scene.hpp	/^class QuitScene : public Scene {$/;"	c
+RIGHT	media/common.hpp	/^    RIGHT,$/;"	e	enum:media::Gravity
+RM	Makefile	/^RM = \/usr\/bin\/cmake -E remove -f$/;"	m
+Rect	media/common.hpp	/^typedef SDL_Rect Rect;$/;"	t	namespace:media
+RelativeGeometry	ui/geometry/relative.hpp	/^        RelativeGeometry($/;"	f	class:media::ui::RelativeGeometry
+RelativeGeometry	ui/geometry/relative.hpp	/^class RelativeGeometry : public Geometry {$/;"	c	namespace:media::ui
+SCENE_GAME	scene.hpp	/^    SCENE_GAME,$/;"	e	enum:SceneState
+SCENE_GAME_H	scenes/game_scene.hpp	2;"	d
+SCENE_GAME_OVER	scene.hpp	/^    SCENE_GAME_OVER$/;"	e	enum:SceneState
+SCENE_H	scene.hpp	7;"	d
+SCENE_QT_H	scenes/quit_scene.hpp	2;"	d
+SCENE_TITLE	scene.hpp	/^    SCENE_TITLE = 0,$/;"	e	enum:SceneState
+SCENE_TITLE_H	scenes/title_scene.hpp	2;"	d
+SHELL	Makefile	/^SHELL = \/bin\/sh$/;"	m
+SUBSYSTEM_IMG	media/common.hpp	/^        SUBSYSTEM_IMG,$/;"	e	enum:media::Exception::ExceptionType
+SUBSYSTEM_MIXER	media/common.hpp	/^        SUBSYSTEM_MIXER,$/;"	e	enum:media::Exception::ExceptionType
+SUBSYSTEM_NET	media/common.hpp	/^        SUBSYSTEM_NET,$/;"	e	enum:media::Exception::ExceptionType
+SUBSYSTEM_SDL	media/common.hpp	/^        SUBSYSTEM_SDL,$/;"	e	enum:media::Exception::ExceptionType
+SUBSYSTEM_TTF	media/common.hpp	/^        SUBSYSTEM_TTF,$/;"	e	enum:media::Exception::ExceptionType
+SUFFIXES	Makefile	/^SUFFIXES =$/;"	m
+Scene	scene.hpp	/^class Scene {$/;"	c
+SceneState	scene.hpp	/^enum SceneState {$/;"	g
+Size	media/common.hpp	/^struct Size {$/;"	s	namespace:media
+Sound	media/audio.hpp	/^        Sound(std::string filepath)$/;"	f	class:media::Sound
+Sound	media/audio.hpp	/^class Sound : public Audio {$/;"	c	namespace:media
+SoundControl	media/audio.hpp	/^struct SoundControl {$/;"	s	namespace:media
+SoundData	media/common.hpp	/^typedef Mix_Chunk SoundData;$/;"	t	namespace:media
+State	media/state.cpp	/^State::State($/;"	f	class:media::State
+State	media/state.hpp	/^class State {$/;"	c	namespace:media
+Surface	media/common.hpp	/^typedef SDL_Surface Surface;$/;"	t	namespace:media
+TOP	media/common.hpp	/^    TOP,$/;"	e	enum:media::Gravity
+TOPLEFT	media/common.hpp	/^    TOPLEFT,$/;"	e	enum:media::Gravity
+TOPRIGHT	media/common.hpp	/^    TOPRIGHT,$/;"	e	enum:media::Gravity
+Text	media/text.hpp	/^        Text(State &m, FontDataType ft, std::string font_path): m(m)$/;"	f	class:media::Text
+Text	media/text.hpp	/^class Text {$/;"	c	namespace:media
+Texture	media/common.hpp	/^typedef SDL_Texture Texture;$/;"	t	namespace:media
+Timer	media/timer.hpp	/^    Timer(uint32_t duration)$/;"	f	struct:media::Timer
+Timer	media/timer.hpp	/^struct Timer {$/;"	s	namespace:media
+TitleScene	scenes/title_scene.hpp	/^        TitleScene(State &m, Graphics &g, SceneState &s):$/;"	f	class:TitleScene
+TitleScene	scenes/title_scene.hpp	/^class TitleScene : public Scene {$/;"	c
+TopLevel	ui/widget/container.hpp	/^        TopLevel($/;"	f	class:media::ui::TopLevel
+TopLevel	ui/widget/container.hpp	/^class TopLevel : public Container<RelativeGeometry> {$/;"	c	namespace:media::ui
+UI_BUTTON_CLICKED	ui/common.hpp	/^    UI_BUTTON_CLICKED$/;"	e	enum:media::ui::EventID
+UI_DEFAULT_MARGIN	ui/common.hpp	9;"	d
+UI_DEFAULT_MIN_HEIGHT	ui/common.hpp	11;"	d
+UI_DEFAULT_MIN_WIDTH	ui/common.hpp	10;"	d
+UI_DEFAULT_PADDING	ui/common.hpp	8;"	d
+UI_OPTION_DEF	ui/common.hpp	15;"	d
+UI_OPTION_DEF_MAX	ui/common.hpp	13;"	d
+UI_OPTION_DEF_PARENT	ui/common.hpp	16;"	d
+UI_OPTION_DEF_PARENT_MAX	ui/common.hpp	14;"	d
+UI_WIDGET_ACTIVE	ui/common.hpp	/^    UI_WIDGET_ACTIVE,$/;"	e	enum:media::ui::WidgetState
+UI_WIDGET_CHANGED	ui/common.hpp	/^    UI_WIDGET_CHANGED,$/;"	e	enum:media::ui::WidgetState
+UI_WIDGET_DISABLED	ui/common.hpp	/^    UI_WIDGET_DISABLED$/;"	e	enum:media::ui::WidgetState
+UI_WIDGET_DOWN	ui/common.hpp	/^    UI_WIDGET_DOWN,$/;"	e	enum:media::ui::WidgetState
+UI_WIDGET_NORMAL	ui/common.hpp	/^    UI_WIDGET_NORMAL,$/;"	e	enum:media::ui::WidgetState
+Widget	ui/widget/common.hpp	/^        Widget(State &m, Graphics &g, std::string label, int options):$/;"	f	class:media::ui::Widget
+Widget	ui/widget/common.hpp	/^class Widget {$/;"	c	namespace:media::ui
+WidgetList	ui/widget/common.hpp	/^typedef std::vector<std::unique_ptr<Widget>> WidgetList;$/;"	t	namespace:media::ui
+WidgetProperties	ui/widget/common.hpp	/^struct WidgetProperties {$/;"	s	namespace:media::ui
+WidgetState	ui/common.hpp	/^enum WidgetState {$/;"	g	namespace:media::ui
+active	media/state.hpp	/^        bool active;         \/\/\/ Is frame loop active?$/;"	m	class:media::State
+add	ui/geometry/grid.hpp	/^inline void GridGeometry::add(int rows, int cols, int repeat_till)$/;"	f	class:media::ui::GridGeometry
+add	ui/geometry/relative.hpp	/^inline void RelativeGeometry::add(Gravity grav, int hpad, int vpad)$/;"	f	class:media::ui::RelativeGeometry
+add	ui/widget/container.hpp	/^        WidgetT &add(std::string label, int options = 0, Args &&...args)$/;"	f	class:media::ui::Container
+align	media/object.hpp	/^inline void Object::align(Rect k, Gravity g, int hpad, int vpad)$/;"	f	class:media::Object
+assert	media/log.hpp	7;"	d
+assert_crit	media/log.hpp	6;"	d
+behaviour	ui/common.hpp	/^namespace behaviour {$/;"	n	namespace:media::ui
+bg_color	ui/widget/common.hpp	/^    Color bg_color        = { 110, 110, 110  };$/;"	m	struct:media::ui::WidgetProperties
+box	ui/primitives.hpp	/^inline int DefaultPrimitives::box(Rect k)$/;"	f	class:media::ui::DefaultPrimitives
+bullet_dims	scenes/game_scene.hpp	/^        Rect bullet_dims = {0, 0, 10, 10};$/;"	m	class:GameScene
+bullet_timer	scenes/game_scene.hpp	/^        Timer bullet_timer;$/;"	m	class:GameScene
+bullets	scenes/game_scene.hpp	/^        std::deque<Rect> bullets;$/;"	m	class:GameScene
+c	scenes/game_scene.hpp	/^        ui::Frame *c;$/;"	m	class:GameScene
+c	ui/geometry/grid.hpp	/^        Rect c = {0, 0, 0, 0};$/;"	m	class:media::ui::GridGeometry
+calculate_all	ui/geometry/grid.hpp	/^inline Rect GridGeometry::calculate_all(Rect new_dim)$/;"	f	class:media::ui::GridGeometry
+calculate_all	ui/geometry/relative.hpp	/^inline Rect RelativeGeometry::calculate_all(Rect new_dim)$/;"	f	class:media::ui::RelativeGeometry
+cap	scenes/game_scene.hpp	/^        int cap = 10;$/;"	m	class:GameScene
+clear	media/graphics.hpp	/^inline void Graphics::clear()$/;"	f	class:media::Graphics
+clicked_flag	ui/widget/button.hpp	/^        bool clicked_flag = false;$/;"	m	class:media::ui::Button
+clip	media/object.hpp	/^inline void ClipObject::clip(Rect k)$/;"	f	class:media::ClipObject
+clip	media/object.hpp	/^inline void ClipObject::clip(int w)$/;"	f	class:media::ClipObject
+clip	media/object.hpp	/^inline void ClipObject::clip(int w, int h)$/;"	f	class:media::ClipObject
+clip_clear	media/object.hpp	/^inline void ClipObject::clip_clear()$/;"	f	class:media::ClipObject
+clip_clear_src	media/object.hpp	/^inline void ClipObject::clip_clear_src()$/;"	f	class:media::ClipObject
+clip_src	media/object.hpp	/^inline void ClipObject::clip_src(Rect k)$/;"	f	class:media::ClipObject
+clip_src	media/object.hpp	/^inline void ClipObject::clip_src(int w)$/;"	f	class:media::ClipObject
+clip_src	media/object.hpp	/^inline void ClipObject::clip_src(int w, int h)$/;"	f	class:media::ClipObject
+close	scenes/game_scene.hpp	/^void GameScene::close()$/;"	f	class:GameScene
+close	scenes/quit_scene.hpp	/^void QuitScene::close()$/;"	f	class:QuitScene
+close	scenes/title_scene.hpp	/^void TitleScene::close()$/;"	f	class:TitleScene
+cols	ui/geometry/grid.hpp	/^            int cols;$/;"	m	struct:media::ui::GridGeometry::GridEntry
+container_dim	ui/geometry/common.hpp	/^        Rect container_dim  = {0, 0, 0, 0};$/;"	m	class:media::ui::Geometry
+content_align	ui/widget/common.hpp	/^    Gravity content_align = CENTER;$/;"	m	struct:media::ui::WidgetProperties
+counter	scenes/game_scene.hpp	/^        ui::Label *counter;$/;"	m	class:GameScene
+counter_val	scenes/game_scene.hpp	/^        int counter_val = 0;$/;"	m	class:GameScene
+data	media/audio.hpp	/^        MusicData *data = nullptr;$/;"	m	class:media::Music
+data	media/audio.hpp	/^        SoundData *data;$/;"	m	class:media::Sound
+debug_keys	media/state.hpp	/^        std::map<std::string, std::string> debug_keys;$/;"	m	class:media::State
+default_grav	ui/geometry/geometry.cpp	/^constexpr const RelativeGeometry::GravityEntry RelativeGeometry::default_grav;$/;"	m	class:media::ui::RelativeGeometry
+default_grav	ui/geometry/relative.hpp	/^        static constexpr const GravityEntry default_grav = {0, CENTER, 0, 0};$/;"	m	class:media::ui::RelativeGeometry
+default_grid	ui/geometry/geometry.cpp	/^constexpr const GridGeometry::GridEntry GridGeometry::default_grid;$/;"	m	class:media::ui::GridGeometry
+default_grid	ui/geometry/grid.hpp	/^        static constexpr const GridEntry default_grid = { 0, 1, 1, 0 };$/;"	m	class:media::ui::GridGeometry
+delay	media/timer.hpp	/^inline uint32_t Timer::delay()$/;"	f	class:media::Timer
+delta	media/state.hpp	/^        uint32_t delta;      \/\/\/ Delta Time$/;"	m	class:media::State
+dest_rect	media/object.hpp	/^    Rect dest_rect;$/;"	m	struct:media::Object
+dims	ui/widget/common.hpp	/^        Rect dims;$/;"	m	class:media::ui::Widget
+display_err	media/state.cpp	/^void State::display_err()$/;"	f	class:media::State
+done	media/timer.hpp	/^inline bool Timer::done()$/;"	f	class:media::Timer
+draw	scenes/game_scene.hpp	/^void GameScene::draw()$/;"	f	class:GameScene
+draw	scenes/quit_scene.hpp	/^void QuitScene::draw()$/;"	f	class:QuitScene
+draw	scenes/title_scene.hpp	/^void TitleScene::draw()$/;"	f	class:TitleScene
+draw	ui/widget/button.cpp	/^void Button::draw()$/;"	f	class:media::ui::Button
+draw	ui/widget/container.cpp	/^void Frame::draw()$/;"	f	class:media::ui::Frame
+draw	ui/widget/container.hpp	/^void Container<GeometryT>::draw()$/;"	f	class:media::ui::Container
+draw	ui/widget/label.cpp	/^void Label::draw()$/;"	f	class:media::ui::Label
+duration	media/timer.hpp	/^    uint32_t duration;$/;"	m	struct:media::Timer
+e	media/state.hpp	/^        SDL_Event e;         \/\/\/ Events$/;"	m	class:media::State
+elapsed	media/state.hpp	/^    uint64_t elapsed;$/;"	m	struct:media::FPSCounter
+end	media/state.hpp	/^    uint64_t end;$/;"	m	struct:media::FPSCounter
+enemy	scenes/game_scene.hpp	/^        Rect enemy = {0, 0, 20, 20};$/;"	m	class:GameScene
+enemy_in	scenes/game_scene.hpp	/^        bool enemy_in = false;$/;"	m	class:GameScene
+err_code	media/common.hpp	/^    int err_code;$/;"	m	struct:media::Exception
+err_msg	media/state.hpp	/^        static constexpr char err_msg[ERROR_MESSAGE_SIZE] = "";$/;"	m	class:media::State
+event	scenes/game_scene.hpp	/^void GameScene::event()$/;"	f	class:GameScene
+event	scenes/quit_scene.hpp	/^void QuitScene::event()$/;"	f	class:QuitScene
+event	scenes/title_scene.hpp	/^void TitleScene::event()$/;"	f	class:TitleScene
+event	ui/widget/button.cpp	/^bool Button::event()$/;"	f	class:media::ui::Button
+event	ui/widget/container.cpp	/^bool TopLevel::event()$/;"	f	class:media::ui::TopLevel
+event	ui/widget/container.hpp	/^bool Container<GeometryT>::event()$/;"	f	class:media::ui::Container
+event	ui/widget/label.cpp	/^bool Label::event()$/;"	f	class:media::ui::Label
+expire	media/audio.cpp	/^void SoundControl::expire(int channel, int ticks)$/;"	f	class:media::SoundControl
+expire	media/audio.hpp	/^        void expire(int ticks, int channel = -1)     { m::expire(ticks, channel); }$/;"	f	class:media::Sound
+ext_glyphs	media/text.hpp	/^        std::map<uint32_t, Texture *> ext_glyphs; \/\/ Any extra glyphs we need$/;"	m	class:media::Text
+f	scenes/quit_scene.hpp	/^        ui::Frame *f;$/;"	m	class:QuitScene
+fade_in	media/audio.cpp	/^int Music::fade_in(int duration, int loops)$/;"	f	class:media::Music
+fade_in	media/audio.cpp	/^int Sound::fade_in(int duration, int channel, int loops)$/;"	f	class:media::Sound
+fade_out	media/audio.cpp	/^int MusicControl::fade_out(int duration)$/;"	f	class:media::MusicControl
+fade_out	media/audio.cpp	/^int SoundControl::fade_out(int duration, int channel)$/;"	f	class:media::SoundControl
+fade_out	media/audio.hpp	/^        int fade_out(int duration) { return m::fade_out(duration); }$/;"	f	class:media::Music
+fade_out	media/audio.hpp	/^        int fade_out(int duration, int channel = -1) { return m::fade_out(duration, channel); }$/;"	f	class:media::Sound
+fail	media/audio.hpp	/^        bool fail() { return data == nullptr; }$/;"	f	class:media::Music
+fail	media/audio.hpp	/^        bool fail() { return data == nullptr; }$/;"	f	class:media::Sound
+fail	media/state.cpp	/^bool State::fail()$/;"	f	class:media::State
+fail_flag	media/state.hpp	/^        bool fail_flag = false;  \/\/\/ Has initialisation failed?$/;"	m	class:media::State
+fbox	ui/primitives.hpp	/^inline int DefaultPrimitives::fbox(Rect k)$/;"	f	class:media::ui::DefaultPrimitives
+fg_color	ui/widget/common.hpp	/^    Color fg_color        = { 255, 255, 255, };$/;"	m	struct:media::ui::WidgetProperties
+finished	media/audio.cpp	/^void MusicControl::finished(void (*callback)())$/;"	f	class:media::MusicControl
+finished	media/audio.cpp	/^void SoundControl::finished(void (*callback)(int channel))$/;"	f	class:media::SoundControl
+firing	scenes/game_scene.hpp	/^        bool firing = false;$/;"	m	class:GameScene
+font	media/state.hpp	/^        TTF_Font *font;      \/\/\/ Default Font$/;"	m	class:media::State
+font	media/text.hpp	/^        TTF_Font *font;$/;"	m	class:media::Text
+fps	media/state.hpp	/^        FPSCounter fps; \/\/\/ FPS tracker$/;"	m	class:media::State
+frect	media/graphics.hpp	/^inline int Graphics::frect(const Rect &rect)$/;"	f	class:media::Graphics
+frects	media/graphics.hpp	/^inline int Graphics::frects(const Rect *rects, int count)$/;"	f	class:media::Graphics
+frects	media/graphics.hpp	/^inline int Graphics::frects(const std::vector<Rect> &rects)$/;"	f	class:media::Graphics
+free	media/object.cpp	/^void Object::free() {$/;"	f	class:media::Object
+friction	scenes/game_scene.hpp	/^        int friction = 1;$/;"	m	class:GameScene
+g	scenes/game_scene.hpp	/^        Graphics &g;$/;"	m	class:GameScene
+g	scenes/quit_scene.hpp	/^        Graphics &g;$/;"	m	class:QuitScene
+g	scenes/title_scene.hpp	/^        Graphics &g;$/;"	m	class:TitleScene
+g	ui/primitives.hpp	/^        Graphics &g;$/;"	m	class:media::ui::Primitives
+g	ui/widget/common.hpp	/^        Graphics &g;$/;"	m	class:media::ui::Widget
+geo	ui/widget/container.hpp	/^        GeometryT geo;$/;"	m	class:media::ui::Container
+get_err	media/state.cpp	/^const char *State::get_err()$/;"	f	class:media::State
+get_fps	media/state.hpp	/^inline float State::get_fps()$/;"	f	class:media::State
+get_name	ui/widget/common.hpp	/^        virtual inline char const *get_name()$/;"	f	class:media::ui::Widget
+get_refresh_request	ui/widget/common.hpp	/^        inline bool get_refresh_request()$/;"	f	class:media::ui::Widget
+glyph_tx	media/text.hpp	/^        Texture *glyph_tx;$/;"	m	class:media::Text
+grav_index	ui/geometry/relative.hpp	/^        int grav_index;$/;"	m	class:media::ui::RelativeGeometry
+grav_list	ui/geometry/relative.hpp	/^        std::vector<GravityEntry> grav_list;$/;"	m	class:media::ui::RelativeGeometry
+gravity	ui/geometry/relative.hpp	/^            Gravity gravity;$/;"	m	struct:media::ui::RelativeGeometry::GravityEntry
+grid_index	ui/geometry/grid.hpp	/^        int grid_index;$/;"	m	class:media::ui::GridGeometry
+grid_list	ui/geometry/grid.hpp	/^        std::vector<GridEntry> grid_list;$/;"	m	class:media::ui::GridGeometry
+h	media/common.hpp	/^    int h;$/;"	m	struct:media::Size
+h	media/object.hpp	/^    int h;$/;"	m	struct:media::ClipObject
+hide	ui/widget/common.hpp	/^        inline void hide()$/;"	f	class:media::ui::Widget
+hpad	ui/geometry/relative.hpp	/^            int hpad;$/;"	m	struct:media::ui::RelativeGeometry::GravityEntry
+image	media/graphics.cpp	/^void Graphics::image(ObjectRef k, std::string filepath)$/;"	f	class:media::Graphics
+info	scenes/game_scene.hpp	/^        ui::Label *info, *info2;$/;"	m	class:GameScene
+info2	scenes/game_scene.hpp	/^        ui::Label *info, *info2;$/;"	m	class:GameScene
+init	scenes/game_scene.hpp	/^void GameScene::init()$/;"	f	class:GameScene
+init	scenes/quit_scene.hpp	/^void QuitScene::init()$/;"	f	class:QuitScene
+init	scenes/title_scene.hpp	/^void TitleScene::init()$/;"	f	class:TitleScene
+init_flag	scene.hpp	/^        bool init_flag = false;$/;"	m	class:Scene
+initial_refresh	ui/geometry/grid.hpp	/^        bool initial_refresh = true;$/;"	m	class:media::ui::GridGeometry
+initialized	scene.hpp	/^        virtual inline bool initialized()$/;"	f	class:Scene
+is_changed	ui/widget/button.hpp	/^        inline bool is_changed()$/;"	f	class:media::ui::Button
+is_changed	ui/widget/container.hpp	/^        virtual inline bool is_changed()$/;"	f	class:media::ui::Container
+is_changed	ui/widget/label.hpp	/^        inline bool is_changed()$/;"	f	class:media::ui::Label
+is_down	ui/widget/button.hpp	/^        inline bool is_down()$/;"	f	class:media::ui::Button
+is_down	ui/widget/container.hpp	/^        virtual inline bool is_down()$/;"	f	class:media::ui::Container
+is_down	ui/widget/label.hpp	/^        inline bool is_down()$/;"	f	class:media::ui::Label
+iter	ui/geometry/grid.hpp	/^inline GridGeometry::GridEntry const *GridGeometry::iter(int widget_index)$/;"	f	class:media::ui::GridGeometry::GridGeometry
+iter	ui/geometry/relative.hpp	/^inline RelativeGeometry::GravityEntry const *RelativeGeometry::iter(int widget_index)$/;"	f	class:media::ui::RelativeGeometry::RelativeGeometry
+label	ui/widget/common.hpp	/^        std::string label; \/\/\/ Display Name$/;"	m	class:media::ui::Widget
+line	media/graphics.hpp	/^inline int Graphics::line(Rect k)$/;"	f	class:media::Graphics
+line	media/graphics.hpp	/^inline int Graphics::line(int x1, int x2, int y1, int y2)$/;"	f	class:media::Graphics
+line	ui/primitives.hpp	/^inline int DefaultPrimitives::line(Widget &u, int x1, int y1, int x2, int y2)$/;"	f	class:media::ui::DefaultPrimitives
+lines	media/graphics.hpp	/^inline int Graphics::lines(const Point *points, int count)$/;"	f	class:media::Graphics
+lines	media/graphics.hpp	/^inline int Graphics::lines(const std::vector<Point> &points)$/;"	f	class:media::Graphics
+log_trace	media/log.hpp	/^static inline log_trace(fmt, ...) {$/;"	f	namespace:util
+loop_end	media/state.hpp	/^inline void State::loop_end()$/;"	f	class:media::State
+loop_start	media/state.hpp	/^inline void State::loop_start()$/;"	f	class:media::State
+m	media/graphics.hpp	/^        State &m;$/;"	m	class:media::Graphics
+m	media/text.hpp	/^        State &m;$/;"	m	class:media::Text
+m	scenes/game_scene.hpp	/^        State &m;$/;"	m	class:GameScene
+m	scenes/quit_scene.hpp	/^        State &m;$/;"	m	class:QuitScene
+m	scenes/title_scene.hpp	/^        State &m;$/;"	m	class:TitleScene
+m	ui/widget/common.hpp	/^        media::State &m;$/;"	m	class:media::ui::Widget
+main	main.cpp	/^int main() {$/;"	f
+main_h	media/state.hpp	/^        int main_h;          \/\/\/ Main window height$/;"	m	class:media::State
+main_w	media/state.hpp	/^        int main_w;          \/\/\/ Main window width$/;"	m	class:media::State
+margin	ui/primitives.hpp	/^        int margin     = UI_DEFAULT_MARGIN;$/;"	m	class:media::ui::DefaultPrimitives
+margin	ui/primitives.hpp	/^        int margin;$/;"	m	class:media::ui::Primitives
+margin	ui/widget/common.hpp	/^    int margin            = UI_DEFAULT_MARGIN;$/;"	m	struct:media::ui::WidgetProperties
+max_fps	media/state.hpp	/^        int max_fps;         \/\/\/ Maximum FPS of game$/;"	m	class:media::State
+max_size	ui/widget/common.hpp	/^    Size max_size         = { 100000, 100000 };$/;"	m	struct:media::ui::WidgetProperties
+media	media/audio.cpp	/^namespace media {$/;"	n
+media	media/audio.hpp	/^namespace media {$/;"	n
+media	media/common.hpp	/^namespace media {$/;"	n
+media	media/graphics.cpp	/^namespace media {$/;"	n
+media	media/graphics.hpp	/^namespace media {$/;"	n
+media	media/object.cpp	/^namespace media {$/;"	n
+media	media/object.hpp	/^namespace media {$/;"	n
+media	media/state.cpp	/^namespace media {$/;"	n
+media	media/state.hpp	/^namespace media {$/;"	n
+media	media/text.cpp	/^namespace media {$/;"	n
+media	media/text.hpp	/^namespace media {$/;"	n
+media	media/timer.hpp	/^namespace media {$/;"	n
+media	media/util.hpp	/^namespace media {$/;"	n
+media	ui/common.hpp	/^namespace media {$/;"	n
+media	ui/geometry/common.hpp	/^namespace media {$/;"	n
+media	ui/geometry/geometry.cpp	/^namespace media {$/;"	n
+media	ui/geometry/grid.hpp	/^namespace media {$/;"	n
+media	ui/geometry/relative.hpp	/^namespace media {$/;"	n
+media	ui/primitives.hpp	/^namespace media {$/;"	n
+media	ui/widget/button.cpp	/^namespace media {$/;"	n
+media	ui/widget/button.hpp	/^namespace media {$/;"	n
+media	ui/widget/common.hpp	/^namespace media {$/;"	n
+media	ui/widget/container.cpp	/^namespace media {$/;"	n
+media	ui/widget/container.hpp	/^namespace media {$/;"	n
+media	ui/widget/label.cpp	/^namespace media {$/;"	n
+media	ui/widget/label.hpp	/^namespace media {$/;"	n
+media_main	main.cpp	/^int media_main() {$/;"	f
+min_height	ui/primitives.hpp	/^        int min_height = UI_DEFAULT_MIN_HEIGHT;$/;"	m	class:media::ui::DefaultPrimitives
+min_height	ui/primitives.hpp	/^        int min_height;$/;"	m	class:media::ui::Primitives
+min_size	ui/widget/common.hpp	/^    Size min_size         = { 0, 0 };$/;"	m	struct:media::ui::WidgetProperties
+min_width	ui/primitives.hpp	/^        int min_width  = UI_DEFAULT_MIN_WIDTH;$/;"	m	class:media::ui::DefaultPrimitives
+min_width	ui/primitives.hpp	/^        int min_width;$/;"	m	class:media::ui::Primitives
+motion	scenes/game_scene.hpp	/^        bool motion = false;$/;"	m	class:GameScene
+motion_timer	scenes/game_scene.hpp	/^        Timer motion_timer;$/;"	m	class:GameScene
+msg	media/common.hpp	/^    const char *msg;$/;"	m	struct:media::Exception
+name	ui/widget/button.hpp	/^        static constexpr char const *name = "button";$/;"	m	class:media::ui::Button
+name	ui/widget/common.hpp	/^        static constexpr char const *name = "generic widget"; \/\/\/ Class Name$/;"	m	class:media::ui::Widget
+name	ui/widget/container.hpp	/^        static constexpr char const *name = "container";$/;"	m	class:media::ui::Container
+name	ui/widget/container.hpp	/^        static constexpr char const *name = "frame";$/;"	m	class:media::ui::Frame
+name	ui/widget/container.hpp	/^        static constexpr char const *name = "toplevel";$/;"	m	class:media::ui::TopLevel
+name	ui/widget/label.hpp	/^        static constexpr char const *name = "label";$/;"	m	class:media::ui::Label
+no	scenes/quit_scene.hpp	/^        ui::Button *no;$/;"	m	class:QuitScene
+no_refresh_flag	ui/widget/common.hpp	/^        bool no_refresh_flag = true;$/;"	m	class:media::ui::Widget
+num_bullets	scenes/game_scene.hpp	/^        int num_bullets = 0;$/;"	m	class:GameScene
+o_label	ui/widget/button.hpp	/^        ClipObject o_label;$/;"	m	class:media::ui::Button
+o_label	ui/widget/label.hpp	/^        ClipObject o_label;$/;"	m	class:media::ui::Label
+options	ui/geometry/grid.hpp	/^            int options;$/;"	m	struct:media::ui::GridGeometry::GridEntry
+options	ui/widget/common.hpp	/^        uint32_t options;$/;"	m	class:media::ui::Widget
+overflow_x	media/object.hpp	/^inline void ClipObject::overflow_x(Rect bounds)$/;"	f	class:media::ClipObject
+p	ui/widget/common.hpp	/^        DefaultPrimitives p;$/;"	m	class:media::ui::Widget
+p	ui/widget/container.hpp	/^        DefaultPrimitives p;$/;"	m	class:media::ui::Container
+padding	ui/primitives.hpp	/^        int padding    = UI_DEFAULT_PADDING;$/;"	m	class:media::ui::DefaultPrimitives
+padding	ui/primitives.hpp	/^        int padding;$/;"	m	class:media::ui::Primitives
+padding	ui/widget/common.hpp	/^    int padding           = UI_DEFAULT_PADDING;$/;"	m	struct:media::ui::WidgetProperties
+paint	media/graphics.hpp	/^inline void Graphics::paint(const ClipObjectRef k)$/;"	f	class:media::Graphics
+paint	media/graphics.hpp	/^inline void Graphics::paint(const ObjectRef k)$/;"	f	class:media::Graphics
+paint	media/graphics.hpp	/^inline void Graphics::paint(const ObjectRef k, const Rect &src)$/;"	f	class:media::Graphics
+paint	media/graphics.hpp	/^inline void Graphics::paint(const ObjectRef k, const Rect &src, const Rect &dest)$/;"	f	class:media::Graphics
+paint_clip	media/graphics.hpp	/^inline void Graphics::paint_clip(const ObjectRef k, const Rect &src)$/;"	f	class:media::Graphics
+pause	media/audio.cpp	/^void MusicControl::pause()$/;"	f	class:media::MusicControl
+pause	media/audio.cpp	/^void SoundControl::pause(int channel)$/;"	f	class:media::SoundControl
+pause	media/audio.hpp	/^        void pause()               { m::pause(); }$/;"	f	class:media::Music
+pause	media/audio.hpp	/^        void pause(int channel = -1)                 { m::pause(channel); }$/;"	f	class:media::Sound
+paused	media/audio.cpp	/^int MusicControl::paused()$/;"	f	class:media::MusicControl
+paused	media/audio.cpp	/^int SoundControl::paused(int channel)$/;"	f	class:media::SoundControl
+paused	media/audio.hpp	/^        int paused()               { return m::paused(); }$/;"	f	class:media::Music
+paused	media/audio.hpp	/^        int paused(int channel = -1)                 { return m::paused(channel); }$/;"	f	class:media::Sound
+play	media/audio.cpp	/^int Music::play(int loops)$/;"	f	class:media::Music
+play	media/audio.cpp	/^int Sound::play(int channel, int loops)$/;"	f	class:media::Sound
+player	scenes/game_scene.hpp	/^        Rect player = {0, 0, 40, 40};$/;"	m	class:GameScene
+playing	media/audio.cpp	/^int MusicControl::playing()$/;"	f	class:media::MusicControl
+playing	media/audio.cpp	/^int SoundControl::playing(int channel)$/;"	f	class:media::SoundControl
+playing	media/audio.hpp	/^        int playing()              { return m::playing(); }$/;"	f	class:media::Music
+playing	media/audio.hpp	/^        int playing(int channel = -1)                { return m::playing(channel); }$/;"	f	class:media::Sound
+point	media/graphics.hpp	/^inline int Graphics::point(int x, int y)$/;"	f	class:media::Graphics
+point_in_rect	media/util.hpp	/^static inline bool point_in_rect(int x, int y, Rect rect)$/;"	f	namespace:media::util
+points	media/graphics.hpp	/^inline int Graphics::points(const Point *points, int count)$/;"	f	class:media::Graphics
+points	media/graphics.hpp	/^inline int Graphics::points(const std::vector<Point> &points)$/;"	f	class:media::Graphics
+present	media/graphics.hpp	/^inline void Graphics::present()$/;"	f	class:media::Graphics
+print_err	media/state.cpp	/^void State::print_err()$/;"	f	class:media::State
+properties	ui/geometry/common.hpp	/^        WidgetProperties &properties;$/;"	m	class:media::ui::Geometry
+properties	ui/widget/common.hpp	/^        WidgetProperties properties;$/;"	m	class:media::ui::Widget
+quitmode	scenes/quit_scene.hpp	/^        bool quitmode = true;$/;"	m	class:QuitScene
+r	media/state.hpp	/^        SDL_Renderer *r;     \/\/\/ Default Renderer$/;"	m	class:media::State
+rect	media/graphics.hpp	/^inline int Graphics::rect(const Rect &rect)$/;"	f	class:media::Graphics
+rect_align	media/util.hpp	/^static inline Rect rect_align(Rect out, Rect in, Gravity g, int hpad, int vpad)$/;"	f	namespace:media::util
+rects	media/graphics.hpp	/^inline int Graphics::rects(const Rect *rects, int count)$/;"	f	class:media::Graphics
+rects	media/graphics.hpp	/^inline int Graphics::rects(const std::vector<Rect> &rects)$/;"	f	class:media::Graphics
+refresh	ui/widget/button.cpp	/^void Button::refresh()$/;"	f	class:media::ui::Button
+refresh	ui/widget/container.hpp	/^void Container<GeometryT>::refresh()$/;"	f	class:media::ui::Container
+refresh	ui/widget/label.cpp	/^void Label::refresh()$/;"	f	class:media::ui::Label
+repeat_till	ui/geometry/grid.hpp	/^            int repeat_till; \/\/\/ @todo handle this$/;"	m	struct:media::ui::GridGeometry::GridEntry
+request_refresh	ui/widget/common.hpp	/^        inline void request_refresh()$/;"	f	class:media::ui::Widget
+resize	ui/widget/container.hpp	/^void Container<GeometryT>::resize(Rect dims)$/;"	f	class:media::ui::Container
+resume	media/audio.cpp	/^void SoundControl::resume(int channel)$/;"	f	class:media::SoundControl
+resume	media/audio.hpp	/^        void resume()              { m::resume(); }$/;"	f	class:media::Music
+resume	media/audio.hpp	/^        void resume(int channel = -1)                { m::resume(channel); }$/;"	f	class:media::Sound
+rewind	media/audio.cpp	/^void MusicControl::rewind()$/;"	f	class:media::MusicControl
+rewind	media/audio.hpp	/^        void rewind()              { m::rewind(); }$/;"	f	class:media::Music
+rows	ui/geometry/grid.hpp	/^            int rows;$/;"	m	struct:media::ui::GridGeometry::GridEntry
+s	scenes/game_scene.hpp	/^        SceneState &s;$/;"	m	class:GameScene
+s	scenes/quit_scene.hpp	/^        SceneState &s;$/;"	m	class:QuitScene
+s	scenes/title_scene.hpp	/^        SceneState &s;$/;"	m	class:TitleScene
+scale	media/object.hpp	/^inline void Object::scale(int sw, int sh)$/;"	f	class:media::Object
+scale	ui/widget/common.hpp	/^    int scale             = 1;$/;"	m	struct:media::ui::WidgetProperties
+sdl_err_msg	media/state.hpp	/^        const char *sdl_err_msg; \/\/\/ Error Message Pointer$/;"	m	class:media::State
+seek_to	media/audio.cpp	/^int MusicControl::seek_to(double pos)$/;"	f	class:media::MusicControl
+seek_to	media/audio.hpp	/^        int seek_to(double pos)    { return m::seek_to(pos); }$/;"	f	class:media::Music
+set	media/object.cpp	/^void ClipObject::set(SDL_Texture *texture) {$/;"	f	class:media::ClipObject
+set	media/object.cpp	/^void Object::set(SDL_Texture *texture) {$/;"	f	class:media::Object
+set_color	media/graphics.hpp	/^inline int Graphics::set_color(Color c)$/;"	f	class:media::Graphics
+set_color	media/graphics.hpp	/^inline int Graphics::set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)$/;"	f	class:media::Graphics
+set_glyph_spacing	media/text.hpp	/^        void set_glyph_spacing(int spacing) {}$/;"	f	class:media::Text
+set_label	ui/widget/common.hpp	/^        virtual void set_label(std::string label)$/;"	f	class:media::ui::Widget
+set_label	ui/widget/label.cpp	/^void Label::set_label(std::string label)$/;"	f	class:media::ui::Label
+set_line_spacing	media/text.hpp	/^        void set_line_spacing(int spacing) {}$/;"	f	class:media::Text
+set_paint_target	media/graphics.hpp	/^inline int Graphics::set_paint_target(const ObjectRef k)$/;"	f	class:media::Graphics
+set_rect	media/object.hpp	/^inline void Object::set_rect(Rect k)$/;"	f	class:media::Object
+set_row_height	ui/geometry/grid.hpp	/^inline void GridGeometry::set_row_height(int widget_index, int row_start, int h)$/;"	f	class:media::ui::GridGeometry
+set_size	media/object.hpp	/^inline void Object::set_size(int w, int h)$/;"	f	class:media::Object
+set_volume	media/audio.cpp	/^int MusicControl::set_volume(int volume)$/;"	f	class:media::MusicControl
+set_volume	media/audio.cpp	/^int Sound::set_volume(int volume)$/;"	f	class:media::Sound
+set_volume	media/audio.hpp	/^        int set_volume(int volume) { return m::set_volume(volume); }$/;"	f	class:media::Music
+shoot_snd	scenes/game_scene.hpp	/^        Sound shoot_snd;$/;"	m	class:GameScene
+show	ui/widget/common.hpp	/^        inline void show()$/;"	f	class:media::ui::Widget
+show_flag	ui/widget/common.hpp	/^        bool show_flag = true;$/;"	m	class:media::ui::Widget
+shown	ui/widget/common.hpp	/^        inline bool shown()$/;"	f	class:media::ui::Widget
+song	scenes/game_scene.hpp	/^        Music song;$/;"	m	class:GameScene
+src_rect	media/object.hpp	/^    Rect src_rect;$/;"	m	struct:media::ClipObject
+src_rect_ptr	media/object.hpp	/^    Rect *src_rect_ptr = nullptr;$/;"	m	struct:media::ClipObject
+start	media/state.hpp	/^    uint64_t start;$/;"	m	struct:media::FPSCounter
+state	ui/widget/button.hpp	/^        WidgetState state = UI_WIDGET_NORMAL;$/;"	m	class:media::ui::Button
+std_glyph_offsets	media/text.hpp	/^        Rect std_glyph_offsets[128]; \/\/ Usually we don't really access glyphs$/;"	m	class:media::Text
+stop	media/audio.cpp	/^void MusicControl::stop()$/;"	f	class:media::MusicControl
+stop	media/audio.cpp	/^void SoundControl::stop(int channel)$/;"	f	class:media::SoundControl
+stop	media/audio.hpp	/^        void stop()                { m::stop(); }$/;"	f	class:media::Music
+stop	media/audio.hpp	/^        void stop(int channel = -1)                  { m::stop(channel); }$/;"	f	class:media::Sound
+text	media/graphics.cpp	/^void Graphics::text(ObjectRef k, const char *str)$/;"	f	class:media::Graphics
+text	media/graphics.cpp	/^void Graphics::text(ObjectRef k, const char *str, Color c)$/;"	f	class:media::Graphics
+text	media/graphics.cpp	/^void Graphics::text(ObjectRef k, std::string str)$/;"	f	class:media::Graphics
+text	media/graphics.cpp	/^void Graphics::text(ObjectRef k, std::string str, Color c)$/;"	f	class:media::Graphics
+text	media/text.cpp	/^void Text::text(ObjectRef k, const char *str)$/;"	f	class:media::Text
+text	media/text.cpp	/^void Text::text(ObjectRef k, const char *str, Color c)$/;"	f	class:media::Text
+text	media/text.cpp	/^void Text::text(ObjectRef k, std::string str)$/;"	f	class:media::Text
+text	media/text.cpp	/^void Text::text(ObjectRef k, std::string str, Color c)$/;"	f	class:media::Text
+texture	media/object.hpp	/^    Texture *texture;$/;"	m	struct:media::Object
+time	media/timer.hpp	/^    int64_t time;$/;"	m	struct:media::Timer
+timer	scenes/game_scene.hpp	/^        Timer timer;$/;"	m	class:GameScene
+tooltip	ui/widget/common.hpp	/^    std::string tooltip;$/;"	m	struct:media::ui::WidgetProperties
+translate_all	ui/geometry/grid.hpp	/^inline Rect GridGeometry::translate_all(Point dims)$/;"	f	class:media::ui::GridGeometry
+tx_dims	media/object.hpp	/^inline Size Object::tx_dims()$/;"	f	class:media::Object
+ui	ui/common.hpp	/^namespace ui {$/;"	n	namespace:media
+ui	ui/geometry/common.hpp	/^namespace ui {$/;"	n	namespace:media
+ui	ui/geometry/geometry.cpp	/^namespace ui {$/;"	n	namespace:media
+ui	ui/geometry/grid.hpp	/^namespace ui {$/;"	n	namespace:media
+ui	ui/geometry/relative.hpp	/^namespace ui {$/;"	n	namespace:media
+ui	ui/primitives.hpp	/^namespace ui {$/;"	n	namespace:media
+ui	ui/widget/button.cpp	/^namespace ui {$/;"	n	namespace:media
+ui	ui/widget/button.hpp	/^namespace ui {$/;"	n	namespace:media
+ui	ui/widget/common.hpp	/^namespace ui {$/;"	n	namespace:media
+ui	ui/widget/container.cpp	/^namespace ui {$/;"	n	namespace:media
+ui	ui/widget/container.hpp	/^namespace ui {$/;"	n	namespace:media
+ui	ui/widget/label.cpp	/^namespace ui {$/;"	n	namespace:media
+ui	ui/widget/label.hpp	/^namespace ui {$/;"	n	namespace:media
+update	media/timer.hpp	/^inline void Timer::update(uint32_t delta)$/;"	f	class:media::Timer
+update	scenes/game_scene.hpp	/^void GameScene::update()$/;"	f	class:GameScene
+update	scenes/quit_scene.hpp	/^void QuitScene::update()$/;"	f	class:QuitScene
+update	scenes/title_scene.hpp	/^void TitleScene::update()$/;"	f	class:TitleScene
+update	ui/widget/button.cpp	/^bool Button::update()$/;"	f	class:media::ui::Button
+update	ui/widget/container.hpp	/^bool Container<GeometryT>::update()$/;"	f	class:media::ui::Container
+update	ui/widget/label.cpp	/^bool Label::update()$/;"	f	class:media::ui::Label
+update_container_dim	ui/geometry/grid.hpp	/^inline Rect GridGeometry::update_container_dim(Rect new_dim)$/;"	f	class:media::ui::GridGeometry
+update_container_dim	ui/geometry/relative.hpp	/^inline Rect RelativeGeometry::update_container_dim(Rect new_dim)$/;"	f	class:media::ui::RelativeGeometry
+util	media/log.hpp	/^namespace util {$/;"	n
+util	media/util.hpp	/^namespace util {$/;"	n	namespace:media
+value	media/state.hpp	/^    float value;$/;"	m	struct:media::FPSCounter
+vpad	ui/geometry/relative.hpp	/^            int vpad;$/;"	m	struct:media::ui::RelativeGeometry::GravityEntry
+w	media/common.hpp	/^    int w;$/;"	m	struct:media::Size
+w	media/object.hpp	/^    int w;$/;"	m	struct:media::ClipObject
+w	media/state.hpp	/^        SDL_Window *w;       \/\/\/ Default Window$/;"	m	class:media::State
+w	scenes/game_scene.hpp	/^        ui::TopLevel w;$/;"	m	class:GameScene
+w	scenes/quit_scene.hpp	/^        ui::TopLevel w;$/;"	m	class:QuitScene
+w	scenes/title_scene.hpp	/^        ui::TopLevel w;$/;"	m	class:TitleScene
+widget_offset	ui/geometry/grid.hpp	/^            size_t widget_offset;$/;"	m	struct:media::ui::GridGeometry::GridEntry
+widget_offset	ui/geometry/relative.hpp	/^            size_t widget_offset;$/;"	m	struct:media::ui::RelativeGeometry::GravityEntry
+widgets	ui/geometry/common.hpp	/^        WidgetList &widgets;$/;"	m	class:media::ui::Geometry
+widgets	ui/widget/container.hpp	/^        WidgetList widgets;$/;"	m	class:media::ui::Container
+wrap_text	media/text.cpp	/^void Text::wrap_text(ObjectRef k, const char *str, Color c, Rect wrap_rect)$/;"	f	class:media::Text
+wrap_text	media/text.cpp	/^void Text::wrap_text(ObjectRef k, const char *str, Rect wrap_rect)$/;"	f	class:media::Text
+wrap_text	media/text.cpp	/^void Text::wrap_text(ObjectRef k, std::string str, Color c, Rect wrap_rect)$/;"	f	class:media::Text
+wrap_text	media/text.cpp	/^void Text::wrap_text(ObjectRef k, std::string str, Rect wrap_rect)$/;"	f	class:media::Text
+xaccn	scenes/game_scene.hpp	/^        int xaccn = 0;$/;"	m	class:GameScene
+xpvel	scenes/game_scene.hpp	/^        int xpvel = 0, ypvel = 0;$/;"	m	class:GameScene
+xvel	scenes/game_scene.hpp	/^        int xvel = 0, yvel = 0;$/;"	m	class:GameScene
+yaccn	scenes/game_scene.hpp	/^        int yaccn = 0;$/;"	m	class:GameScene
+yes	scenes/quit_scene.hpp	/^        ui::Button *yes;$/;"	m	class:QuitScene
+ypvel	scenes/game_scene.hpp	/^        int xpvel = 0, ypvel = 0;$/;"	m	class:GameScene
+yvel	scenes/game_scene.hpp	/^        int xvel = 0, yvel = 0;$/;"	m	class:GameScene
+~Button	ui/widget/button.hpp	/^        ~Button() {$/;"	f	class:media::ui::Button
+~ClipObject	media/object.hpp	/^    ~ClipObject() {}$/;"	f	struct:media::ClipObject
+~GameScene	scenes/game_scene.hpp	/^        ~GameScene() {};$/;"	f	class:GameScene
+~Label	ui/widget/label.hpp	/^        ~Label() {$/;"	f	class:media::ui::Label
+~Music	media/audio.hpp	/^        ~Music()$/;"	f	class:media::Music
+~Object	media/object.hpp	/^    virtual ~Object() {$/;"	f	struct:media::Object
+~QuitScene	scenes/quit_scene.hpp	/^        ~QuitScene() {};$/;"	f	class:QuitScene
+~Scene	scene.hpp	/^        ~Scene() {}$/;"	f	class:Scene
+~Sound	media/audio.hpp	/^        ~Sound()$/;"	f	class:media::Sound
+~State	media/state.cpp	/^State::~State()$/;"	f	class:media::State
+~Text	media/text.hpp	/^        ~Text()$/;"	f	class:media::Text
+~TitleScene	scenes/title_scene.hpp	/^        ~TitleScene() {};$/;"	f	class:TitleScene
+~Widget	ui/widget/common.hpp	/^        virtual ~Widget() {};$/;"	f	class:media::ui::Widget

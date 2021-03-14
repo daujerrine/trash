@@ -27,6 +27,7 @@ add_library( MediaLib
     media/graphics.cpp
     media/state.cpp
     media/text.cpp
+    media/object.cpp
 )
 
 add_library(UILib

@@ -1,5 +1,5 @@
-#ifndef MEDIA_TEXT_H
-#define MEDIA_TEXT_H
+#ifndef MEDIA_TIMER_H
+#define MEDIA_TIMER_H
 
 #include "common.hpp"
 

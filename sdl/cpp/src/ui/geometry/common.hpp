@@ -2,7 +2,7 @@
 #define MEDIA_UI_GEOMETRY_COMMON_H
 
 #include "media/media.hpp"
-#include "ui/widget/widget.hpp"
+#include "ui/widget/common.hpp"
 #include "ui/common.hpp"
 
 

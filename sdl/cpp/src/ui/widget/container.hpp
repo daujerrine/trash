@@ -74,15 +74,15 @@ class Container : public Widget {
         }
 };
 
-template <typename Geometry>
-void Container<Geometry>::resize(Rect dims)
+template <typename GeometryT>
+void Container<GeometryT>::resize(Rect dims)
 {
     this->dims = geo.update_container_dim(dims);
     refresh();
 }
 
-template <typename Geometry>
-void Container<Geometry>::draw()
+template <typename GeometryT>
+void Container<GeometryT>::draw()
 {
     for (auto &i: widgets) {
         if (i->shown())
@@ -90,8 +90,8 @@ void Container<Geometry>::draw()
     }
 }
 
-template <typename Geometry>
-bool Container<Geometry>::event()
+template <typename GeometryT>
+bool Container<GeometryT>::event()
 {
     bool no_refresh = true;
     for (auto &i: widgets) {
@@ -107,8 +107,8 @@ bool Container<Geometry>::event()
     return true;
 }
 
-template <typename Geometry>
-bool Container<Geometry>::update()
+template <typename GeometryT>
+bool Container<GeometryT>::update()
 {
     bool no_refresh = true;
 
@@ -126,8 +126,8 @@ bool Container<Geometry>::update()
     return true;
 }
 
-template <typename Geometry>
-void Container<Geometry>::refresh()
+template <typename GeometryT>
+void Container<GeometryT>::refresh()
 {
     dims = geo.update_container_dim(dims);
     for (auto &i: widgets)

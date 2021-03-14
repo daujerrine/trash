@@ -1,8 +1,7 @@
 #ifndef MEDIA_UI_GEOMETRY_RELATIVE_H
 #define MEDIA_UI_GEOMETRY_RELATIVE_H
 
-#include "media/media.hpp"
-#include "ui/widget/widget.hpp"
+#include "common.hpp"
 
 namespace media {
 

@@ -66,7 +66,7 @@ void GameScene::init()
     srand(time(nullptr));
     w.geo.add(BOTTOMRIGHT, 0, 0);
     c = &w.add<ui::Frame>("Menu", 0, (Rect) {0, 0, 400, 100});
-    c->add<ui::Label>("Game Scene");
+    c->add<ui::Label>("In Game Scene");
     counter = &c->add<ui::Label>("0");
     info    = &c->add<ui::Label>("");
     info2    = &c->add<ui::Label>("");
@@ -210,7 +210,7 @@ void GameScene::update()
 
     if (firing && num_bullets < 20 && bullet_timer.done()) {
         num_bullets++;
-        bullets.push_back(Util::rect_align(player, bullet_dims, CENTER, 0, 0));
+        bullets.push_back(util::rect_align(player, bullet_dims, CENTER, 0, 0));
         shoot_snd.play(0);
     }
     

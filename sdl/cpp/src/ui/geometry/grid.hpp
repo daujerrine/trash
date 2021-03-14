@@ -1,7 +1,7 @@
 #ifndef MEDIA_UI_GEOMETRY_GRID_H
 #define MEDIA_UI_GEOMETRY_GRID_H
 
-#include "ui/widget/widget.hpp"
+#include "common.hpp"
 
 namespace media {
 
